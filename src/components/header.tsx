@@ -1,5 +1,5 @@
-import Logo from '@/assets/logo-violet.png';
 import { Dices, FileSpreadsheet, Home } from 'lucide-react';
+import Logo from '@/assets/logo-violet.png';
 import { NavLink } from './nav-link';
 import { ThemeToggle } from './theme/theme-togle';
 
