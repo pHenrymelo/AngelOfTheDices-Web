@@ -1,9 +1,11 @@
+import { RouterProvider } from 'react-router';
 import { ThemeProvider } from './components/theme/theme-provider';
+import { router } from './routes';
 
 function App() {
   return (
     <ThemeProvider>
-      <div></div>
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }
