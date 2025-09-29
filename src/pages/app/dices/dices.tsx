@@ -1,5 +1,5 @@
-import { Card } from '@/components/ui/card';
 import { Dice6 } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 export function Dices() {
   return (
