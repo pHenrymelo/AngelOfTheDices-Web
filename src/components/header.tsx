@@ -15,7 +15,7 @@ export function Header() {
             <Home className="h-4 w-4" />
             Home
           </NavLink>
-          <NavLink to="/data">
+          <NavLink to="/sheets">
             <FileSpreadsheet className="h-4 w-4" />
             Fichas
           </NavLink>
