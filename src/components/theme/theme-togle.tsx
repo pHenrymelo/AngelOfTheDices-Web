@@ -1,4 +1,4 @@
-import { Moon, Sun } from 'lucide-react';
+import otherSide from '@/assets/other_side.png';
 import { useTheme } from '@/components/theme/theme-provider';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,9 +14,12 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+        <Button
+          className="border border-primary/50 bg-primary/5"
+          variant="outline"
+          size="icon"
+        >
+          <img src={otherSide} className="size-6" alt="" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

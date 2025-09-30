@@ -23,7 +23,7 @@ export function Sheet() {
         <SheetStatus />
         <PersonalDetails />
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4flex flex-col lg:flex-row gap-4">
         <Card className="flex-1 p-4">
           <h2 className="flex justify-center items-center text-xl border-b-2 py-1">
             Atributos
