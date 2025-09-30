@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
-import d20 from '@/assets/dice-grey.png';
 import Leon from '@/assets/leon.png';
+import { DiceD20Icon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { StatusBar } from './status-bar';
 
@@ -46,11 +46,7 @@ export function SheetStatus() {
             variant={'ghost'}
             className=" w-32 h-32 group"
           >
-            <img
-              src={d20}
-              alt="20 faces rpg dice"
-              className="group-hover:animate-spin"
-            />
+            <DiceD20Icon className="group-hover:animate-spin size-20" />
           </Button>
         </div>
         <div className="w-full xl:w-1/2 flex justify-around items-center">

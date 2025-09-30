@@ -1,5 +1,6 @@
 import { toast } from 'sonner';
-import d20 from '@/assets/dice-grey.png';
+import { DiceD20Icon } from '@/components/icons';
+
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { PersonalDetails } from './personal-details';
@@ -27,19 +28,57 @@ export function Sheet() {
           <h2 className="flex justify-center items-center text-xl border-b-2 py-1">
             Atributos
           </h2>
-          <div>
-            <Button
-              onClick={() => handleRollDice(20)}
-              variant={'ghost'}
-              className=" w-16 h-16 group flex-col"
-            >
-              <span>Força</span>
-              <img
-                src={d20}
-                alt="20 faces rpg dice"
-                className="group-hover:animate-spin"
-              />
-            </Button>
+          <div className="grid grid-cols-5">
+            <div className="flex flex-col justify-center items-center">
+              <span className="font-semibold">Força</span>
+              <Button
+                onClick={() => handleRollDice(20)}
+                variant={'ghost'}
+                className=" w-16 h-16 group flex-col"
+              >
+                <DiceD20Icon className="group-hover:animate-spin size-8" />
+              </Button>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <span className="font-semibold">Destreza</span>
+              <Button
+                onClick={() => handleRollDice(20)}
+                variant={'ghost'}
+                className=" w-16 h-16 group flex-col"
+              >
+                <DiceD20Icon className="group-hover:animate-spin size-8" />
+              </Button>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <span className="font-semibold">Constituição</span>
+              <Button
+                onClick={() => handleRollDice(20)}
+                variant={'ghost'}
+                className=" w-16 h-16 group flex-col"
+              >
+                <DiceD20Icon className="group-hover:animate-spin size-8" />
+              </Button>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <span className="font-semibold">Intelecto</span>
+              <Button
+                onClick={() => handleRollDice(20)}
+                variant={'ghost'}
+                className=" w-16 h-16 group flex-col"
+              >
+                <DiceD20Icon className="group-hover:animate-spin size-8" />
+              </Button>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <span className="font-semibold">Presença</span>
+              <Button
+                onClick={() => handleRollDice(20)}
+                variant={'ghost'}
+                className=" w-16 h-16 group flex-col"
+              >
+                <DiceD20Icon className="group-hover:animate-spin size-8" />
+              </Button>
+            </div>
           </div>
         </Card>
         <Card className="flex-1 p-4">

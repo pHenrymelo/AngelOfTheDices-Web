@@ -5,7 +5,7 @@ import { ThemeToggle } from './theme/theme-togle';
 
 export function Header() {
   return (
-    <div className="border-b">
+    <div className="border-b bg-primary/10">
       <div className="flex h-16 items-center gap-6 px-6">
         <div className="w-12 h-12 ">
           <img src={Logo} alt="a dice with wings" />

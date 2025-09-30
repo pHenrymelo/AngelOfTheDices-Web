@@ -6,7 +6,7 @@ import { router } from './routes';
 function App() {
   return (
     <ThemeProvider>
-      <Toaster position="top-center" />
+      <Toaster position="top-center" theme="dark" />
       <RouterProvider router={router} />
     </ThemeProvider>
   );
