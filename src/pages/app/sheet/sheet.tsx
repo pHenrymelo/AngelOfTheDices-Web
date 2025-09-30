@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { toast } from 'sonner';
 import d20 from '@/assets/dice-grey.png';
 import Leon from '@/assets/leon.png';
@@ -6,15 +7,21 @@ import { Card } from '@/components/ui/card';
 import { StatusBar } from './status-bar';
 
 export function Sheet() {
-  const maxHP = 50;
-  const actualHP = 46;
-  const maxSan = 25;
-  const actualSan = 23;
-  const maxPE = 20;
-  const actualPE = 17;
+  const [maxHealthPoints, _setMaxHealthPoints] = useState(100);
+  const [currentHealthPoints, setCurrentHealthPoints] =
+    useState(maxHealthPoints);
+
+  const [maxSanityPoints, _setMaxSanityPoints] = useState(100);
+  const [currentSanityPoints, setCurrentSanityPoints] =
+    useState(maxSanityPoints);
+
+  const [maxEfortPoints, _setMaxEfortPoints] = useState(100);
+  const [currentEfortPoints, setCurrentEfortPoints] = useState(maxEfortPoints);
 
   const NEX = 99;
   const PEPerRound = Math.ceil(NEX / 5);
+  const moviment = 9;
+  const def = 10;
 
   function handleRollDice(faces: number) {
     const result = Math.floor(Math.random() * faces) + 1;
@@ -62,28 +69,80 @@ export function Sheet() {
               </div>
             </div>
           </div>
-          <div className="space-y-4">
+          <div className=" flex flex-col space-y-4">
             <StatusBar
               label="Vida"
               variant={'hp'}
-              current={actualHP}
-              max={maxHP}
+              current={currentHealthPoints}
+              max={maxHealthPoints}
+              onCurrentChange={setCurrentHealthPoints}
             />
             <StatusBar
               label="Sanidade"
               variant={'san'}
-              current={actualSan}
-              max={maxSan}
+              current={currentSanityPoints}
+              max={maxSanityPoints}
+              onCurrentChange={setCurrentSanityPoints}
             />
             <StatusBar
               label="Pontos de Esforço"
               variant={'ep'}
-              current={actualPE}
-              max={maxPE}
+              current={currentEfortPoints}
+              max={maxEfortPoints}
+              onCurrentChange={setCurrentEfortPoints}
             />
+
+            <div className="w-full flex justify-around items-center">
+              <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
+                Deslocamento{' '}
+                <span className="font-bold text-3xl text-muted-foreground">
+                  {moviment} m
+                </span>
+              </div>
+              <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
+                Defesa{' '}
+                <span className="font-bold text-3xl text-muted-foreground">
+                  {def}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-        <Card className="w-full lg:w-1/2 p-4"></Card>
+        <Card className="w-full lg:w-1/2 p-4">
+          <h2 className=" flex font-bold text-2xl justify-center">
+            DETALHES PESSOAIS
+          </h2>
+          <div className="flex flex-col">
+            <span className="font-semibold">Nome</span>
+            <p className="border-b-2 text-muted-foreground p-2">
+              Leonard C. Lance
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-semibold">Jogador</span>
+            <p className="border-b-2 text-muted-foreground p-2"> Pedro Melo</p>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-semibold">Origem</span>
+            <p className="border-b-2 text-muted-foreground p-2">
+              Perito forense e Tecnico
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-semibold">Trilha</span>
+            <p className="border-b-2 text-muted-foreground p-2">
+              Portador do Grimorio
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-semibold">Idade</span>
+            <p className="border-b-2 text-muted-foreground p-2">25</p>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-semibold">Sexo</span>
+            <p className="border-b-2 text-muted-foreground p-2">Masculino</p>
+          </div>
+        </Card>
       </div>
     </div>
   );
