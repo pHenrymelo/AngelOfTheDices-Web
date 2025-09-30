@@ -3,6 +3,9 @@ import { Card, CardTitle } from '@/components/ui/card';
 import { AttributeItem } from './attribute-item';
 
 export function Attributes() {
+  const moviment = 9;
+  const def = 10;
+
   function handleRollDice(attributeName: string, attributeValue: number) {
     const diceCount = attributeValue > 0 ? attributeValue : 2;
     const rolls: number[] = [];
@@ -45,6 +48,20 @@ export function Attributes() {
         <AttributeItem name="Agilidade" value={3} onRoll={handleRollDice} />
         <AttributeItem name="Intelecto" value={5} onRoll={handleRollDice} />
         <AttributeItem name="Vigor" value={1} onRoll={handleRollDice} />
+      </div>
+      <div className="w-full flex justify-evenly my-auto">
+        <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
+          Deslocamento{' '}
+          <span className="font-bold text-3xl text-muted-foreground">
+            {moviment} m
+          </span>
+        </div>
+        <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
+          Defesa{' '}
+          <span className="font-bold text-3xl text-muted-foreground">
+            {def}
+          </span>
+        </div>
       </div>
     </Card>
   );

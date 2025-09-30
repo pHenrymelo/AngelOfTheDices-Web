@@ -19,8 +19,6 @@ export function SheetStatus() {
 
   const NEX = 99;
   const PEPerRound = Math.ceil(NEX / 5);
-  const moviment = 9;
-  const def = 10;
 
   function handleRollDice(faces: number) {
     const result = Math.floor(Math.random() * faces) + 1;
@@ -61,7 +59,7 @@ export function SheetStatus() {
           </div>
         </div>
       </div>
-      <div className=" flex flex-col space-y-4">
+      <div className=" flex flex-col space-y-8 my-auto">
         <StatusBar
           label="Vida"
           variant={'hp'}
@@ -83,21 +81,6 @@ export function SheetStatus() {
           max={maxEfortPoints}
           onCurrentChange={setCurrentEfortPoints}
         />
-
-        <div className="w-full flex justify-around items-center">
-          <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
-            Deslocamento{' '}
-            <span className="font-bold text-3xl text-muted-foreground">
-              {moviment} m
-            </span>
-          </div>
-          <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
-            Defesa{' '}
-            <span className="font-bold text-3xl text-muted-foreground">
-              {def}
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );

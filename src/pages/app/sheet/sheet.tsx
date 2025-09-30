@@ -1,8 +1,9 @@
-import { Attributes } from './attributes';
-import { Combat } from './combat';
-import { FixedExpertise } from './fixed-expertise';
+import { Attributes } from './attributes/attributes';
+import { Combat } from './combat/combat';
+import { FixedExpertise } from './expertise/fixed-expertise';
+import { Inventory } from './inventory/inventory';
 import { PersonalDetails } from './personal-details';
-import { SheetStatus } from './sheet-status';
+import { SheetStatus } from './status/sheet-status';
 
 export function Sheet() {
   return (
@@ -16,6 +17,7 @@ export function Sheet() {
         <FixedExpertise />
       </div>
       <Combat />
+      <Inventory />
     </div>
   );
 }
