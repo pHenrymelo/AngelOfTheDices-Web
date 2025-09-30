@@ -28,7 +28,7 @@ export function Sheet() {
     toast(
       <div className="">
         Rolou um <span className="font-bold">D{faces}</span> e tirou:{' '}
-        <span className="font-bold text-violet-700">{result}</span>
+        <span className="font-bold text-primary">{result}</span>
       </div>,
     );
   }

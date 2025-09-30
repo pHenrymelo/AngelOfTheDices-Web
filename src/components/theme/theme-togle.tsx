@@ -21,11 +21,20 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light
+        <DropdownMenuItem onClick={() => setTheme('dark-red')}>
+          Sangue
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>
-          Dark
+          Morte
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('dark-violet')}>
+          Energia
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('dark-yellow')}>
+          Conhecimento
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme('dark-blue')}>
+          Medo
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')}>
           System
