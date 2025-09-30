@@ -1,5 +1,5 @@
 import { toast } from 'sonner';
-import { Card } from '@/components/ui/card';
+import { Card, CardTitle } from '@/components/ui/card';
 import { AttributeItem } from './attribute-item';
 
 export function Attributes() {
@@ -36,9 +36,9 @@ export function Attributes() {
 
   return (
     <Card className="flex-1 p-4">
-      <h2 className="flex justify-center items-center text-xl border-b-2 py-1">
-        Atributos
-      </h2>
+      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1">
+        ATRIBUTOS
+      </CardTitle>
       <div className="grid grid-cols-5">
         <AttributeItem name="Presença" value={3} onRoll={handleRollDice} />
         <AttributeItem name="Força" value={1} onRoll={handleRollDice} />

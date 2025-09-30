@@ -1,4 +1,5 @@
 import { Attributes } from './attributes';
+import { Combat } from './combat';
 import { FixedExpertise } from './fixed-expertise';
 import { PersonalDetails } from './personal-details';
 import { SheetStatus } from './sheet-status';
@@ -10,10 +11,11 @@ export function Sheet() {
         <SheetStatus />
         <PersonalDetails />
       </div>
-      <div className="flex gap-4flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4">
         <Attributes />
         <FixedExpertise />
       </div>
+      <Combat />
     </div>
   );
 }
