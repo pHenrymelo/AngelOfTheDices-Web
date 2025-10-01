@@ -5,7 +5,7 @@ import { AttributeItem } from './attribute-item';
 
 export function Attributes() {
   const moviment = 9;
-  const def = 10;
+  const def = 13;
 
   function handleRollDice(attributeName: string, attributeValue: number) {
     const diceCount = attributeValue > 0 ? attributeValue : 2;
@@ -28,7 +28,7 @@ export function Attributes() {
 
   return (
     <Card className="flex-1 p-4">
-      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1">
+      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1 font-heading">
         ATRIBUTOS
       </CardTitle>
       <div className="grid grid-cols-5">
@@ -41,13 +41,13 @@ export function Attributes() {
       <div className="w-full flex justify-evenly my-auto">
         <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
           Deslocamento{' '}
-          <span className="font-bold text-3xl text-muted-foreground">
-            {moviment} m
+          <span className="font-bold text-3xl font-number text-primary">
+            {moviment}m
           </span>
         </div>
         <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
           Defesa{' '}
-          <span className="font-bold text-3xl text-muted-foreground">
+          <span className="font-bold text-3xl text-primary font-number">
             {def}
           </span>
         </div>

@@ -1,3 +1,5 @@
+import { CritialFailure, CritialRole } from './roll-toast-base';
+
 interface RollToastBaseProps {
   attributeName: string;
   result: number;
@@ -18,7 +20,7 @@ export function RollAttributeToast({
             key={roll}
             className={
               roll === result
-                ? 'font-bold text-primary text-lg'
+                ? 'font-bold text-primary text-lg font-number'
                 : 'text-muted-foreground'
             }
           >
@@ -26,16 +28,8 @@ export function RollAttributeToast({
           </span>
         ))}
       </div>
-      {result === 20 && (
-        <span className="text-xs font-normal text-emerald-500 my-auto">
-          SUCESSO CRÍTICO
-        </span>
-      )}
-      {result === 1 && (
-        <span className="text-xs font-normal text-red-600 my-auto">
-          FALHA CRÍTICA
-        </span>
-      )}
+      {result === 20 && <CritialRole />}
+      {result === 1 && <CritialFailure />}
     </div>
   );
 }

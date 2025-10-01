@@ -11,7 +11,7 @@ import { InventoryTableRow } from './inventory-table-row';
 export function Inventory() {
   return (
     <Card className="flex-1 p-4">
-      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1">
+      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1 font-heading">
         INVENTÁRIO
       </CardTitle>
       <CardContent className="flex flex-col gap-4">

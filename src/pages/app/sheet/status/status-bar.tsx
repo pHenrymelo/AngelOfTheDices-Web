@@ -63,10 +63,10 @@ export function StatusBar({
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="font-bold text-xl">{label}</span>
+      <span className="font-bold text-xl font-heading">{label}</span>
       <div className="flex items-center gap-3">
-        <Button variant={'ghost'} onClick={handleDecrement}>
-          <ChevronLeft />
+        <Button size={'icon'} variant={'ghost'} onClick={handleDecrement}>
+          <ChevronLeft className="size-5" />
         </Button>
         <div className={cn(bgVariants({ variant, className }))} {...props}>
           <div
@@ -74,13 +74,13 @@ export function StatusBar({
             style={{ width: `${percentage}%` }}
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-semibold text-xl">
+            <span className="font-semibold text-xl font-number">
               {current}/{max}
             </span>
           </div>
         </div>
-        <Button variant={'ghost'} onClick={handleIncrement}>
-          <ChevronRight />
+        <Button size={'icon'} variant={'ghost'} onClick={handleIncrement}>
+          <ChevronRight className="size-5" />
         </Button>
       </div>
     </div>

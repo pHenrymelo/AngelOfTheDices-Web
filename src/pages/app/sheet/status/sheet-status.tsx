@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import Leon from '@/assets/leon.png';
 import { DiceD20Icon } from '@/components/icons';
+import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
 import { StatusBar } from './status-bar';
 
@@ -22,12 +23,7 @@ export function SheetStatus() {
 
   function handleRollDice(faces: number) {
     const result = Math.floor(Math.random() * faces) + 1;
-    toast(
-      <div className="">
-        Rolou um <span className="font-bold">D{faces}</span> e tirou:{' '}
-        <span className="font-bold text-primary">{result}</span>
-      </div>,
-    );
+    toast(<RollToastBase faces={faces} result={result} />);
   }
 
   return (
@@ -48,12 +44,15 @@ export function SheetStatus() {
           </Button>
         </div>
         <div className="w-full xl:w-1/2 flex justify-around items-center">
-          <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
-            NEX <span className="font-bold text-3xl text-primary">{NEX}%</span>
+          <div className=" text-2xl flex flex-col justify-center items-center border-b-2 gap-2 py-1 font-heading font-semibold">
+            NEX{' '}
+            <span className="font-bold text-3xl text-primary font-number">
+              {NEX}%
+            </span>
           </div>
-          <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
+          <div className=" text-2xl flex flex-col justify-center items-center border-b-2 gap-2 py-1 font-heading font-semibold">
             PE/rodada{' '}
-            <span className="font-bold text-3xl text-emerald-900">
+            <span className="font-bold text-3xl text-emerald-900 font-number">
               {PEPerRound}
             </span>
           </div>

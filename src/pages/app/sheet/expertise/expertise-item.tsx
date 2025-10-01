@@ -34,8 +34,8 @@ export function ExpertiseItem({
       <span className=" w-full flex font-semibold text-primary items-center justify-center">
         ({expertise.attribute})
       </span>
-      <span className="font-semibold">{expertise.name}</span>
-      <span className=" w-full flex font-bold text-xl text-primary items-center justify-center">
+      <span className="font-semibold font-heading">{expertise.name}</span>
+      <span className=" w-full flex font-bold text-xl text-primary items-center justify-center font-number">
         {totalBonus >= 0 ? `+${totalBonus}` : totalBonus}
       </span>
     </div>

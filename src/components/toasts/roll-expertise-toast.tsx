@@ -1,3 +1,5 @@
+import { CritialFailure, CritialRole } from './roll-toast-base';
+
 interface RollToastBaseProps {
   expertiseName: string;
   finalResult: number;
@@ -32,21 +34,15 @@ export function RollExpertiseToast({
       </div>
       <span className="flex font-bold gap-2 items-center">
         Resultado:{' '}
-        <span className="font-bold text-primary text-lg">{finalResult}</span>
-        <span className="text-xs font-normal text-muted-foreground my-auto">
+        <span className="font-bold text-primary text-lg font-number">
+          {finalResult}
+        </span>
+        <span className="text-xs font-normal text-muted-foreground my-auto font-number">
           ({finalRoll} + {totalBonus})
         </span>
       </span>
-      {finalRoll === 20 && (
-        <span className="text-xs font-normal text-emerald-500 my-auto">
-          SUCESSO CRÍTICO
-        </span>
-      )}
-      {finalRoll === 1 && (
-        <span className="text-xs font-normal text-red-600 my-auto">
-          FALHA CRÍTICA
-        </span>
-      )}
+      {finalRoll === 20 && <CritialRole />}
+      {finalRoll === 1 && <CritialFailure />}
     </div>
   );
 }

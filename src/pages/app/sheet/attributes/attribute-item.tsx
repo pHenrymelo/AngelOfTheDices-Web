@@ -17,8 +17,10 @@ export function AttributeItem({ name, value, onRoll }: AttributeItemProps) {
       >
         <DiceD20Icon className="group-hover:animate-spin size-8" />
       </Button>
-      <span className="font-semibold">{name}</span>
-      <span className="text-primary font-bold text-xl">{value}</span>
+      <span className="font-semibold font-heading">{name}</span>
+      <span className="text-primary font-bold text-xl font-number">
+        {value}
+      </span>
     </div>
   );
 }

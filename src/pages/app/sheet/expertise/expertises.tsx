@@ -59,7 +59,7 @@ export function Expertises() {
 
   return (
     <Card className="flex-1 p-4">
-      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1">
+      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1 font-heading">
         PERÍCIAS
       </CardTitle>
       <CardContent className="flex items-center gap-4">
