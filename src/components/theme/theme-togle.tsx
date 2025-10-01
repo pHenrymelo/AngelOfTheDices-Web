@@ -38,9 +38,6 @@ export function ThemeToggle() {
         <DropdownMenuItem onClick={() => setTheme('dark-blue')}>
           Medo
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          System
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
