@@ -8,17 +8,13 @@ import {
   DiceD12Icon,
   DiceD20Icon,
 } from '@/components/icons';
+import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
 
 export function Dices() {
   function handleRollDice(faces: number) {
     const result = Math.floor(Math.random() * faces) + 1;
-    toast(
-      <div>
-        Rolou um <span className="font-bold">D{faces}</span> e tirou:{' '}
-        <span className="font-bold text-primary">{result}</span>
-      </div>,
-    );
+    toast(<RollToastBase faces={faces} result={result} />);
   }
 
   function handleFlipCoin() {

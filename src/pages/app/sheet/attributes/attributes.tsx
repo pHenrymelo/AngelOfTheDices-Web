@@ -1,4 +1,5 @@
 import { toast } from 'sonner';
+import { RollAttributeToast } from '@/components/toasts/roll-attribute-toast';
 import { Card, CardTitle } from '@/components/ui/card';
 import { AttributeItem } from './attribute-item';
 
@@ -17,23 +18,11 @@ export function Attributes() {
     const result = attributeValue > 0 ? Math.max(...rolls) : Math.min(...rolls);
 
     toast(
-      <div>
-        A rolagem de <span className="font-bold">{attributeName}</span> deu:{' '}
-        <div className="flex items-center gap-2">
-          {rolls.map((roll) => (
-            <span
-              key={roll}
-              className={
-                roll === result
-                  ? 'font-bold text-primary text-lg'
-                  : 'text-muted-foreground'
-              }
-            >
-              {roll}
-            </span>
-          ))}
-        </div>
-      </div>,
+      <RollAttributeToast
+        attributeName={attributeName}
+        result={result}
+        rolls={rolls}
+      />,
     );
   }
 

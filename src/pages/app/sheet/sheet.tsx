@@ -1,5 +1,6 @@
 import { Attributes } from './attributes/attributes';
 import { Combat } from './combat/combat';
+import { Expertises } from './expertise/expertises';
 import { FixedExpertise } from './expertise/fixed-expertise';
 import { Inventory } from './inventory/inventory';
 import { PersonalDetails } from './personal-details';
@@ -18,6 +19,7 @@ export function Sheet() {
       </div>
       <Combat />
       <Inventory />
+      <Expertises />
     </div>
   );
 }
