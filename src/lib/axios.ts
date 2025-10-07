@@ -8,6 +8,7 @@ const onUnauthorized = () => {
 
 export const api = axios.create({
   baseURL: BASE_URL,
+  timeout: 10000,
   withCredentials: true,
 });
 
@@ -44,10 +45,10 @@ api.interceptors.response.use(
 
     if (
       error.response?.status === 401 &&
-      originalRequest.url !== '/auth/refresh'
+      originalRequest.url !== '/auth/refresh' &&
+      originalRequest.url !== '/auth/session'
     ) {
       if (isRefreshing) {
-        // Se já estamos renovando, adiciona a requisição na fila para ser executada depois
         return new Promise((resolve, reject) => {
           failedRequestsQueue.push({
             onSuccess: (token: string) => {

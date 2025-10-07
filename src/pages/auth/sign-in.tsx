@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { authenticate } from '@/api/sign-in';
+import { authenticate } from '@/api/auth/sign-in';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -44,6 +44,7 @@ export function SignIn() {
 
   const { mutateAsync: authenticateFn } = useMutation({
     mutationFn: authenticate,
+    retry: false,
   });
 
   async function handleSignIn(data: SignInForm) {
