@@ -46,7 +46,7 @@ export function Sheets() {
         ))}
       </div>
       <div className="flex grid-cols-4 mx-auto mt-8">
-        <Button className="flex-1 w-full h-14 text-xl font-bold font-heading cursor-pointer justify-center items-center ">
+        <Button className="flex-1 w-full h-14 text-xl font-bold cursor-pointer justify-center items-center ">
           <ClipboardPenLine className="size-8" />
           <span>Criar uma nova ficha</span>
         </Button>

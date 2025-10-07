@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 import Logo from '@/assets/logo-violet.png';
 import { Card } from '@/components/ui/card';
 

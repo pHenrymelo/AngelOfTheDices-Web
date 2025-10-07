@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter } from 'react-router-dom';
 import { ProtectedRoute } from './components/auth/protected-route';
 import { NotFound } from './pages/404';
 import { Dices } from './pages/app/dices/dices';

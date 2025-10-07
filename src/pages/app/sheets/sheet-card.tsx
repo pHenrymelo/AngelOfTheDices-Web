@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -28,7 +28,7 @@ export function SheetCard({
       <img
         src={imageUrl ?? 'https://placehold.co/400x200/27272a/FFF?text=Ficha'}
         alt={characterName}
-        className=" w-32 h-32 mx-auto rounded-full object-cover -mt-16"
+        className=" w-40 h-40 mx-auto rounded-full object-cover -mt-16"
       />
       <CardHeader>
         <CardTitle>{characterName}</CardTitle>

@@ -3,7 +3,12 @@ import { isAxiosError } from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { authenticate } from '@/api/sign-in';

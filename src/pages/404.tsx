@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import criticalFailure from '@/assets/critcal-failure.svg';
 
 export function NotFound() {
