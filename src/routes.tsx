@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router';
+import { ProtectedRoute } from './components/auth/protected-route';
 import { NotFound } from './pages/404';
 import { Dashboard } from './pages/app/dashboard/dashboard';
 import { Dices } from './pages/app/dices/dices';
@@ -11,7 +12,11 @@ import { AuthLayout } from './pages/layouts/auth';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <AppLayout />,
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFound />,
     children: [
       { path: '/', element: <Dashboard /> },
@@ -21,7 +26,6 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/',
     element: <AuthLayout />,
     children: [
       { path: '/sign-in', element: <SignIn /> },

@@ -1,13 +1,16 @@
-import { LucideTrash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { LucideTrash2, PenBox } from 'lucide-react';
 
 export function InventoryTableRow() {
   return (
     <TableRow>
-      <TableCell className="justify-center">
+      <TableCell className="justify-center space-x-1">
         <Button variant={'outline'} size={'icon'}>
           <LucideTrash2 className="size-5" />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <PenBox className="size-5" />
         </Button>
       </TableCell>
       <TableCell className="font-mono text-xs font-medium text-center">

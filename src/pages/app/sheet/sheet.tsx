@@ -4,6 +4,7 @@ import { Combat } from './combat/combat';
 import { Expertises } from './expertise/expertises';
 import { FixedExpertise } from './expertise/fixed-expertise';
 import { Inventory } from './inventory/inventory';
+import { Notes } from './notes/notes';
 import { PersonalDetails } from './personal-details';
 import { Rituals } from './rituals/rituals';
 import { SheetStatus } from './status/sheet-status';
@@ -26,6 +27,7 @@ export function Sheet() {
         <Abilities />
         <Rituals />
       </div>
+      <Notes />
     </div>
   );
 }
