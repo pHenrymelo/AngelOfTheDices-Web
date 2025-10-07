@@ -1,7 +1,7 @@
+import { LucideTrash2, PenBox } from 'lucide-react';
 import { DiceD20Icon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { LucideTrash2, PenBox } from 'lucide-react';
 
 export function CombatTableRow() {
   return (

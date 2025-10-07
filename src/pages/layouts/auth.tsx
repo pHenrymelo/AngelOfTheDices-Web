@@ -1,6 +1,6 @@
+import { Outlet } from 'react-router';
 import Logo from '@/assets/logo-violet.png';
 import { Card } from '@/components/ui/card';
-import { Outlet } from 'react-router';
 
 export function AuthLayout() {
   return (

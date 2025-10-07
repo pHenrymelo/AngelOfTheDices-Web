@@ -1,9 +1,9 @@
+import { useState } from 'react';
+import { toast } from 'sonner';
 import Leon from '@/assets/leon.png';
 import { DiceD20Icon } from '@/components/icons';
 import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { toast } from 'sonner';
 import { StatusBar } from './status-bar';
 
 export function SheetStatus() {
