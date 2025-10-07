@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router';
 import { ProtectedRoute } from './components/auth/protected-route';
 import { NotFound } from './pages/404';
-import { Dashboard } from './pages/app/dashboard/dashboard';
 import { Dices } from './pages/app/dices/dices';
 import { Sheet } from './pages/app/sheet/sheet';
+import { Sheets } from './pages/app/sheets/sheets';
 import { SignIn } from './pages/auth/sign-in';
 import { SignUp } from './pages/auth/sign-up';
 import { AppLayout } from './pages/layouts/app';
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
     ),
     errorElement: <NotFound />,
     children: [
-      { path: '/', element: <Dashboard /> },
+      { path: '/', element: <Sheets /> },
       { path: '/sheets', element: <Sheet /> },
       { path: '/dices', element: <Dices /> },
     ],

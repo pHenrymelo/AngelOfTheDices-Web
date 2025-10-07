@@ -42,7 +42,6 @@ api.interceptors.response.use(
       _retry?: boolean;
     };
 
-    // Se o erro for 401 e a requisição não for uma tentativa de refresh
     if (
       error.response?.status === 401 &&
       originalRequest.url !== '/auth/refresh'
