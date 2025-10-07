@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -7,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Link } from 'react-router';
 
 interface SheetCardProps {
   id: string;
@@ -24,11 +24,11 @@ export function SheetCard({
   imageUrl,
 }: SheetCardProps) {
   return (
-    <Card>
+    <Card className="mt-8">
       <img
         src={imageUrl ?? 'https://placehold.co/400x200/27272a/FFF?text=Ficha'}
         alt={characterName}
-        className="h-40 w-full rounded-t-lg object-cover"
+        className=" w-32 h-32 mx-auto rounded-full object-cover -mt-16"
       />
       <CardHeader>
         <CardTitle>{characterName}</CardTitle>

@@ -1,3 +1,8 @@
+import { authenticate } from '@/api/sign-in';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useAuth } from '@/contexts/auth-context';
 import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
@@ -6,11 +11,6 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { authenticate } from '@/api/sign-in';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useAuth } from '@/contexts/auth-context';
 
 const signInForm = z.object({
   email: z.email(),
@@ -98,12 +98,14 @@ export function SignIn() {
             </Button>
           </div>
         </div>
-        <Button disabled={isSubmitting} className="cursor-pointer">
-          Rolar o dado!
-        </Button>
-        <Button asChild variant={'link'}>
-          <Link to="/sign-up">Ainda não tem uma conta? Registrar</Link>
-        </Button>
+        <div className="flex flex-col mt-3 gap-3">
+          <Button disabled={isSubmitting} className="cursor-pointer">
+            Rolar o dado!
+          </Button>
+          <Button asChild variant={'link'}>
+            <Link to="/sign-up">Ainda não tem uma conta? Registrar</Link>
+          </Button>
+        </div>
       </form>
     </div>
   );

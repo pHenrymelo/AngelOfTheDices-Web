@@ -1,12 +1,14 @@
-import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
-import { toast } from 'sonner';
-import { z } from 'zod';
 import { registerUser } from '@/api/sign-up';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useMutation } from '@tanstack/react-query';
+import { Eye, EyeOff } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 const signUpForm = z.object({
   name: z.string(),
@@ -17,6 +19,8 @@ const signUpForm = z.object({
 type SignUpForm = z.infer<typeof signUpForm>;
 
 export function SignUp() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -70,14 +74,35 @@ export function SignUp() {
         </div>
         <div className="flex flex-col gap-3">
           <Label htmlFor="password">Senha</Label>
-          <Input id="password" type="password" {...register('password')} />
+          <div className="relative">
+            <Input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              {...register('password')}
+            />
+            <Button
+              type="button"
+              variant={'ghost'}
+              size={'icon'}
+              className="absolute right-0 top-1/2 -translate-y-1/2 hover:cursor-pointer"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <Eye className="size-4" />
+              ) : (
+                <EyeOff className="sise-4" />
+              )}
+            </Button>
+          </div>
         </div>
-        <Button disabled={isSubmitting} className="cursor-pointer">
-          Create Account
-        </Button>
-        <Button asChild variant={'link'}>
-          <Link to="/sign-in">Ja tem uma conta? Login.</Link>
-        </Button>
+        <div className="flex flex-col gap-3 mt-3">
+          <Button disabled={isSubmitting} className="cursor-pointer">
+            Create Account
+          </Button>
+          <Button asChild variant={'link'}>
+            <Link to="/sign-in">Ja tem uma conta? Login.</Link>
+          </Button>
+        </div>
       </form>
     </div>
   );
