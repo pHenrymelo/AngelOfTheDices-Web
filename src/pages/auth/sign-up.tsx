@@ -1,7 +1,3 @@
-import { registerUser } from '@/api/sign-up';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useMutation } from '@tanstack/react-query';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
@@ -9,6 +5,10 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { registerUser } from '@/api/sign-up';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const signUpForm = z.object({
   name: z.string(),
