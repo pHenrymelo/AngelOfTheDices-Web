@@ -103,7 +103,7 @@ export function Sheet() {
           expertises={character.expertises}
         />
       </div>
-      <Combat />
+      <Combat characterId={character.id} attacks={character.attacks} />
       <Inventory />
       <Expertises
         characterId={character.id}
