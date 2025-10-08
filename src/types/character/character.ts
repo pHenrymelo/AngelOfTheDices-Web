@@ -37,6 +37,9 @@ interface Origin extends SmartEnum {
 }
 
 interface Rank extends SmartEnum {
+  name: string;
+  displayName: string;
+  creditLimit: string;
   itemLimits: Record<number, number>;
 }
 
