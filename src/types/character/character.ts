@@ -40,6 +40,11 @@ interface Rank extends SmartEnum {
   itemLimits: Record<number, number>;
 }
 
+interface Affinity extends SmartEnum {
+  name: string;
+  displayName: string;
+}
+
 export interface Character {
   id: string;
   name: string;
@@ -53,7 +58,7 @@ export interface Character {
   origin: Origin;
   characterClass: SmartEnum;
   path: Path;
-  affinity: string;
+  affinity: Affinity;
   rank: Rank;
 
   strength: number;

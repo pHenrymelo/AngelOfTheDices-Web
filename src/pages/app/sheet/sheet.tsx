@@ -53,7 +53,7 @@ export function Sheet() {
     <div className=" container mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
       <div className="flex flex-col lg:flex-row gap-4">
         {character && <SheetStatus character={character} />}
-        <PersonalDetails />
+        {character && <PersonalDetails character={character} />}
       </div>
       <div className="flex flex-col lg:flex-row gap-4">
         <Attributes />
