@@ -56,7 +56,7 @@ export function Sheet() {
         {character && <PersonalDetails character={character} />}
       </div>
       <div className="flex flex-col lg:flex-row gap-4">
-        <Attributes />
+        {character && <Attributes character={character} />}
         <FixedExpertise />
       </div>
       <Combat />
