@@ -98,7 +98,10 @@ export function Sheet() {
       </div>
       <div className="flex flex-col lg:flex-row gap-4">
         {character && <Attributes character={character} />}
-        <FixedExpertise />
+        <FixedExpertise
+          attributes={attributes}
+          expertises={character.expertises}
+        />
       </div>
       <Combat />
       <Inventory />

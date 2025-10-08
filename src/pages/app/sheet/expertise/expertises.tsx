@@ -82,10 +82,10 @@ export function Expertises({
 
   return (
     <Card className="flex-1 p-4">
-      <CardTitle className="flex justify-center items-center text-xl border-b-2 py-1 font-heading">
+      <CardTitle className="flex justify-center items-center text-xl border-b-2 pb-2 font-heading">
         PERÍCIAS
       </CardTitle>
-      <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4">
+      <CardContent className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 pt-4">
         {expertises.map((expertise) => (
           <ExpertiseItem
             key={expertise.expertiseName.name}
