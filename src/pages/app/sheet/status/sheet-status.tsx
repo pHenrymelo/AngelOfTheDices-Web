@@ -1,26 +1,15 @@
-import { useState } from 'react';
 import { toast } from 'sonner';
-import Leon from '@/assets/leon.png';
 import { DiceD20Icon } from '@/components/icons';
 import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
+import type { Character } from '@/types/character/character';
 import { StatusBar } from './status-bar';
 
-export function SheetStatus() {
-  const [maxHealthPoints, _setMaxHealthPoints] = useState(100);
-  const [currentHealthPoints, setCurrentHealthPoints] =
-    useState(maxHealthPoints);
+interface SheetStatusProps {
+  character: Character;
+}
 
-  const [maxSanityPoints, _setMaxSanityPoints] = useState(100);
-  const [currentSanityPoints, setCurrentSanityPoints] =
-    useState(maxSanityPoints);
-
-  const [maxEfortPoints, _setMaxEfortPoints] = useState(100);
-  const [currentEfortPoints, setCurrentEfortPoints] = useState(maxEfortPoints);
-
-  const NEX = 99;
-  const PEPerRound = Math.ceil(NEX / 5);
-
+export function SheetStatus({ character }: SheetStatusProps) {
   function handleRollDice(faces: number) {
     const result = Math.floor(Math.random() * faces) + 1;
 
@@ -32,8 +21,11 @@ export function SheetStatus() {
       <div className="w-full flex flex-col xl:flex-row gap-4 justify-around items-center">
         <div className=" w-full xl:w-1/2 flex justify-around items-center">
           <img
-            src={Leon}
-            alt="Character"
+            src={
+              character.portraitUrl ||
+              `https://ui-avatars.com/api/?name=${character.name.replace(/\s/g, '+')}&background=1c1917&color=a8a29e`
+            }
+            alt={`Retrato de ${character.name}`}
             className="rounded-full w-32 h-32 lg:w-42 lg:h-42 object-cover"
           />
           <Button
@@ -48,13 +40,13 @@ export function SheetStatus() {
           <div className=" text-2xl flex flex-col justify-center items-center border-b-2 gap-2 py-1 font-heading font-semibold">
             NEX{' '}
             <span className="font-bold text-3xl text-primary font-number">
-              {NEX}%
+              {character.nex}%
             </span>
           </div>
           <div className=" text-2xl flex flex-col justify-center items-center border-b-2 gap-2 py-1 font-heading font-semibold">
             PE/rodada{' '}
             <span className="font-bold text-3xl text-emerald-900 font-number">
-              {PEPerRound}
+              {character.pePerRound}
             </span>
           </div>
         </div>
@@ -63,23 +55,20 @@ export function SheetStatus() {
         <StatusBar
           label="Vida"
           variant={'hp'}
-          current={currentHealthPoints}
-          max={maxHealthPoints}
-          onCurrentChange={setCurrentHealthPoints}
+          current={character.currentHitPoints}
+          max={character.maxHitPoints}
         />
         <StatusBar
           label="Sanidade"
           variant={'san'}
-          current={currentSanityPoints}
-          max={maxSanityPoints}
-          onCurrentChange={setCurrentSanityPoints}
+          current={character.currentSanity}
+          max={character.maxSanity}
         />
         <StatusBar
           label="Pontos de Esforço"
           variant={'ep'}
-          current={currentEfortPoints}
-          max={maxEfortPoints}
-          onCurrentChange={setCurrentEfortPoints}
+          current={character.currentEffortPoints}
+          max={character.maxEffortPoints}
         />
       </div>
     </div>

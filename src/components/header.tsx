@@ -1,4 +1,4 @@
-import { Dices, FileSpreadsheet, Home } from 'lucide-react';
+import { Dices, FileSpreadsheet } from 'lucide-react';
 import Logo from '@/assets/logo-violet.png';
 import { NavLink } from './nav-link';
 import { ThemeToggle } from './theme/theme-togle';
@@ -12,10 +12,6 @@ export function Header() {
         </div>
         <nav className="flex items-center space-x-4 lg:space-x-6 border-l h-full px-4">
           <NavLink to="/">
-            <Home className="h-4 w-4" />
-            Home
-          </NavLink>
-          <NavLink to="/sheets">
             <FileSpreadsheet className="h-4 w-4" />
             Fichas
           </NavLink>
