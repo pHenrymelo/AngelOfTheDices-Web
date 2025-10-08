@@ -109,7 +109,7 @@ export function Sheet() {
       />
       <div className="flex flex-col lg:flex-row gap-4">
         <Abilities characterId={character.id} abilities={character.abilities} />
-        <Rituals />
+        <Rituals characterId={character.id} rituals={character.rituals} />
       </div>
       <Notes characterId={character.id} notes={character.notes} />
     </div>
