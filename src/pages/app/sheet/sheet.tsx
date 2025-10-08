@@ -111,7 +111,7 @@ export function Sheet() {
         <Abilities />
         <Rituals />
       </div>
-      <Notes />
+      <Notes characterId={character.id} notes={character.notes} />
     </div>
   );
 }
