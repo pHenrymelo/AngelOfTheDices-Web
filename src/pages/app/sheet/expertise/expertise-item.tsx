@@ -1,17 +1,16 @@
 import { DiceD20Icon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-
-import { type Expertise, TRAINING_BONUS } from '@/types/sheet/training-bonus';
+import type { CharacterExpertise } from '@/types/character/expertise';
 
 interface ExpertiseItemProps {
-  expertise: Expertise;
+  expertise: CharacterExpertise;
   attributeValue: number;
   onRoll: (
-    skillName: string,
+    expertiseName: string,
     totalBonus: number,
     attributeValue: number,
   ) => void;
-  onUpdate: (updateExpertise: Expertise) => void;
+  onUpdate: (updatedExpertise: CharacterExpertise) => void;
 }
 
 export function ExpertiseItem({
@@ -19,23 +18,33 @@ export function ExpertiseItem({
   expertise,
   onRoll,
 }: ExpertiseItemProps) {
-  const trainingBonus = TRAINING_BONUS[expertise.training];
-  const totalBonus = trainingBonus + expertise.otherBonus;
+  const trainingBonus = expertise.trainingRank.bonus;
+  const otherBonus = expertise.otherBonus;
+
+  const kitPenalty =
+    expertise.expertiseName.kitApplicable && !expertise.hasKit ? -5 : 0;
+
+  const totalBonus = trainingBonus + otherBonus + kitPenalty;
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center p-2 border rounded-md">
       <Button
-        onClick={() => onRoll(expertise.name, totalBonus, attributeValue)}
+        onClick={() =>
+          onRoll(
+            expertise.expertiseName.displayName,
+            totalBonus,
+            attributeValue,
+          )
+        }
         variant={'ghost'}
-        className="w-16 h-16 group flex-col"
+        className=" w-16 h-16 group flex-col"
       >
         <DiceD20Icon className="group-hover:animate-spin size-8" />
       </Button>
-      <span className=" w-full flex font-semibold text-primary items-center justify-center">
-        ({expertise.attribute})
+      <span className="font-semibold font-heading text-center">
+        {expertise.expertiseName.displayName}
       </span>
-      <span className="font-semibold font-heading">{expertise.name}</span>
-      <span className=" w-full flex font-bold text-xl text-primary items-center justify-center font-number">
+      <span className="text-primary font-bold text-2xl font-number">
         {totalBonus >= 0 ? `+${totalBonus}` : totalBonus}
       </span>
     </div>

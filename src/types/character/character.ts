@@ -45,6 +45,14 @@ interface Affinity extends SmartEnum {
   displayName: string;
 }
 
+export interface CharacterAttributes {
+  FOR: number;
+  AGI: number;
+  INT: number;
+  PRE: number;
+  VIG: number;
+}
+
 export interface Character {
   id: string;
   name: string;

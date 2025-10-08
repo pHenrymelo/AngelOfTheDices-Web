@@ -1,7 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { getMasterExpertises } from '@/api/sheet/get-expertises';
 import { getSheetById } from '@/api/sheet/get-sheet-by-id';
 import { Skeleton } from '@/components/ui/skeleton';
+import type { CharacterAttributes } from '@/types/character/character';
 import { Abilities } from './abilities/abilities';
 import { Attributes } from './attributes/attributes';
 import { Combat } from './combat/combat';
@@ -18,15 +21,45 @@ export function Sheet() {
 
   const {
     data: character,
-    isLoading,
-    isError,
+    isLoading: isLoadingCharacter,
+    isError: isErrorCharacter,
   } = useQuery({
     queryKey: ['character', characterId],
     queryFn: () => getSheetById(characterId!),
     enabled: !!characterId,
   });
 
-  if (isLoading) {
+  const {
+    data: masterExpertises,
+    isLoading: isLoadingMaster,
+    isError: isErrorMaster,
+  } = useQuery({
+    queryKey: ['expertises'],
+    queryFn: getMasterExpertises,
+  });
+
+  const fullExpertiseList = useMemo(() => {
+    if (!masterExpertises || !character) return [];
+
+    const characterSkillsMap = new Map(
+      character.expertises.map((skill) => [skill.expertiseName.name, skill]),
+    );
+
+    return masterExpertises.map((masterSkill) => {
+      const characterSkill = characterSkillsMap.get(masterSkill.name);
+      if (characterSkill) {
+        return characterSkill;
+      }
+      return {
+        expertiseName: masterSkill,
+        trainingRank: { name: 'UNTRAINED', bonus: 0 },
+        hasKit: false,
+        otherBonus: 0,
+      };
+    });
+  }, [character, masterExpertises]);
+
+  if (isLoadingCharacter || isLoadingMaster) {
     return (
       <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold tracking-tight">
@@ -37,7 +70,7 @@ export function Sheet() {
     );
   }
 
-  if (isError) {
+  if (isErrorCharacter || isErrorMaster || !character) {
     return (
       <div className="text-center text-destructive py-20">
         <h1 className="text-2xl font-bold">Ops... Falha Crítica.</h1>
@@ -48,6 +81,14 @@ export function Sheet() {
       </div>
     );
   }
+
+  const attributes: CharacterAttributes = {
+    FOR: character.strength,
+    AGI: character.agility,
+    INT: character.intellect,
+    PRE: character.presence,
+    VIG: character.vigor,
+  };
 
   return (
     <div className=" container mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
@@ -61,7 +102,11 @@ export function Sheet() {
       </div>
       <Combat />
       <Inventory />
-      <Expertises />
+      <Expertises
+        characterId={character.id}
+        expertises={fullExpertiseList}
+        attributes={attributes}
+      />
       <div className="flex flex-col lg:flex-row gap-4">
         <Abilities />
         <Rituals />
