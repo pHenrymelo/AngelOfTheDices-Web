@@ -1,10 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import { ClipboardPenLine } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
+import { deleteCharacter } from '@/api/sheet/delete-sheet';
 import { getSheets } from '@/api/sheet/get-sheets';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { queryClient } from '@/lib/react-query';
 import type { CharacterSummary } from '@/types/character/character';
 import { SheetCard } from './sheet-card';
 
@@ -17,6 +21,21 @@ export function Sheets() {
     queryKey: ['sheets'],
     queryFn: getSheets,
     retry: false,
+  });
+
+  const { mutate: deleteSheetFn, isPending: isDeleting } = useMutation({
+    mutationFn: deleteCharacter,
+    onSuccess: () => {
+      toast.success('Ficha de agente arquivada.');
+      queryClient.invalidateQueries({ queryKey: ['sheets'] });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'Falha ao arquivar ficha.',
+        );
+      }
+    },
   });
 
   if (isLoading) {
@@ -61,11 +80,9 @@ export function Sheets() {
         {sheets?.map((character: CharacterSummary) => (
           <SheetCard
             key={character.id}
-            id={character.id}
-            name={character.name}
-            characterClass={character.characterClass}
-            nex={character.nex}
-            portraitUrl={character.portraitUrl}
+            character={character}
+            isDeleting={isDeleting}
+            onDelete={deleteSheetFn}
           />
         ))}
       </div>
