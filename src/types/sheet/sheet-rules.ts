@@ -11,6 +11,10 @@ export interface Origin extends SmartEnum {
 
 export interface CharacterClass extends SmartEnum {}
 
+export interface Affinity extends SmartEnum {}
+
+export interface Rank extends SmartEnum {}
+
 export interface Path extends SmartEnum {
   characterClass: string;
   source: string;
