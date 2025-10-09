@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMasterExpertises } from '@/api/sheet/get-expertises';
+import { getMasterExpertises } from '@/api/data/get-expertises';
 import { getSheetById } from '@/api/sheet/get-sheet-by-id';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { CharacterAttributes } from '@/types/character/character';
