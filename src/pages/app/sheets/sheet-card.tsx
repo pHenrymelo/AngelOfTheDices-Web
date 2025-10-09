@@ -1,6 +1,5 @@
 import { Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { id } from 'zod/v4/locales';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -58,7 +57,7 @@ export function SheetCard({ character, onDelete, isDeleting }: SheetCardProps) {
         </CardHeader>
         <CardContent className='className="flex-1 flex flex-col justify-end gap-2"'>
           <Button asChild className="w-full">
-            <Link to={`/sheets/${id}`}>Abrir Ficha</Link>
+            <Link to={`/sheets/${character.id}`}>Abrir Ficha</Link>
           </Button>
         </CardContent>
 
