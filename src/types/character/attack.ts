@@ -4,10 +4,20 @@ interface ExpertiseNameDTO {
   baseAttribute: string;
 }
 
+interface AttackType {
+  name: string;
+  displayName: string;
+}
+
+interface AttackRange {
+  name: string;
+  displayName: string;
+}
+
 export interface AttackResponseDTO {
   id: string;
   name: string;
-  type: string;
+  type: AttackType;
   testAttribute: string;
   testExpertise: ExpertiseNameDTO | null;
   testBonus: number;
@@ -16,6 +26,6 @@ export interface AttackResponseDTO {
   damageBonus: number;
   criticalThreshold: number;
   criticalMultiplier: number;
-  range: string;
+  range: AttackRange;
   special: string | null;
 }

@@ -1,43 +1,59 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import type { Character } from '@/types/character/character';
 
-export function PersonalDetails() {
+interface PersonalDetailsProps {
+  character: Character;
+}
+
+export function PersonalDetails({ character }: PersonalDetailsProps) {
   return (
     <Card className="w-full lg:w-1/2 p-4">
-      <CardTitle className=" flex font-bold text-2xl justify-center font-heading">
+      <CardTitle className="flex font-bold text-2xl justify-center font-heading">
         DETALHES PESSOAIS
       </CardTitle>
-      <CardContent className="flex flex-col px-4 space-y-4">
-        <div className="flex flex-col">
-          <span className="font-semibold font-heading">Nome</span>
-          <p className="border-b-2 text-muted-foreground p-2">
-            Leonard C. Lance
-          </p>
+      <CardContent className="flex flex-col px-4 space-y-4 mt-6">
+        <div className="flex">
+          <DetailItem label="Nome" value={character.name} />
+          <DetailItem label="Jogador" value={character.playerName} />
         </div>
-        <div className="flex flex-col">
-          <span className="font-semibold font-heading">Jogador</span>
-          <p className="border-b-2 text-muted-foreground p-2"> Pedro Melo</p>
+        <div className="flex">
+          <DetailItem
+            label="Classe"
+            value={character.characterClass.displayName}
+          />
+          <DetailItem label="Trilha" value={character.path.displayName} />
         </div>
-        <div className="flex flex-col">
-          <span className="font-semibold font-heading">Origem</span>
-          <p className="border-b-2 text-muted-foreground p-2">
-            Perito forense e Tecnico
-          </p>
+        <div className="flex">
+          <DetailItem label="Idade" value={character.age} />
+          <DetailItem label="Genero" value={character.gender} />
         </div>
-        <div className="flex flex-col">
-          <span className="font-semibold font-heading">Trilha</span>
-          <p className="border-b-2 text-muted-foreground p-2">
-            Portador do Grimorio
-          </p>
+        <div className="flex">
+          <DetailItem label="Patente" value={character.rank.displayName} />
+          <DetailItem label="Prestigio" value={character.prestigePoints} />
         </div>
-        <div className="flex flex-col">
-          <span className="font-semibold font-heading">Idade</span>
-          <p className="border-b-2 text-muted-foreground p-2">25</p>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-semibold font-heading">Gênero</span>
-          <p className="border-b-2 text-muted-foreground p-2">Masculino</p>
+        <div className="flex">
+          <DetailItem label="Origem" value={character.origin.displayName} />
+          <DetailItem
+            label="Afinidade"
+            value={character.affinity.displayName}
+          />
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function DetailItem({
+  label,
+  value,
+}: {
+  label: string;
+  value: React.ReactNode;
+}) {
+  return (
+    <div className="flex-1 flex-col">
+      <span className="font-semibold font-heading">{label}</span>
+      <p className="border-b-2 text-muted-foreground p-2">{value ?? '—'}</p>
+    </div>
   );
 }

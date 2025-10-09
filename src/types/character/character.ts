@@ -37,7 +37,23 @@ interface Origin extends SmartEnum {
 }
 
 interface Rank extends SmartEnum {
+  name: string;
+  displayName: string;
+  creditLimit: string;
   itemLimits: Record<number, number>;
+}
+
+interface Affinity extends SmartEnum {
+  name: string;
+  displayName: string;
+}
+
+export interface CharacterAttributes {
+  FOR: number;
+  AGI: number;
+  INT: number;
+  PRE: number;
+  VIG: number;
 }
 
 export interface Character {
@@ -53,7 +69,7 @@ export interface Character {
   origin: Origin;
   characterClass: SmartEnum;
   path: Path;
-  affinity: string;
+  affinity: Affinity;
   rank: Rank;
 
   strength: number;
