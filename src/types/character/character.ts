@@ -18,6 +18,7 @@ export interface CharacterSummary {
     name: string;
     displayName: string;
   };
+  affinity: Affinity;
 }
 
 interface SmartEnum {

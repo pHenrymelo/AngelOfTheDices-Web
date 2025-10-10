@@ -3,18 +3,30 @@ import { DiceD20Icon } from '@/components/icons';
 import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
 import type { Character } from '@/types/character/character';
+import type { CharacterStatusUpdateDTO } from '@/types/character/dtos/characterStatusUpdateDTO';
 import { StatusBar } from './status-bar';
 
 interface SheetStatusProps {
   character: Character;
+  onStatusUpdate: (dto: CharacterStatusUpdateDTO) => void;
 }
 
-export function SheetStatus({ character }: SheetStatusProps) {
+export function SheetStatus({ character, onStatusUpdate }: SheetStatusProps) {
   function handleRollDice(faces: number) {
     const result = Math.floor(Math.random() * faces) + 1;
 
     toast(<RollToastBase faces={faces} result={result} />);
   }
+
+  const handleHpChange = (newHp: number) => {
+    onStatusUpdate({ currentHitPoints: newHp });
+  };
+  const handleEpChange = (newEp: number) => {
+    onStatusUpdate({ currentEffortPoints: newEp });
+  };
+  const handleSanChange = (newSan: number) => {
+    onStatusUpdate({ currentSanity: newSan });
+  };
 
   return (
     <div className="w-full lg:w-1/2 flex flex-col p-4 space-y-4">
@@ -57,18 +69,21 @@ export function SheetStatus({ character }: SheetStatusProps) {
           variant={'hp'}
           current={character.currentHitPoints}
           max={character.maxHitPoints}
+          onCurrentChange={handleHpChange}
         />
         <StatusBar
           label="Sanidade"
           variant={'san'}
           current={character.currentSanity}
           max={character.maxSanity}
+          onCurrentChange={handleSanChange}
         />
         <StatusBar
           label="Pontos de Esforço"
           variant={'ep'}
           current={character.currentEffortPoints}
           max={character.maxEffortPoints}
+          onCurrentChange={handleEpChange}
         />
       </div>
     </div>
