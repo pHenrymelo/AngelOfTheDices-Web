@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
-import { setCharacterExpertise } from '@/api/sheet/get-character-expertises';
+import { setCharacterExpertise } from '@/api/sheet/expertise/get-character-expertises';
 import { RollExpertiseToast } from '@/components/toasts/roll-expertise-toast';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { queryClient } from '@/lib/react-query';

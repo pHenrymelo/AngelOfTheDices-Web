@@ -1,10 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMasterExpertises } from '@/api/sheet/get-expertises';
+import { toast } from 'sonner';
+import { getMasterExpertises } from '@/api/data/get-expertises';
 import { getSheetById } from '@/api/sheet/get-sheet-by-id';
+import { patchCharacterStatus } from '@/api/sheet/status/update-status';
+import { updateCharacter } from '@/api/sheet/update-sheet';
+import { uploadCharacterPortrait } from '@/api/sheet/upload-character-portrait';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { CharacterAttributes } from '@/types/character/character';
+import type { CharacterStatusUpdateDTO } from '@/types/character/dtos/characterStatusUpdateDTO';
+import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
 import { Abilities } from './abilities/abilities';
 import { Attributes } from './attributes/attributes';
 import { Combat } from './combat/combat';
@@ -18,6 +25,7 @@ import { SheetStatus } from './status/sheet-status';
 
 export function Sheet() {
   const { id: characterId } = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
 
   const {
     data: character,
@@ -37,6 +45,72 @@ export function Sheet() {
     queryKey: ['expertises'],
     queryFn: getMasterExpertises,
   });
+
+  const { mutate: updateStatusFn } = useMutation({
+    mutationFn: patchCharacterStatus,
+    onSuccess: () => {
+      toast.success('Status atualizado.');
+      queryClient.invalidateQueries({ queryKey: ['character', characterId] });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'Falha ao atualizar status.',
+        );
+      }
+    },
+  });
+
+  const { mutateAsync: updateCharacterFn, isPending: isUpdatingCharacter } =
+    useMutation({
+      mutationFn: updateCharacter,
+      onSuccess: (data) => {
+        toast.success(`Ficha de "${data.name}" atualizada.`);
+        queryClient.invalidateQueries({ queryKey: ['character', characterId] });
+        queryClient.invalidateQueries({ queryKey: ['sheets'] });
+      },
+      onError: (error) => {
+        if (isAxiosError(error)) {
+          toast.error(
+            error.response?.data?.message || 'Falha ao atualizar a ficha.',
+          );
+        }
+      },
+    });
+
+  const { mutateAsync: uploadPortraitFn, isPending: isUploadingPortrait } =
+    useMutation({
+      mutationFn: uploadCharacterPortrait,
+      onSuccess: () => {
+        toast.success('Retrato do agente atualizado.');
+        queryClient.invalidateQueries({ queryKey: ['character', characterId] });
+        queryClient.invalidateQueries({ queryKey: ['sheets'] });
+      },
+      onError: (error) => {
+        if (isAxiosError(error)) {
+          toast.error(
+            error.response?.data?.message || 'Falha ao enviar o retrato.',
+          );
+        }
+      },
+    });
+
+  function handleStatusUpdate(dto: CharacterStatusUpdateDTO) {
+    if (!characterId) return;
+    updateStatusFn({ characterId, dto });
+  }
+
+  async function handleCharacterUpdate(dto: CharacterUpdateDTO) {
+    if (!characterId) return;
+    await updateCharacterFn({ characterId, dto });
+  }
+
+  async function handlePortraitUpload(file: File) {
+    if (!characterId) return;
+    await uploadPortraitFn({ characterId, file });
+  }
+
+  const isUpdating = isUpdatingCharacter || isUploadingPortrait;
 
   const fullExpertiseList = useMemo(() => {
     if (!masterExpertises || !character) return [];
@@ -93,7 +167,15 @@ export function Sheet() {
   return (
     <div className=" container mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
       <div className="flex flex-col lg:flex-row gap-4">
-        {character && <SheetStatus character={character} />}
+        {character && (
+          <SheetStatus
+            character={character}
+            onStatusUpdate={handleStatusUpdate}
+            onCharacterUpdate={handleCharacterUpdate}
+            onPortraitUpload={handlePortraitUpload}
+            isUpdating={isUpdating}
+          />
+        )}
         {character && <PersonalDetails character={character} />}
       </div>
       <div className="flex flex-col lg:flex-row gap-4">

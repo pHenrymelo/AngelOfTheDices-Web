@@ -18,6 +18,7 @@ export interface CharacterSummary {
     name: string;
     displayName: string;
   };
+  affinity: Affinity;
 }
 
 interface SmartEnum {
@@ -37,8 +38,6 @@ interface Origin extends SmartEnum {
 }
 
 interface Rank extends SmartEnum {
-  name: string;
-  displayName: string;
   creditLimit: string;
   itemLimits: Record<number, number>;
 }
