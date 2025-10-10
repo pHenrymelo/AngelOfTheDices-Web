@@ -16,7 +16,7 @@ interface Props {
 
 export function StatusSection({ control }: Props) {
   return (
-    <Card>
+    <Card className="bg-background w-full md:w-2/3">
       <CardHeader>
         <CardTitle>Status de Combate</CardTitle>
       </CardHeader>

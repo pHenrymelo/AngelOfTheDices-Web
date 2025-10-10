@@ -142,14 +142,14 @@ export function NewSheet() {
   }
 
   return (
-    <div className="container mx-auto p-4 md:p-8">
+    <div className=" flex flex-col justify-center items-center container mx-auto p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight mb-8">
         Criar Nova Ficha de Agente
       </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleCreateCharacter)}
-          className="space-y-8"
+          className="space-y-8 flex flex-col justify-center items-center"
         >
           <CharacterInfoSection control={form.control} />
           <RulesSection

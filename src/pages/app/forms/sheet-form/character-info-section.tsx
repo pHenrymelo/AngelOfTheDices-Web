@@ -16,16 +16,16 @@ interface Props {
 
 export function CharacterInfoSection({ control }: Props) {
   return (
-    <Card>
+    <Card className="bg-background w-full md:w-2/3">
       <CardHeader>
         <CardTitle>Informações Básicas</CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <CardContent className="flex flex-col gap-4">
         <FormField
           control={control}
           name="name"
           render={({ field }) => (
-            <FormItem className="md:col-span-3">
+            <FormItem className="flex flex-col flex-1">
               <FormLabel>Nome do Personagem</FormLabel>
               <FormControl>
                 <Input placeholder="Ex: César Oliveira Cohen" {...field} />
@@ -34,42 +34,44 @@ export function CharacterInfoSection({ control }: Props) {
             </FormItem>
           )}
         />
-        <FormField
-          control={control}
-          name="age"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Idade</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  {...field}
-                  onChange={(event) =>
-                    field.onChange(
-                      event.target.value === ''
-                        ? undefined
-                        : +event.target.value,
-                    )
-                  }
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={control}
-          name="gender"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Gênero</FormLabel>
-              <FormControl>
-                <Input placeholder="Ex: Masculino" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className=" flex gap-4">
+          <FormField
+            control={control}
+            name="age"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Idade</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    {...field}
+                    onChange={(event) =>
+                      field.onChange(
+                        event.target.value === ''
+                          ? undefined
+                          : +event.target.value,
+                      )
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Gênero</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ex: Masculino" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
       </CardContent>
     </Card>
   );
