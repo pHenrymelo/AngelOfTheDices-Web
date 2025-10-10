@@ -1,8 +1,10 @@
 import type React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { signOutFromApi } from '@/api/auth/logout';
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  isLoading: boolean;
   accessToken: string | null;
   login: (token: string) => void;
   logout: () => void;
@@ -18,38 +20,35 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem('accessToken'),
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken);
-    } else {
-      localStorage.removeItem('accessToken');
-    }
-
-    const handleUnauthorized = () => {
-      setAccessToken(null);
-    };
-
-    window.addEventListener('unauthorized', handleUnauthorized);
-
-    return () => {
-      window.removeEventListener('unauthorized', handleUnauthorized);
-    };
-  }, [accessToken]);
-
-  function login(token: string) {
+    const token = localStorage.getItem('accessToken');
     setAccessToken(token);
-  }
+    setIsLoading(false);
+  }, []);
 
-  function logout() {
-    setAccessToken(null);
-  }
+  const login = (token: string) => {
+    localStorage.setItem('accessToken', token);
+    setAccessToken(token);
+  };
+
+  const logout = async () => {
+    try {
+      await signOutFromApi();
+    } catch (error) {
+      console.error('Failed to logout from server:', error);
+    } finally {
+      localStorage.removeItem('accessToken');
+      setAccessToken(null);
+    }
+  };
 
   const isAuthenticated = !!accessToken;
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, accessToken, login, logout }}
+      value={{ isAuthenticated, isLoading, accessToken, login, logout }}
     >
       {children}
     </AuthContext.Provider>
