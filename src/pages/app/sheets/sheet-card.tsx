@@ -19,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useSettings } from '@/contexts/settings-context';
 import type { CharacterSummary } from '@/types/character/character';
 
 interface SheetCardProps {
@@ -29,8 +30,11 @@ interface SheetCardProps {
 
 export function SheetCard({ character, onDelete, isDeleting }: SheetCardProps) {
   const { setTheme } = useTheme();
+  const { isThemeSyncEnabled } = useSettings();
 
   function changeThemeToElement() {
+    if (!isThemeSyncEnabled) return;
+
     switch (character.affinity.name) {
       case 'ENERGY':
         setTheme('dark-violet');
