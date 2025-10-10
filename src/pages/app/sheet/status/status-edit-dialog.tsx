@@ -1,0 +1,150 @@
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import {
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { Character } from '@/types/character/character';
+import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
+
+interface StatusEditDialogProps {
+  character: Character;
+  onCharacterUpdate: (dto: CharacterUpdateDTO) => Promise<void>;
+  onPortraitUpload: (file: File) => Promise<void>;
+  isUpdating: boolean;
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+}
+
+export function StatusEditDialog({
+  character,
+  onCharacterUpdate,
+  onPortraitUpload,
+  isUpdating,
+  isOpen,
+  onOpenChange,
+}: StatusEditDialogProps) {
+  const [portraitFile, setPortraitFile] = useState<File | null>(null);
+
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      nex: character.nex,
+      maxHitPoints: character.maxHitPoints,
+      maxEffortPoints: character.maxEffortPoints,
+      maxSanity: character.maxSanity,
+    },
+  });
+
+  useEffect(() => {
+    if (isOpen) {
+      reset({
+        nex: character.nex,
+        maxHitPoints: character.maxHitPoints,
+        maxEffortPoints: character.maxEffortPoints,
+        maxSanity: character.maxSanity,
+      });
+      setPortraitFile(null);
+    }
+  }, [isOpen, character, reset]);
+
+  const handleFormSubmit = handleSubmit(async (data) => {
+    try {
+      const updateDto: CharacterUpdateDTO = {
+        ...character,
+        ...data,
+        origin: character.origin.name,
+        characterClass: character.characterClass.name,
+        path: character.path.name,
+        affinity: character.affinity.name,
+        rank: character.rank.name,
+      };
+
+      await onCharacterUpdate(updateDto);
+
+      if (portraitFile) {
+        await onPortraitUpload(portraitFile);
+      }
+
+      toast.success('Informações atualizadas!');
+      onOpenChange(false);
+    } catch (error) {
+      console.error('Failed to update character', error);
+    }
+  });
+
+  return (
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Editar Status Base e Retrato</DialogTitle>
+        <DialogDescription>
+          Ajuste os valores estruturais e o retrato do seu agente.
+        </DialogDescription>
+      </DialogHeader>
+      <form
+        id="status-edit-form"
+        onSubmit={handleFormSubmit}
+        className="space-y-4"
+      >
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="portrait">Trocar Retrato do Agente</Label>
+          <Input
+            id="portrait"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setPortraitFile(e.target.files?.[0] || null)}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="nex">NEX</Label>
+          <Input
+            id="nex"
+            type="number"
+            {...register('nex', { valueAsNumber: true })}
+          />
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="maxHitPoints">PV (Máx)</Label>
+            <Input
+              id="maxHitPoints"
+              type="number"
+              {...register('maxHitPoints', { valueAsNumber: true })}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="maxEffortPoints">PE (Máx)</Label>
+            <Input
+              id="maxEffortPoints"
+              type="number"
+              {...register('maxEffortPoints', { valueAsNumber: true })}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="maxSanity">SAN (Máx)</Label>
+            <Input
+              id="maxSanity"
+              type="number"
+              {...register('maxSanity', { valueAsNumber: true })}
+            />
+          </div>
+        </div>
+      </form>
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button variant="outline">Cancelar</Button>
+        </DialogClose>
+        <Button type="submit" form="status-edit-form" disabled={isUpdating}>
+          {isUpdating ? 'Salvando...' : 'Salvar Alterações'}
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  );
+}

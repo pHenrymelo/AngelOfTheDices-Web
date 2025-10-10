@@ -6,9 +6,12 @@ import { toast } from 'sonner';
 import { getMasterExpertises } from '@/api/data/get-expertises';
 import { getSheetById } from '@/api/sheet/get-sheet-by-id';
 import { patchCharacterStatus } from '@/api/sheet/status/update-status';
+import { updateCharacter } from '@/api/sheet/update-sheet';
+import { uploadCharacterPortrait } from '@/api/sheet/upload-character-portrait';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { CharacterAttributes } from '@/types/character/character';
 import type { CharacterStatusUpdateDTO } from '@/types/character/dtos/characterStatusUpdateDTO';
+import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
 import { Abilities } from './abilities/abilities';
 import { Attributes } from './attributes/attributes';
 import { Combat } from './combat/combat';
@@ -58,10 +61,56 @@ export function Sheet() {
     },
   });
 
+  const { mutateAsync: updateCharacterFn, isPending: isUpdatingCharacter } =
+    useMutation({
+      mutationFn: updateCharacter,
+      onSuccess: (data) => {
+        toast.success(`Ficha de "${data.name}" atualizada.`);
+        queryClient.invalidateQueries({ queryKey: ['character', characterId] });
+        queryClient.invalidateQueries({ queryKey: ['sheets'] });
+      },
+      onError: (error) => {
+        if (isAxiosError(error)) {
+          toast.error(
+            error.response?.data?.message || 'Falha ao atualizar a ficha.',
+          );
+        }
+      },
+    });
+
+  const { mutateAsync: uploadPortraitFn, isPending: isUploadingPortrait } =
+    useMutation({
+      mutationFn: uploadCharacterPortrait,
+      onSuccess: () => {
+        toast.success('Retrato do agente atualizado.');
+        queryClient.invalidateQueries({ queryKey: ['character', characterId] });
+        queryClient.invalidateQueries({ queryKey: ['sheets'] });
+      },
+      onError: (error) => {
+        if (isAxiosError(error)) {
+          toast.error(
+            error.response?.data?.message || 'Falha ao enviar o retrato.',
+          );
+        }
+      },
+    });
+
   function handleStatusUpdate(dto: CharacterStatusUpdateDTO) {
     if (!characterId) return;
     updateStatusFn({ characterId, dto });
   }
+
+  async function handleCharacterUpdate(dto: CharacterUpdateDTO) {
+    if (!characterId) return;
+    await updateCharacterFn({ characterId, dto });
+  }
+
+  async function handlePortraitUpload(file: File) {
+    if (!characterId) return;
+    await uploadPortraitFn({ characterId, file });
+  }
+
+  const isUpdating = isUpdatingCharacter || isUploadingPortrait;
 
   const fullExpertiseList = useMemo(() => {
     if (!masterExpertises || !character) return [];
@@ -122,6 +171,9 @@ export function Sheet() {
           <SheetStatus
             character={character}
             onStatusUpdate={handleStatusUpdate}
+            onCharacterUpdate={handleCharacterUpdate}
+            onPortraitUpload={handlePortraitUpload}
+            isUpdating={isUpdating}
           />
         )}
         {character && <PersonalDetails character={character} />}

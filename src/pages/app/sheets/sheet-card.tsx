@@ -54,15 +54,16 @@ export function SheetCard({ character, onDelete, isDeleting }: SheetCardProps) {
     }
   }
 
+  const fullPortraitUrl = character.portraitUrl
+    ? `${import.meta.env.VITE_API_BASE_URL}${character.portraitUrl}`
+    : `https://ui-avatars.com/api/?name=${character.name.replace(/\s/g, '+')}&background=1c1917&color=a8a29e`;
+
   return (
     <AlertDialog>
       <Card className="mt-8 transition-all hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
         <img
-          src={
-            character.portraitUrl ||
-            `https://ui-avatars.com/api/?name=${character.name.replace(/\s/g, '+')}&background=1c1917&color=a8a29e`
-          }
-          alt={character.name}
+          src={fullPortraitUrl}
+          alt={`Retrato de ${character.name}`}
           className="w-40 h-40 mx-auto rounded-full object-cover -mt-16 border-4 border-background"
         />
         <CardHeader className="flex justify-between items-center">
