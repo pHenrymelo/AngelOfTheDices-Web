@@ -107,6 +107,7 @@ export function StatusEditDialog({
           <Input
             id="nex"
             type="number"
+            max={100}
             {...register('nex', { valueAsNumber: true })}
           />
         </div>

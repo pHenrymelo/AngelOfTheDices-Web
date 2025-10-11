@@ -19,7 +19,7 @@ import { Expertises } from './expertise/expertises';
 import { FixedExpertise } from './expertise/fixed-expertise';
 import { Inventory } from './inventory/inventory';
 import { Notes } from './notes/notes';
-import { PersonalDetails } from './personal-details';
+import { PersonalDetails } from './personal-details/personal-details';
 import { Rituals } from './rituals/rituals';
 import { SheetStatus } from './status/sheet-status';
 
@@ -167,19 +167,21 @@ export function Sheet() {
   return (
     <div className=" container mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
       <div className="flex flex-col lg:flex-row gap-4">
-        {character && (
-          <SheetStatus
-            character={character}
-            onStatusUpdate={handleStatusUpdate}
-            onCharacterUpdate={handleCharacterUpdate}
-            onPortraitUpload={handlePortraitUpload}
-            isUpdating={isUpdating}
-          />
-        )}
-        {character && <PersonalDetails character={character} />}
+        <SheetStatus
+          character={character}
+          onStatusUpdate={handleStatusUpdate}
+          onCharacterUpdate={handleCharacterUpdate}
+          onPortraitUpload={handlePortraitUpload}
+          isUpdating={isUpdating}
+        />
+        <PersonalDetails
+          character={character}
+          onCharacterUpdate={handleCharacterUpdate}
+          isUpdating={isUpdating}
+        />
       </div>
       <div className="flex flex-col lg:flex-row gap-4">
-        {character && <Attributes character={character} />}
+        <Attributes character={character} />
         <FixedExpertise
           attributes={attributes}
           expertises={character.expertises}
