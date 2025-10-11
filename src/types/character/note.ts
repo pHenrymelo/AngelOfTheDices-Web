@@ -6,5 +6,5 @@ export interface NoteResponseDTO {
 
 export interface NoteRequestDTO {
   title: string;
-  description: string;
+  description: string | null;
 }
