@@ -1,4 +1,4 @@
-import { PenBox, Trash2 } from 'lucide-react';
+import { PenBox, Pin, PinOff, Trash2 } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import type { NoteRequestDTO, NoteResponseDTO } from '@/types/character/note';
 import { NoteFormDialog } from './note-form-dialog';
 
@@ -19,6 +20,7 @@ interface NoteProps {
   note: NoteResponseDTO;
   onUpdate: (noteId: string, dto: NoteRequestDTO) => void;
   onDelete: (noteId: string) => void;
+  onTogglePin: (note: NoteResponseDTO) => void;
   isSaving: boolean;
   isDeleting: boolean;
 }
@@ -29,9 +31,15 @@ export function Note({
   isSaving,
   onDelete,
   onUpdate,
+  onTogglePin,
 }: NoteProps) {
   return (
-    <Card className="flex-1 py-4 px-2">
+    <Card
+      className={cn(
+        'flex flex-col p-4 bg-zinc-900/50 min-h-[150px] transition-colors',
+        note.isPinned && 'border-primary/50 bg-primary/5',
+      )}
+    >
       <CardHeader className="flex items-center justify-between">
         <CardTitle className="text-primary text-xl font-heading">
           {note.title}
@@ -56,6 +64,19 @@ export function Note({
                 <Trash2 className="h-4 w-4" />
               </Button>
             </AlertDialogTrigger>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => onTogglePin(note)}
+              disabled={isDeleting}
+            >
+              {note.isPinned ? (
+                <PinOff className="h-4 w-4" />
+              ) : (
+                <Pin className="h-4 w-4" />
+              )}
+            </Button>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>

@@ -4,6 +4,7 @@ import { PlusCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { createNote } from '@/api/sheet/notes/create-note';
 import { deleteNote } from '@/api/sheet/notes/delete-note';
+import { toggleNotePin } from '@/api/sheet/notes/pin-note';
 import { updateNote } from '@/api/sheet/notes/update-note';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
@@ -63,6 +64,23 @@ export function Notes({ characterId, notes }: NotesProps) {
     },
   });
 
+  const { mutate: togglePinFn, isPending: isPinnig } = useMutation({
+    mutationFn: toggleNotePin,
+    onSuccess: () => {
+      toast.success('Estado da anotação alterado.');
+      queryClient.invalidateQueries({ queryKey: ['character', characterId] });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        toast.error('Falha ao alterar o estado da anotação.');
+      }
+    },
+  });
+
+  function handleTogglePin(note: NoteResponseDTO) {
+    togglePinFn({ characterId, noteId: note.id, isPinned: !note.isPinned });
+  }
+
   function handleCreateNote(dto: NoteRequestDTO) {
     createNoteFn({ characterId, dto });
   }
@@ -96,8 +114,9 @@ export function Notes({ characterId, notes }: NotesProps) {
               note={note}
               onUpdate={handleUpdateNote}
               onDelete={handleDeleteNote}
+              onTogglePin={handleTogglePin}
               isSaving={isSaving}
-              isDeleting={isDeleting}
+              isDeleting={isDeleting || isPinnig}
             />
           ))
         ) : (
