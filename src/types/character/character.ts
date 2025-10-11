@@ -5,46 +5,37 @@ import type { ItemResponseDTO } from './item';
 import type { NoteResponseDTO } from './note';
 import type { RitualResponseDTO } from './ritual';
 
-export interface CharacterSummary {
-  id: string;
-  name: string;
-  nex: number;
-  portraitUrl: string | null;
-  characterClass: {
-    name: string;
-    displayName: string;
-  };
-  rank: {
-    name: string;
-    displayName: string;
-  };
-  affinity: Affinity;
-}
-
 interface SmartEnum {
   name: string;
   displayName: string;
 }
 
-interface Path extends SmartEnum {
+export type Affinity = SmartEnum;
+
+export interface CharacterClass extends SmartEnum {
+  baseHitPoints: number;
+  baseEffortPoints: number;
+  baseSanity: number;
+  hpPerLevel: number;
+  epPerLevel: number;
+  sanPerLevel: number;
+}
+
+export interface Path extends SmartEnum {
   characterClass: string;
   source: string;
 }
 
-interface Origin extends SmartEnum {
+export interface Origin extends SmartEnum {
   powerDescription: string;
   skillOptions: string[];
   source: string;
 }
 
-interface Rank extends SmartEnum {
-  creditLimit: string;
+export interface Rank extends SmartEnum {
+  creditLimit: number;
+  minPrestige: number;
   itemLimits: Record<number, number>;
-}
-
-interface Affinity extends SmartEnum {
-  name: string;
-  displayName: string;
 }
 
 export interface CharacterAttributes {
@@ -63,6 +54,16 @@ export interface Defense {
   otherBonus: number;
 }
 
+export interface CharacterSummary {
+  id: string;
+  name: string;
+  nex: number;
+  portraitUrl: string | null;
+  characterClass: SmartEnum;
+  rank: SmartEnum;
+  affinity: Affinity;
+}
+
 export interface Character {
   id: string;
   name: string;
@@ -74,7 +75,7 @@ export interface Character {
   prestigePoints: number;
 
   origin: Origin;
-  characterClass: SmartEnum;
+  characterClass: CharacterClass;
   path: Path;
   affinity: Affinity;
   rank: Rank;
@@ -84,6 +85,9 @@ export interface Character {
   intellect: number;
   presence: number;
   vigor: number;
+
+  armorDefenseBonus: number;
+  otherDefenseBonus: number;
 
   maxHitPoints: number;
   currentHitPoints: number;
@@ -97,8 +101,6 @@ export interface Character {
   defense: Defense;
   maxLoad: number;
   currentLoad: number;
-
-  itemLimitsByCategory: Record<number, number>;
 
   expertises: CharacterExpertise[];
   inventory: ItemResponseDTO[];

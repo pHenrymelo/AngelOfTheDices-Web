@@ -3,19 +3,49 @@ interface SmartEnum {
   displayName: string;
 }
 
-export interface Origin extends SmartEnum {
-  powerDescription: string;
-  expertiseOptions: string[];
-  source: string;
+export interface CharacterClass extends SmartEnum {
+  baseHitPoints: number;
+  baseEffortPoints: number;
+  baseSanity: number;
+  hpPerLevel: number;
+  epPerLevel: number;
+  sanPerLevel: number;
 }
-
-export interface CharacterClass extends SmartEnum {}
-
-export interface Affinity extends SmartEnum {}
-
-export interface Rank extends SmartEnum {}
 
 export interface Path extends SmartEnum {
   characterClass: string;
   source: string;
+}
+
+export interface Origin extends SmartEnum {
+  powerDescription: string;
+  skillOptions: string[];
+  source: string;
+}
+
+export interface Rank extends SmartEnum {
+  creditLimit: string;
+  minPrestige: number;
+  itemLimits: Record<number, number>;
+}
+
+export interface Affinity extends SmartEnum {
+  name: string;
+  displayName: string;
+}
+
+export interface CharacterAttributes {
+  FOR: number;
+  AGI: number;
+  INT: number;
+  PRE: number;
+  VIG: number;
+}
+
+export interface Defense {
+  total: number;
+  base: number;
+  agilityBonus: number;
+  armorBonus: number;
+  otherBonus: number;
 }

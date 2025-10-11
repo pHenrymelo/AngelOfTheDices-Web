@@ -17,7 +17,6 @@ import { Form } from '@/components/ui/form';
 import { AttributesSection } from './attributes-section';
 import { CharacterInfoSection } from './character-info-section';
 import { RulesSection } from './rules-section';
-import { StatusSection } from './status-section';
 
 const createCharacterSchema = z.object({
   name: z
@@ -47,10 +46,6 @@ const createCharacterSchema = z.object({
   presence: z.coerce.number().min(0).default(1),
   vigor: z.coerce.number().min(0).default(1),
 
-  maxHitPoints: z.coerce.number().min(1).default(1),
-  maxEffortPoints: z.coerce.number().min(1).default(1),
-  maxSanity: z.coerce.number().min(1).default(1),
-
   armorDefenseBonus: z.coerce.number().optional().default(0),
   otherDefenseBonus: z.coerce.number().optional().default(0),
 });
@@ -76,9 +71,6 @@ export function NewSheet() {
       intellect: 1,
       presence: 1,
       vigor: 1,
-      maxHitPoints: 1,
-      maxEffortPoints: 1,
-      maxSanity: 1,
       armorDefenseBonus: 0,
       otherDefenseBonus: 0,
     },
@@ -149,12 +141,11 @@ export function NewSheet() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleCreateCharacter)}
-          className="space-y-8 flex flex-col justify-center items-center"
+          className="space-y-8 w-2/3 flex flex-col justify-center items-center"
         >
           <CharacterInfoSection control={form.control} />
           <RulesSection
             control={form.control}
-            errors={form.formState.errors}
             data={{
               origins: origins ?? [],
               classes: classes ?? [],
@@ -165,8 +156,11 @@ export function NewSheet() {
             isLoading={isLoadingData}
           />
 
-          <AttributesSection control={form.control} />
-          <StatusSection control={form.control} />
+          <AttributesSection
+            control={form.control}
+            setValue={form.setValue}
+            selectedClass={selectedClass}
+          />
           <Button
             type="submit"
             disabled={form.formState.isSubmitting || isLoadingData}

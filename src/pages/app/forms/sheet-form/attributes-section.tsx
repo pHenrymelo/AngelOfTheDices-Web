@@ -1,4 +1,5 @@
-import type { Control } from 'react-hook-form';
+import { useEffect } from 'react';
+import type { Control, UseFormSetValue } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   FormControl,
@@ -12,9 +13,17 @@ import type { CreateCharacterForm } from './new-sheet';
 
 interface Props {
   control: Control<CreateCharacterForm>;
+  setValue: UseFormSetValue<CreateCharacterForm>;
+  selectedClass?: string;
 }
 
-export function AttributesSection({ control }: Props) {
+export function AttributesSection({ control, setValue, selectedClass }: Props) {
+  useEffect(() => {
+    if (selectedClass === 'SURVIVOR') {
+      setValue('nex', 0, { shouldValidate: true });
+    }
+  }, [selectedClass, setValue]);
+
   return (
     <Card className="bg-background w-full md:w-2/3">
       <CardHeader>
@@ -26,18 +35,13 @@ export function AttributesSection({ control }: Props) {
             control={control}
             name="nex"
             render={({ field }) => (
-              <FormItem className="">
+              <FormItem>
                 <FormLabel>NEX</FormLabel>
                 <FormControl>
                   <Input
-                    className="w-full"
                     type="number"
                     {...field}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value === '' ? 0 : +e.target.value,
-                      )
-                    }
+                    disabled={selectedClass === 'SURVIVOR'}
                   />
                 </FormControl>
                 <FormMessage />

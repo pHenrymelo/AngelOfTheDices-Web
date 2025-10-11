@@ -1,4 +1,4 @@
-import type { Control, FieldErrors } from 'react-hook-form';
+import type { Control } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   FormControl,
@@ -25,7 +25,6 @@ import type { CreateCharacterForm } from './new-sheet';
 
 interface Props {
   control: Control<CreateCharacterForm>;
-  errors: FieldErrors<CreateCharacterForm>;
   data: {
     origins: Origin[];
     classes: CharacterClass[];

@@ -14,9 +14,7 @@ export interface CharacterCreateDTO {
   intellect: number;
   presence: number;
   vigor: number;
-  maxHitPoints: number;
-  maxEffortPoints: number;
-  maxSanity: number;
+
   armorDefenseBonus?: number;
   otherDefenseBonus?: number;
 }

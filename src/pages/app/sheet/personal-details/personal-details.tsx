@@ -85,7 +85,9 @@ function DetailItem({
   return (
     <div className="flex-1 flex-col">
       <span className="font-semibold font-heading">{label}</span>
-      <p className="border-b-2 text-muted-foreground p-2">{value ?? '—'}</p>
+      <p className="border-b-2 text-muted-foreground p-2">
+        {value ? value : '_'}
+      </p>
     </div>
   );
 }

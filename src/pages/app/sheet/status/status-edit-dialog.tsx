@@ -1,3 +1,4 @@
+import { Calculator } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -34,7 +35,7 @@ export function StatusEditDialog({
 }: StatusEditDialogProps) {
   const [portraitFile, setPortraitFile] = useState<File | null>(null);
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, setValue, getValues } = useForm({
     defaultValues: {
       nex: character.nex,
       maxHitPoints: character.maxHitPoints,
@@ -54,6 +55,30 @@ export function StatusEditDialog({
       setPortraitFile(null);
     }
   }, [isOpen, character, reset]);
+
+  function handleRecalculateStats() {
+    const { nex } = getValues();
+    const { vigor, presence, characterClass } = character;
+
+    const level = Math.max(1, Math.ceil(nex / 5));
+
+    const newMaxHp =
+      characterClass.baseHitPoints +
+      (level - 1) * characterClass.hpPerLevel +
+      level * vigor;
+    const newMaxEp =
+      characterClass.baseEffortPoints +
+      (level - 1) * characterClass.epPerLevel +
+      level * presence;
+    const newMaxSan =
+      characterClass.baseSanity + (level - 1) * characterClass.sanPerLevel;
+
+    setValue('maxHitPoints', newMaxHp, { shouldValidate: true });
+    setValue('maxEffortPoints', newMaxEp, { shouldValidate: true });
+    setValue('maxSanity', newMaxSan, { shouldValidate: true });
+
+    toast.info('Status máximos recalculados!');
+  }
 
   const handleFormSubmit = handleSubmit(async (data) => {
     try {
@@ -111,30 +136,44 @@ export function StatusEditDialog({
             {...register('nex', { valueAsNumber: true })}
           />
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="maxHitPoints">PV (Máx)</Label>
-            <Input
-              id="maxHitPoints"
-              type="number"
-              {...register('maxHitPoints', { valueAsNumber: true })}
-            />
+        <div className="space-y-2 border-t pt-4">
+          <div className="flex justify-between items-center mb-2">
+            <h4 className="font-medium text-sm">Status Máximos</h4>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleRecalculateStats}
+            >
+              <Calculator className="mr-2 h-4 w-4" />
+              Recalcular
+            </Button>
           </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="maxEffortPoints">PE (Máx)</Label>
-            <Input
-              id="maxEffortPoints"
-              type="number"
-              {...register('maxEffortPoints', { valueAsNumber: true })}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="maxSanity">SAN (Máx)</Label>
-            <Input
-              id="maxSanity"
-              type="number"
-              {...register('maxSanity', { valueAsNumber: true })}
-            />
+          <div className="grid grid-cols-3 gap-4">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="maxHitPoints">PV (Máx)</Label>
+              <Input
+                id="maxHitPoints"
+                type="number"
+                {...register('maxHitPoints', { valueAsNumber: true })}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="maxEffortPoints">PE (Máx)</Label>
+              <Input
+                id="maxEffortPoints"
+                type="number"
+                {...register('maxEffortPoints', { valueAsNumber: true })}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="maxSanity">SAN (Máx)</Label>
+              <Input
+                id="maxSanity"
+                type="number"
+                {...register('maxSanity', { valueAsNumber: true })}
+              />
+            </div>
           </div>
         </div>
       </form>
