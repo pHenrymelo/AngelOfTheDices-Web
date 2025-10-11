@@ -3,3 +3,8 @@ export interface NoteResponseDTO {
   title: string;
   description: string | null;
 }
+
+export interface NoteRequestDTO {
+  title: string;
+  description: string;
+}
