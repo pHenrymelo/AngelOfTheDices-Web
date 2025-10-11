@@ -15,7 +15,7 @@ export const getSheets = async ({
     params: {
       page: pageIndex,
       size: pageSize,
-      sort: 'desc',
+      sort: 'updatedAt,desc',
     },
   });
   return response.data;

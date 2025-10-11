@@ -55,6 +55,14 @@ export interface CharacterAttributes {
   VIG: number;
 }
 
+export interface Defense {
+  total: number;
+  base: number;
+  agilityBonus: number;
+  armorBonus: number;
+  otherBonus: number;
+}
+
 export interface Character {
   id: string;
   name: string;
@@ -86,7 +94,7 @@ export interface Character {
 
   pePerRound: number;
   movement: number;
-  defense: number;
+  defense: Defense;
   maxLoad: number;
   currentLoad: number;
 

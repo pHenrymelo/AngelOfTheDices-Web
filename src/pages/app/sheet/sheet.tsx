@@ -181,7 +181,11 @@ export function Sheet() {
         />
       </div>
       <div className="flex flex-col lg:flex-row gap-4">
-        <Attributes character={character} />
+        <Attributes
+          character={character}
+          onCharacterUpdate={handleCharacterUpdate}
+          isUpdating={isUpdating}
+        />
         <FixedExpertise
           attributes={attributes}
           expertises={character.expertises}
