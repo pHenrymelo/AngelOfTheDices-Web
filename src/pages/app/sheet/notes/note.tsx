@@ -1,4 +1,4 @@
-import { PenBox, Pin, PinOff, Trash2 } from 'lucide-react';
+import { PenBox, Pin, Trash2 } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,7 +37,7 @@ export function Note({
     <Card
       className={cn(
         'flex flex-col p-4 bg-zinc-900/50 min-h-[150px] transition-colors',
-        note.isPinned && 'border-primary/50 bg-primary/5',
+        note.isPined && 'border-primary/50 ',
       )}
     >
       <CardHeader className="flex items-center justify-between">
@@ -45,12 +45,24 @@ export function Note({
           {note.title}
         </CardTitle>
         <div className="flex">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onTogglePin(note)}
+            disabled={isDeleting}
+          >
+            {note.isPined ? (
+              <Pin className="h-4 w-4 text-primary fill-primary" />
+            ) : (
+              <Pin className="h-4 w-4" />
+            )}
+          </Button>
           <NoteFormDialog
             note={note}
             onSave={(dto) => onUpdate(note.id, dto)}
             isSaving={isSaving}
           >
-            <Button variant="ghost" size="icon" className="h-8 w-8">
+            <Button variant="ghost" size="icon">
               <PenBox className="h-4 w-4" />
             </Button>
           </NoteFormDialog>
@@ -59,24 +71,11 @@ export function Note({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-destructive hover:text-destructive"
+                className=" text-destructive hover:text-destructive"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
             </AlertDialogTrigger>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => onTogglePin(note)}
-              disabled={isDeleting}
-            >
-              {note.isPinned ? (
-                <PinOff className="h-4 w-4" />
-              ) : (
-                <Pin className="h-4 w-4" />
-              )}
-            </Button>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>

@@ -2,8 +2,8 @@ export interface NoteResponseDTO {
   id: string;
   title: string;
   description: string | null;
+  isPined: boolean;
   createdAt: string;
-  isPinned: boolean;
 }
 
 export interface NoteRequestDTO {
