@@ -78,7 +78,7 @@ export function Notes({ characterId, notes }: NotesProps) {
   });
 
   function handleTogglePin(note: NoteResponseDTO) {
-    togglePinFn({ characterId, noteId: note.id, isPinned: !note.isPined });
+    togglePinFn({ characterId, noteId: note.id, isPinned: !note.isPinned });
   }
 
   function handleCreateNote(dto: NoteRequestDTO) {

@@ -37,7 +37,7 @@ export function Note({
     <Card
       className={cn(
         'flex flex-col p-4 bg-zinc-900/50 min-h-[150px] transition-colors',
-        note.isPined && 'border-primary/50 ',
+        note.isPinned && 'border-primary/50 ',
       )}
     >
       <CardHeader className="flex items-center justify-between">
@@ -51,7 +51,7 @@ export function Note({
             onClick={() => onTogglePin(note)}
             disabled={isDeleting}
           >
-            {note.isPined ? (
+            {note.isPinned ? (
               <Pin className="h-4 w-4 text-primary fill-primary" />
             ) : (
               <Pin className="h-4 w-4" />

@@ -2,7 +2,7 @@ export interface NoteResponseDTO {
   id: string;
   title: string;
   description: string | null;
-  isPined: boolean;
+  isPinned: boolean;
   createdAt: string;
 }
 
