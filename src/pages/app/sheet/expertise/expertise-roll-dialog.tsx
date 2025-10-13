@@ -35,7 +35,6 @@ import type { CharacterAttributes } from '@/types/character/character';
 const rollSchema = z.object({
   attributeName: z.string(),
   diceBonus: z.coerce.number().default(0),
-  otherBonus: z.coerce.number().default(0),
 });
 
 type RollForm = z.infer<typeof rollSchema>;
@@ -68,15 +67,13 @@ export function ExpertiseRollDialog({
     defaultValues: {
       attributeName: baseAttributeName,
       diceBonus: 0,
-      otherBonus: 0,
     },
   });
 
   const handleRollSubmit = form.handleSubmit((data) => {
     const selectedAttributeValue =
       attributes[data.attributeName as keyof CharacterAttributes];
-
-    const finalTotalBonus = baseTotalBonus + data.otherBonus;
+    const finalTotalBonus = baseTotalBonus;
 
     const finalDiceCount = Math.max(1, selectedAttributeValue + data.diceBonus);
 
@@ -103,7 +100,7 @@ export function ExpertiseRollDialog({
           <form
             id="roll-form"
             onSubmit={handleRollSubmit}
-            className="space-y-4 py-4"
+            className="flex gap-4 justify-center items-center"
           >
             <FormField
               control={form.control}
@@ -136,23 +133,6 @@ export function ExpertiseRollDialog({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Bônus de Dados</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        {...field}
-                        onChange={(e) => field.onChange(+e.target.value)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="otherBonus"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Outros Bônus</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
