@@ -6,12 +6,8 @@ import { type Resolver, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import { getAffinities } from '@/api/data/get-affinities';
-import { getCharacterClasses } from '@/api/data/get-classes';
-import { getOrigins } from '@/api/data/get-origins';
-import { getPaths } from '@/api/data/get-paths';
-import { getRanks } from '@/api/data/get-ranks';
 import { createCharacter } from '@/api/sheet/create-sheet';
+import { getGameRules } from '@/api/sheet/get-game-rules';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { AttributesSection } from './attributes-section';
@@ -76,37 +72,19 @@ export function NewSheet() {
     },
   });
 
-  const { data: origins, isLoading: isLoadingOrigins } = useQuery({
-    queryKey: ['origins'],
-    queryFn: getOrigins,
+  const { data: gameRules, isLoading: isLoadingData } = useQuery({
+    queryKey: ['gameRules'],
+    queryFn: getGameRules,
+    staleTime: Infinity,
   });
-  const { data: classes, isLoading: isLoadingClasses } = useQuery({
-    queryKey: ['classes'],
-    queryFn: getCharacterClasses,
-  });
-  const { data: paths, isLoading: isLoadingPaths } = useQuery({
-    queryKey: ['paths'],
-    queryFn: getPaths,
-  });
-  const { data: affinities, isLoading: isLoadingAffinities } = useQuery({
-    queryKey: ['affinities'],
-    queryFn: getAffinities,
-  });
-  const { data: ranks, isLoading: isLoadingRanks } = useQuery({
-    queryKey: ['ranks'],
-    queryFn: getRanks,
-  });
-  const isLoadingData =
-    isLoadingOrigins ||
-    isLoadingClasses ||
-    isLoadingPaths ||
-    isLoadingAffinities ||
-    isLoadingRanks;
 
   const selectedClass = form.watch('characterClass');
   const filteredPaths = useMemo(
-    () => paths?.filter((path) => path.characterClass === selectedClass) || [],
-    [paths, selectedClass],
+    () =>
+      gameRules?.paths.filter(
+        (path) => path.characterClass === selectedClass,
+      ) || [],
+    [gameRules?.paths, selectedClass],
   );
 
   const { mutateAsync: createCharacterFn } = useMutation({
@@ -147,15 +125,14 @@ export function NewSheet() {
           <RulesSection
             control={form.control}
             data={{
-              origins: origins ?? [],
-              classes: classes ?? [],
+              origins: gameRules?.origins ?? [],
+              classes: gameRules?.classes ?? [],
               paths: filteredPaths,
-              affinities: affinities ?? [],
-              ranks: ranks ?? [],
+              affinities: gameRules?.affinities ?? [],
+              ranks: gameRules?.ranks ?? [],
             }}
             isLoading={isLoadingData}
           />
-
           <AttributesSection
             control={form.control}
             setValue={form.setValue}

@@ -1,4 +1,4 @@
-interface SmartEnum {
+export interface SmartEnum {
   name: string;
   displayName: string;
 }
@@ -48,4 +48,15 @@ export interface Defense {
   agilityBonus: number;
   armorBonus: number;
   otherBonus: number;
+}
+
+export interface GameRules {
+  origins: Origin[];
+  classes: CharacterClass[];
+  paths: Path[];
+  affinities: Affinity[];
+  ranks: Rank[];
+  circles: SmartEnum[];
+  executionTypes: SmartEnum[];
+  rangeTypes: SmartEnum[];
 }

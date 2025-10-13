@@ -1,22 +1,12 @@
-interface RitualElement {
-  name: string;
-  displayName: string;
-}
+import type { SmartEnum } from '../sheet/sheet-rules';
 
-interface RitualCircle {
-  name: string;
-  displayName: string;
-}
+interface RitualElement extends SmartEnum {}
 
-interface RitualExecution {
-  name: string;
-  displayName: string;
-}
+interface RitualCircle extends SmartEnum {}
 
-interface RitualRange {
-  name: string;
-  displayName: string;
-}
+interface RitualExecution extends SmartEnum {}
+
+interface RitualRange extends SmartEnum {}
 
 export interface RitualResponseDTO {
   id: string;
@@ -25,6 +15,18 @@ export interface RitualResponseDTO {
   circle: RitualCircle;
   execution: RitualExecution;
   range: RitualRange;
+  target: string | null;
+  duration: string | null;
+  resistance: string | null;
+  description: string | null;
+}
+
+export interface RitualRequestDTO {
+  name: string;
+  element: string;
+  circle: string;
+  execution: string;
+  range: string;
   target: string | null;
   duration: string | null;
   resistance: string | null;

@@ -35,7 +35,7 @@ export function AbilityCard({
 }: AbilityCardProps) {
   return (
     <Card className="flex-1 p-4">
-      <CardHeader className="flex justify-between items-center border-b-2 pb-3 font-heading text-center">
+      <CardHeader className="flex justify-between items-center border-b pb-3 font-heading text-center">
         <div>
           <CardTitle className="text-primary text-xl">{ability.name}</CardTitle>
           <p className="text-sm text-muted-foreground">

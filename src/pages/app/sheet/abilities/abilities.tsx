@@ -94,7 +94,7 @@ export function Abilities({ characterId, abilities }: AbilitiesProps) {
           </Button>
         </AbilityFormDialog>
       </CardHeader>
-      <CardContent className="flex gap-4 max-h-[450px] overflow-y-auto px-8">
+      <CardContent className="flex flex-col gap-4 max-h-[450px] overflow-y-auto px-8">
         {abilities && abilities.length > 0 ? (
           abilities.map((ability) => (
             <AbilityCard
@@ -107,7 +107,7 @@ export function Abilities({ characterId, abilities }: AbilitiesProps) {
             />
           ))
         ) : (
-          <p className="flex1 text-center text-muted-foreground py-4">
+          <p className="flex-1 text-center text-muted-foreground py-4">
             Nenhuma habilidade ou poder registrado.
           </p>
         )}

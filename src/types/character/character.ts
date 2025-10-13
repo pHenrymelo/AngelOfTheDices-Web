@@ -1,14 +1,10 @@
+import type { SmartEnum } from '../sheet/sheet-rules';
 import type { AbilityResponseDTO } from './ability';
 import type { AttackResponseDTO } from './attack';
 import type { CharacterExpertise } from './expertise';
 import type { ItemResponseDTO } from './item';
 import type { NoteResponseDTO } from './note';
 import type { RitualResponseDTO } from './ritual';
-
-interface SmartEnum {
-  name: string;
-  displayName: string;
-}
 
 export type Affinity = SmartEnum;
 
