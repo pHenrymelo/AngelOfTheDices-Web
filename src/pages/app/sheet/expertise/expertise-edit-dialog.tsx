@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -46,11 +47,13 @@ export function ExpertiseEditDialog({
     expertise.trainingRank.name,
   );
   const [hasKit, setHasKit] = useState(expertise.hasKit);
+  const [otherBonus, setOtherBonus] = useState(expertise.otherBonus);
 
   useEffect(() => {
     if (isOpen) {
       setSelectedRankName(expertise.trainingRank.name);
       setHasKit(expertise.hasKit);
+      setOtherBonus(expertise.otherBonus);
     }
   }, [isOpen, expertise]);
 
@@ -65,6 +68,7 @@ export function ExpertiseEditDialog({
         bonus: newRank.bonus,
       },
       hasKit: hasKit,
+      otherBonus: otherBonus,
     };
     onUpdate(updatedExpertise);
     setIsOpen(false);
@@ -100,6 +104,16 @@ export function ExpertiseEditDialog({
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="otherBonus">Outros Bônus</Label>
+            <Input
+              id="otherBonus"
+              type="number"
+              className="w-[180px]"
+              value={otherBonus}
+              onChange={(e) => setOtherBonus(parseInt(e.target.value, 10) || 0)}
+            />
           </div>
           {expertise.expertiseName.kitApplicable && (
             <div className="flex items-center justify-between">

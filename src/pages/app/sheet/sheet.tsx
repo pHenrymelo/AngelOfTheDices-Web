@@ -197,6 +197,7 @@ export function Sheet() {
         expertiseName: updatedExpertise.expertiseName.name,
         trainingRank: updatedExpertise.trainingRank.name,
         hasKit: updatedExpertise.hasKit,
+        otherBonus: updatedExpertise.otherBonus,
       },
     });
   }

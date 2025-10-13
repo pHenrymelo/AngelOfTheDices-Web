@@ -1,5 +1,3 @@
-// File: src/pages/app/sheet/expertise/expertise-roll-dialog.tsx
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dices } from 'lucide-react';
 import { useState } from 'react';
