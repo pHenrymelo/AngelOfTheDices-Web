@@ -20,11 +20,15 @@ export function Expertises({
   characterId,
   expertises,
 }: ExpertisesProps) {
-  function handleRoll(
-    expertiseName: string,
-    totalBonus: number,
-    attributeValue: number,
-  ) {
+  function handleRoll({
+    expertiseName,
+    totalBonus,
+    attributeValue,
+  }: {
+    expertiseName: string;
+    totalBonus: number;
+    attributeValue: number;
+  }) {
     const diceCount = attributeValue > 0 ? attributeValue : 2;
     const rolls: number[] = [];
 
@@ -48,7 +52,7 @@ export function Expertises({
     );
   }
 
-  const mutation = useMutation({
+  const { mutate, isPending: isSaving } = useMutation({
     mutationFn: setCharacterExpertise,
     onSuccess: () => {
       toast.success('Perícia atualizada com sucesso!');
@@ -70,7 +74,7 @@ export function Expertises({
   });
 
   function handleUpdateExpertise(updatedExpertise: CharacterExpertise) {
-    mutation.mutate({
+    mutate({
       characterId,
       dto: {
         expertiseName: updatedExpertise.expertiseName.name,
@@ -90,14 +94,10 @@ export function Expertises({
           <ExpertiseItem
             key={expertise.expertiseName.name}
             expertise={expertise}
-            attributeValue={
-              attributes[
-                expertise.expertiseName
-                  .baseAttribute as keyof CharacterAttributes
-              ]
-            }
+            attributes={attributes}
             onRoll={handleRoll}
             onUpdate={handleUpdateExpertise}
+            isSaving={isSaving}
           />
         ))}
       </CardContent>
