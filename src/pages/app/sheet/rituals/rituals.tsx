@@ -92,7 +92,7 @@ export function Rituals({ characterId, rituals }: RitualsProps) {
           </Button>
         </RitualFormDialog>
       </div>
-      <CardContent className="flex flex-col gap-4 p-0 max-h-[450px] overflow-y-auto pr-2">
+      <CardContent className="flex flex-col gap-4 p-0 max-h-[475px] overflow-y-auto pr-2">
         {rituals && rituals.length > 0 ? (
           rituals.map((ritual) => (
             <RitualCard

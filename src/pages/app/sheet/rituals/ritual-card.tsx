@@ -135,23 +135,31 @@ export function RitualCard({
             <span className="text-xs text-muted-foreground font-heading">
               ALVO
             </span>
-            <p className="font-semibold">{ritual.target ?? '—'}</p>
+            <p className="font-semibold">
+              {ritual.target ? ritual.target : '—'}
+            </p>
           </div>
           <div className="col-span-2">
             <span className="text-xs text-muted-foreground font-heading">
               DURAÇÃO
             </span>
-            <p className="font-semibold">{ritual.duration ?? '—'}</p>
+            <p className="font-semibold">
+              {ritual.duration ? ritual.duration : '—'}
+            </p>
           </div>
           <div className="col-span-2">
             <span className="text-xs text-muted-foreground font-heading">
               RESISTÊNCIA
             </span>
-            <p className="font-semibold">{ritual.resistance ?? '—'}</p>
+            <p className="font-semibold">
+              {ritual.resistance ? ritual.resistance : '—'}
+            </p>
           </div>
         </div>
         <div className="pt-2 border-t border-zinc-800">
-          <p className="text-sm text-muted-foreground">{ritual.description}</p>
+          <p className="text-sm text-muted-foreground">
+            {ritual.description ? ritual.description : '—'}
+          </p>
         </div>
       </CardContent>
     </Card>
