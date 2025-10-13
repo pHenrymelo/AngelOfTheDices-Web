@@ -6,11 +6,21 @@ import { ExpertiseItem } from './expertise-item';
 interface FixedExpertiseProps {
   expertises: CharacterExpertise[];
   attributes: CharacterAttributes;
+  onRoll: (params: {
+    expertiseName: string;
+    totalBonus: number;
+    attributeValue: number;
+  }) => void;
+  onUpdate: (updatedExpertise: CharacterExpertise) => void;
+  isSaving: boolean;
 }
 
 export function FixedExpertise({
   expertises,
   attributes,
+  onRoll,
+  onUpdate,
+  isSaving,
 }: FixedExpertiseProps) {
   const trainedExpertises = expertises.filter(
     (exp) => exp.trainingRank.name !== 'UNTRAINED',
@@ -30,9 +40,9 @@ export function FixedExpertise({
               key={expertise.expertiseName.name}
               expertise={expertise}
               attributes={attributes}
-              onRoll={() => {}}
-              onUpdate={() => {}}
-              isSaving={false}
+              onRoll={onRoll}
+              onUpdate={onUpdate}
+              isSaving={isSaving}
             />
           ))
         ) : (

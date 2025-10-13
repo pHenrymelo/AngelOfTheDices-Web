@@ -4,14 +4,17 @@ import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { getMasterExpertises } from '@/api/data/get-expertises';
+import { setCharacterExpertise } from '@/api/sheet/expertise/get-character-expertises';
 import { getSheetById } from '@/api/sheet/get-sheet-by-id';
 import { patchCharacterStatus } from '@/api/sheet/status/update-status';
 import { updateCharacter } from '@/api/sheet/update-sheet';
 import { uploadCharacterPortrait } from '@/api/sheet/upload-character-portrait';
+import { RollExpertiseToast } from '@/components/toasts/roll-expertise-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { CharacterAttributes } from '@/types/character/character';
 import type { CharacterStatusUpdateDTO } from '@/types/character/dtos/characterStatusUpdateDTO';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
+import type { CharacterExpertise } from '@/types/character/expertise';
 import { Abilities } from './abilities/abilities';
 import { Attributes } from './attributes/attributes';
 import { Combat } from './combat/combat';
@@ -133,6 +136,71 @@ export function Sheet() {
     });
   }, [character, masterExpertises]);
 
+  function handleRollExpertise({
+    expertiseName,
+    totalBonus,
+    attributeValue,
+  }: {
+    expertiseName: string;
+    totalBonus: number;
+    attributeValue: number;
+  }) {
+    const diceCount = attributeValue > 0 ? attributeValue : 2;
+    const rolls: number[] = [];
+
+    for (let i = 0; i < diceCount; i++) {
+      rolls.push(Math.floor(Math.random() * 20) + 1);
+    }
+
+    const finalRoll =
+      attributeValue > 0 ? Math.max(...rolls) : Math.min(...rolls);
+
+    const finalResult = finalRoll + totalBonus;
+
+    toast(
+      <RollExpertiseToast
+        expertiseName={expertiseName}
+        finalResult={finalResult}
+        finalRoll={finalRoll}
+        rolls={rolls}
+        totalBonus={totalBonus}
+      />,
+    );
+  }
+
+  const { mutate: updateExpertiseFn, isPending: isSavingExpertise } =
+    useMutation({
+      mutationFn: setCharacterExpertise,
+      onSuccess: () => {
+        toast.success('Perícia atualizada com sucesso!');
+        queryClient.invalidateQueries({ queryKey: ['character', characterId] });
+      },
+      onError: (error) => {
+        if (isAxiosError(error)) {
+          const errorMessage =
+            error.response?.data?.message || 'Falha ao atualizar perícia.';
+          toast.error(errorMessage);
+        } else {
+          toast.error(
+            'Ocorreu um erro inesperado ao tentar atualizar a perícia.',
+          );
+          console.error('Unexpected error:', error);
+        }
+      },
+    });
+
+  function handleUpdateExpertise(updatedExpertise: CharacterExpertise) {
+    if (!characterId) return;
+    updateExpertiseFn({
+      characterId: characterId!,
+      dto: {
+        expertiseName: updatedExpertise.expertiseName.name,
+        trainingRank: updatedExpertise.trainingRank.name,
+        hasKit: updatedExpertise.hasKit,
+      },
+    });
+  }
+
   if (isLoadingCharacter || isLoadingMaster) {
     return (
       <div className="container mx-auto p-8">
@@ -188,15 +256,20 @@ export function Sheet() {
         />
         <FixedExpertise
           attributes={attributes}
-          expertises={character.expertises}
+          expertises={fullExpertiseList}
+          onRoll={handleRollExpertise}
+          onUpdate={handleUpdateExpertise}
+          isSaving={isSavingExpertise}
         />
       </div>
       <Combat characterId={character.id} attacks={character.attacks} />
       <Inventory character={character} />
       <Expertises
-        characterId={character.id}
         expertises={fullExpertiseList}
         attributes={attributes}
+        onRoll={handleRollExpertise}
+        onUpdate={handleUpdateExpertise}
+        isSaving={isSavingExpertise}
       />
       <div className="flex flex-col lg:flex-row gap-4">
         <Abilities characterId={character.id} abilities={character.abilities} />
