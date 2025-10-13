@@ -1,3 +1,5 @@
+import type { ExpertiseName } from '../character/expertise';
+
 export interface SmartEnum {
   name: string;
   displayName: string;
@@ -59,4 +61,19 @@ export interface GameRules {
   circles: SmartEnum[];
   executionTypes: SmartEnum[];
   rangeTypes: SmartEnum[];
+  attackTypes: SmartEnum[];
+  diceTypes: string[];
+  attributes: string[];
+  expertises: ExpertiseName[];
 }
+
+export const ATTRIBUTES = ['FOR', 'AGI', 'INT', 'PRE', 'VIG'];
+export const DAMAGE_DICE_TYPES = [
+  'D4',
+  'D6',
+  'D8',
+  'D10',
+  'D12',
+  'D20',
+  'D100',
+];
