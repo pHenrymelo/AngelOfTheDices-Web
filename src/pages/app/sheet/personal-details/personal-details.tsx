@@ -35,8 +35,8 @@ export function PersonalDetails({
         <CardTitle className="flex font-bold text-2xl justify-center font-heading">
           DETALHES PESSOAIS
         </CardTitle>
-        <CardContent className="flex flex-col px-4 space-y-4 mt-6">
-          <div className="flex">
+        <CardContent className="flex flex-col px-2 space-y-4 mt-6">
+          <div className="flex flex-col md:flex-row space-y-2">
             <DetailItem label="Nome" value={character.name} />
             <DetailItem label="Jogador" value={character.playerName} />
           </div>

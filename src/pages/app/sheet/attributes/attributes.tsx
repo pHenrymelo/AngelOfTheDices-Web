@@ -54,46 +54,46 @@ export function Attributes({
             <PenBox className="h-4 w-4" />
           </Button>
         </DialogTrigger>
-        <CardTitle className="flex justify-center items-center text-xl border-b-2 pb-2 font-heading">
+        <CardTitle className="flex justify-center items-center text-xl border-b pb-2 font-heading">
           ATRIBUTOS
         </CardTitle>
         <div className="grid grid-cols-5 py-4">
           <AttributeItem
-            name="Presença"
+            name="PRE"
             value={character.presence}
             onRoll={handleRollDice}
           />
           <AttributeItem
-            name="Força"
+            name="FOR"
             value={character.strength}
             onRoll={handleRollDice}
           />
           <AttributeItem
-            name="Agilidade"
+            name="AGI"
             value={character.agility}
             onRoll={handleRollDice}
           />
           <AttributeItem
-            name="Intelecto"
+            name="INT"
             value={character.intellect}
             onRoll={handleRollDice}
           />
           <AttributeItem
-            name="Vigor"
+            name="VIG"
             value={character.vigor}
             onRoll={handleRollDice}
           />
         </div>
         <div className="w-full flex justify-evenly my-auto">
-          <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
+          <div className=" text-xl md:text-2xl font-medium flex flex-col justify-center items-center border-b gap-2 py-1">
             Deslocamento{' '}
-            <span className="font-bold text-3xl font-number text-primary">
+            <span className="font-bold text-2xl font-number text-primary">
               {character.movement}m
             </span>
           </div>
-          <div className=" text-2xl font-medium flex flex-col justify-center items-center border-b-2 gap-2 py-1">
+          <div className=" text-xl md:text-2xl font-medium flex flex-col justify-center items-center border-b gap-2 py-1">
             Defesa{' '}
-            <span className="font-bold text-3xl text-primary font-number">
+            <span className="font-bold text-2xl text-primary font-number">
               {character.defense.total}
             </span>
           </div>

@@ -68,7 +68,7 @@ export function InventoryTableRow({
           </Button>
         </ItemFormDialog>
       </TableCell>
-      <TableCell className="font-mono text-xs font-medium text-center">
+      <TableCell className="font-mono text-xs font-medium">
         {item.name}
       </TableCell>
       <TableCell className="font-medium text-center">{item.category}</TableCell>

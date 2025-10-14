@@ -166,7 +166,7 @@ export function Combat({ character }: CombatProps) {
 
   return (
     <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-2 mb-4">
+      <div className="relative flex justify-center items-center border-b pb-2 mb-4">
         <CardTitle className="font-heading text-xl">Combate</CardTitle>
         <AttackFormDialog onSave={handleCreateAttack} isSaving={isSaving}>
           <Button size="sm" variant="ghost" className="absolute right-0">

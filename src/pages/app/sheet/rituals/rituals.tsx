@@ -83,7 +83,7 @@ export function Rituals({ characterId, rituals }: RitualsProps) {
 
   return (
     <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-1 mb-4">
+      <div className="relative flex justify-center items-center border-b pb-2">
         <CardTitle className="font-heading text-xl">Rituais</CardTitle>
         <RitualFormDialog onSave={handleCreateRitual} isSaving={isSaving}>
           <Button size="sm" variant="ghost" className="absolute right-0">
@@ -92,7 +92,7 @@ export function Rituals({ characterId, rituals }: RitualsProps) {
           </Button>
         </RitualFormDialog>
       </div>
-      <CardContent className="flex flex-col gap-4 p-0 max-h-[475px] overflow-y-auto pr-2">
+      <CardContent className="flex flex-col gap-4 p-0 max-h-[475px] overflow-y-auto md:px-4">
         {rituals && rituals.length > 0 ? (
           rituals.map((ritual) => (
             <RitualCard

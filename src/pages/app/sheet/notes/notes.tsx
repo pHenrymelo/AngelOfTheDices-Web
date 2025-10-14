@@ -96,8 +96,8 @@ export function Notes({ characterId, notes }: NotesProps) {
   const isSaving = isCreating || isUpdating;
 
   return (
-    <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-2 mb-4">
+    <Card className="flex-1 px-4">
+      <div className="relative flex justify-center items-center border-b pb-2">
         <CardTitle className="font-heading text-xl">Anotações</CardTitle>
         <NoteFormDialog onSave={handleCreateNote} isSaving={isCreating}>
           <Button size="sm" variant="ghost" className="absolute right-0">
@@ -106,7 +106,7 @@ export function Notes({ characterId, notes }: NotesProps) {
           </Button>
         </NoteFormDialog>
       </div>
-      <CardContent className="grid grid-cols-1 gap-4 max-h-[400px] overflow-y-auto px-8">
+      <CardContent className="flex flex-col gap-4 max-h-[400px] overflow-y-auto p-0 md:px-4">
         {notes && notes.length > 0 ? (
           notes.map((note) => (
             <Note
@@ -120,7 +120,7 @@ export function Notes({ characterId, notes }: NotesProps) {
             />
           ))
         ) : (
-          <p className="col-span-full text-center text-muted-foreground py-4">
+          <p className="flex text-center text-muted-foreground py-4">
             Nenhuma anotação registrada.
           </p>
         )}

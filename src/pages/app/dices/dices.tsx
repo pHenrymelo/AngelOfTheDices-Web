@@ -1,15 +1,15 @@
+import { CircleStarIcon } from 'lucide-react';
+import { toast } from 'sonner';
 import {
-  DiceD10Icon,
-  DiceD12Icon,
-  DiceD20Icon,
   DiceD4Icon,
   DiceD6Icon,
   DiceD8Icon,
+  DiceD10Icon,
+  DiceD12Icon,
+  DiceD20Icon,
 } from '@/components/icons';
 import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
-import { CircleStarIcon } from 'lucide-react';
-import { toast } from 'sonner';
 
 export function Dices() {
   function handleRollDice(faces: number) {

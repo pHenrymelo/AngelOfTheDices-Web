@@ -36,11 +36,11 @@ export function Note({
   return (
     <Card
       className={cn(
-        'flex flex-col p-4 bg-zinc-900/50 min-h-[150px] transition-colors',
+        'flex flex-col bg-zinc-900/50 min-h-[150px] transition-colors',
         note.isPinned && 'border-primary/50 ',
       )}
     >
-      <CardHeader className="flex items-center justify-between">
+      <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between">
         <CardTitle className="text-primary text-xl font-heading">
           {note.title}
         </CardTitle>

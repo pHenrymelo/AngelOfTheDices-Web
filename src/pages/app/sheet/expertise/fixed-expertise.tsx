@@ -27,13 +27,12 @@ export function FixedExpertise({
   );
 
   return (
-    <Card className="flex-1 p-4 h-96 flex flex-col">
-      <div className="flex flex-col justify-center items-center border-b-2 py-1 font-heading">
-        <CardTitle className="text-xl">PERÍCIAS</CardTitle>
-        <p className="text-sm text-muted-foreground">(Acesso rápido)</p>
+    <Card className="flex-1 p-4 max-h-96 flex flex-col">
+      <div className="flex flex-col justify-center items-center border-b pb-2 font-heading">
+        <CardTitle className="text-xl">PERÍCIAS TREINADAS</CardTitle>
       </div>
 
-      <CardContent className="grid grid-cols-3 gap-4 pt-4 overflow-y-auto px-4">
+      <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto px-0 md:px-4">
         {trainedExpertises.length > 0 ? (
           trainedExpertises.map((expertise) => (
             <ExpertiseItem
@@ -46,7 +45,7 @@ export function FixedExpertise({
             />
           ))
         ) : (
-          <div className="col-span-3 flex items-center justify-center h-full">
+          <div className="col-span-2 md:col-span-3 flex items-center justify-center h-full">
             <span className="text-muted-foreground text-sm">
               Não há perícias treinadas.
             </span>

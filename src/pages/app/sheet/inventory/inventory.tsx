@@ -87,7 +87,7 @@ export function Inventory({ character }: InventoryProps) {
 
   return (
     <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-1 mb-4">
+      <div className="relative flex justify-center items-center border-b pb-1 mb-4">
         <CardTitle className="font-heading text-xl">INVENTÁRIO</CardTitle>
         <ItemFormDialog onSave={handleCreateItem} isSaving={isSaving}>
           <Button size="sm" variant="ghost" className="absolute right-0">
