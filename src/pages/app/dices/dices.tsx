@@ -1,15 +1,15 @@
-import { CircleStarIcon } from 'lucide-react';
-import { toast } from 'sonner';
 import {
-  DiceD4Icon,
-  DiceD6Icon,
-  DiceD8Icon,
   DiceD10Icon,
   DiceD12Icon,
   DiceD20Icon,
+  DiceD4Icon,
+  DiceD6Icon,
+  DiceD8Icon,
 } from '@/components/icons';
 import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
+import { CircleStarIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 export function Dices() {
   function handleRollDice(faces: number) {
@@ -35,7 +35,7 @@ export function Dices() {
   return (
     <div className="flex flex-col gap-4 h-full">
       <h1 className="text-3xl font-bold tracking-tight">Roll the dice</h1>
-      <div className="grid grid-cols-3 gap-8 w-3/4 mx-auto my-12 space-y-8">
+      <div className="grid grid-cols-3 gap-8 w-full md:w-2/3 mx-auto my-12 space-y-8">
         <div className="w-full flex flex-col justify-center items-center mx-auto">
           <h2 className="text-2xl font-bold">Moeda</h2>
           <Button
@@ -116,7 +116,7 @@ export function Dices() {
             <DiceD20Icon className="size-12 group-hover:animate-spin" />
           </Button>
         </div>
-        <div className="w-full flex flex-col justify-center items-center mx-auto">
+        <div className="w-full flex flex-col justify-center items-center mx-auto mb-auto">
           <h2 className="text-2xl font-bold">D100</h2>
           <Button
             className="p-4 w-24 h-24 group"
