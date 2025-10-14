@@ -46,7 +46,7 @@ export function FixedExpertise({
             />
           ))
         ) : (
-          <div className="col-span-2 flex items-center justify-center h-full">
+          <div className="col-span-3 flex items-center justify-center h-full">
             <span className="text-muted-foreground text-sm">
               Não há perícias treinadas.
             </span>
