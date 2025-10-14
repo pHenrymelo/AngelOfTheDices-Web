@@ -4,15 +4,15 @@ import { Card } from '@/components/ui/card';
 
 export function AuthLayout() {
   return (
-    <div className=" min-h-screen flex flex-col justify-between items-center antialiased py-10">
+    <div className=" min-h-screen flex flex-col gap-4 items-center antialiased py-10">
       <div className="flex flex-col gap-8">
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center gap-4">
           <img
-            className="w-60 h-w-60 col-start-1 row-start-1 opacity-80"
+            className="size-56 md:size-64 col-start-1 row-start-1 opacity-80"
             src={Logo}
             alt="Dice with wings"
           />
-          <h1 className="text-3xl font-heading font-bold">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold">
             Angel of the <span className="text-primary">Dices</span>
           </h1>
         </div>
@@ -20,7 +20,7 @@ export function AuthLayout() {
           <Outlet />
         </Card>
       </div>
-      <footer className="text-sm">
+      <footer className="text-sm mt-auto">
         Angel of the Dices &copy; KaiserInc. - {new Date().getFullYear()}
       </footer>
     </div>
