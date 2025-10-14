@@ -7,3 +7,9 @@ export interface AbilityResponseDTO {
     displayName: string;
   };
 }
+
+export interface AbilityRequestDTO {
+  name: string;
+  description: string | null;
+  type: string;
+}

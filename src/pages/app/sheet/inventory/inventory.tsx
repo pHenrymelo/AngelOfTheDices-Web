@@ -2,7 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { PlusCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import { deleteCharacterItem } from '@/api/sheet/inventory/delete-item';
+import { createItem } from '@/api/sheet/inventory/create-item';
+import { deleteItem } from '@/api/sheet/inventory/delete-item';
+import { updateItem } from '@/api/sheet/inventory/update-item';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import {
@@ -15,7 +17,9 @@ import {
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import type { Character } from '@/types/character/character';
+import type { ItemRequestDTO } from '@/types/character/item';
 import { InventoryTableRow } from './inventory-table-row';
+import { ItemFormDialog } from './item-form-dialog';
 
 interface InventoryProps {
   character: Character;
@@ -24,8 +28,38 @@ interface InventoryProps {
 export function Inventory({ character }: InventoryProps) {
   const queryClient = useQueryClient();
 
-  const { mutate: deleteItemFn } = useMutation({
-    mutationFn: deleteCharacterItem,
+  const { mutate: createItemFn, isPending: isCreating } = useMutation({
+    mutationFn: createItem,
+    onSuccess: () => {
+      toast.success('Item adicionado ao inventário.');
+      queryClient.invalidateQueries({ queryKey: ['character', character.id] });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'Falha ao adicionar item.',
+        );
+      }
+    },
+  });
+
+  const { mutate: updateItemFn, isPending: isUpdating } = useMutation({
+    mutationFn: updateItem,
+    onSuccess: () => {
+      toast.success('Item atualizado com sucesso.');
+      queryClient.invalidateQueries({ queryKey: ['character', character.id] });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        toast.error(
+          error.response?.data?.message || 'Falha ao atualizar item.',
+        );
+      }
+    },
+  });
+
+  const { mutate: deleteItemFn, isPending: isDeleting } = useMutation({
+    mutationFn: deleteItem,
     onSuccess: () => {
       toast.success('Item removido do inventário.');
       queryClient.invalidateQueries({ queryKey: ['character', character.id] });
@@ -37,30 +71,30 @@ export function Inventory({ character }: InventoryProps) {
     },
   });
 
+  function handleCreateItem(dto: ItemRequestDTO) {
+    createItemFn({ characterId: character.id, dto });
+  }
+
+  function handleUpdateItem(itemId: string, dto: ItemRequestDTO) {
+    updateItemFn({ characterId: character.id, itemId, dto });
+  }
+
   function handleDeleteItem(itemId: string) {
     deleteItemFn({ characterId: character.id, itemId });
   }
 
-  function handleEditItem() {
-    toast.info('Funcionalidade de editar item em desenvolvimento.');
-  }
+  const isSaving = isCreating || isUpdating;
 
-  function handleAddItem() {
-    toast.info('Funcionalidade de adicionar item em desenvolvimento.');
-  }
   return (
     <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-1 mb-4">
+      <div className="relative flex justify-center items-center border-b pb-1 mb-4">
         <CardTitle className="font-heading text-xl">INVENTÁRIO</CardTitle>
-        <Button
-          size="sm"
-          variant="ghost"
-          className="absolute right-0"
-          onClick={handleAddItem}
-        >
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Adicionar Item
-        </Button>
+        <ItemFormDialog onSave={handleCreateItem} isSaving={isSaving}>
+          <Button size="sm" variant="ghost" className="absolute right-0">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Adicionar Item
+          </Button>
+        </ItemFormDialog>
       </div>
       <CardContent className="flex flex-col gap-4 p-0">
         <div className="flex flex-wrap gap-x-4 gap-y-2 items-center justify-center text-sm text-muted-foreground">
@@ -128,7 +162,9 @@ export function Inventory({ character }: InventoryProps) {
                     key={item.id}
                     item={item}
                     onDelete={handleDeleteItem}
-                    onEdit={handleEditItem}
+                    onUpdate={handleUpdateItem}
+                    isSaving={isSaving}
+                    isDeleting={isDeleting}
                   />
                 ))
               ) : (

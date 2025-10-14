@@ -11,4 +11,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    allowedHosts: ['.ngtok-free.app', 'da068bad605f.ngrok-free.app'],
+  },
 });

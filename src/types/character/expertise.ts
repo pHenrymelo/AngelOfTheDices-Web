@@ -21,4 +21,5 @@ export interface SetExpertiseRequestDTO {
   expertiseName: string;
   trainingRank: string;
   hasKit?: boolean;
+  otherBonus?: number;
 }

@@ -67,7 +67,7 @@ export function SignIn() {
 
   return (
     <div className="p-8">
-      <div className="w-[350px] flex flex-col justify-center gap-6">
+      <div className="w-full md:w-[350px] flex flex-col justify-center gap-6">
         <h1 className="text-2xl font-semibold tracking-tight mx-auto">
           Acessar
         </h1>

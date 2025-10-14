@@ -6,18 +6,13 @@ import { type Resolver, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import { getAffinities } from '@/api/data/get-affinities';
-import { getCharacterClasses } from '@/api/data/get-classes';
-import { getOrigins } from '@/api/data/get-origins';
-import { getPaths } from '@/api/data/get-paths';
-import { getRanks } from '@/api/data/get-ranks';
 import { createCharacter } from '@/api/sheet/create-sheet';
+import { getGameRules } from '@/api/sheet/get-game-rules';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { AttributesSection } from './attributes-section';
 import { CharacterInfoSection } from './character-info-section';
 import { RulesSection } from './rules-section';
-import { StatusSection } from './status-section';
 
 const createCharacterSchema = z.object({
   name: z
@@ -47,10 +42,6 @@ const createCharacterSchema = z.object({
   presence: z.coerce.number().min(0).default(1),
   vigor: z.coerce.number().min(0).default(1),
 
-  maxHitPoints: z.coerce.number().min(1).default(1),
-  maxEffortPoints: z.coerce.number().min(1).default(1),
-  maxSanity: z.coerce.number().min(1).default(1),
-
   armorDefenseBonus: z.coerce.number().optional().default(0),
   otherDefenseBonus: z.coerce.number().optional().default(0),
 });
@@ -76,45 +67,24 @@ export function NewSheet() {
       intellect: 1,
       presence: 1,
       vigor: 1,
-      maxHitPoints: 1,
-      maxEffortPoints: 1,
-      maxSanity: 1,
       armorDefenseBonus: 0,
       otherDefenseBonus: 0,
     },
   });
 
-  const { data: origins, isLoading: isLoadingOrigins } = useQuery({
-    queryKey: ['origins'],
-    queryFn: getOrigins,
+  const { data: gameRules, isLoading: isLoadingData } = useQuery({
+    queryKey: ['gameRules'],
+    queryFn: getGameRules,
+    staleTime: Infinity,
   });
-  const { data: classes, isLoading: isLoadingClasses } = useQuery({
-    queryKey: ['classes'],
-    queryFn: getCharacterClasses,
-  });
-  const { data: paths, isLoading: isLoadingPaths } = useQuery({
-    queryKey: ['paths'],
-    queryFn: getPaths,
-  });
-  const { data: affinities, isLoading: isLoadingAffinities } = useQuery({
-    queryKey: ['affinities'],
-    queryFn: getAffinities,
-  });
-  const { data: ranks, isLoading: isLoadingRanks } = useQuery({
-    queryKey: ['ranks'],
-    queryFn: getRanks,
-  });
-  const isLoadingData =
-    isLoadingOrigins ||
-    isLoadingClasses ||
-    isLoadingPaths ||
-    isLoadingAffinities ||
-    isLoadingRanks;
 
   const selectedClass = form.watch('characterClass');
   const filteredPaths = useMemo(
-    () => paths?.filter((path) => path.characterClass === selectedClass) || [],
-    [paths, selectedClass],
+    () =>
+      gameRules?.paths.filter(
+        (path) => path.characterClass === selectedClass,
+      ) || [],
+    [gameRules?.paths, selectedClass],
   );
 
   const { mutateAsync: createCharacterFn } = useMutation({
@@ -142,31 +112,32 @@ export function NewSheet() {
   }
 
   return (
-    <div className="container mx-auto p-4 md:p-8">
+    <div className=" flex flex-col justify-center items-center container mx-auto p-4 md:p-8">
       <h1 className="text-3xl font-bold tracking-tight mb-8">
         Criar Nova Ficha de Agente
       </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleCreateCharacter)}
-          className="space-y-8"
+          className="space-y-8 w-2/3 flex flex-col justify-center items-center"
         >
           <CharacterInfoSection control={form.control} />
           <RulesSection
             control={form.control}
-            errors={form.formState.errors}
             data={{
-              origins: origins ?? [],
-              classes: classes ?? [],
+              origins: gameRules?.origins ?? [],
+              classes: gameRules?.classes ?? [],
               paths: filteredPaths,
-              affinities: affinities ?? [],
-              ranks: ranks ?? [],
+              affinities: gameRules?.affinities ?? [],
+              ranks: gameRules?.ranks ?? [],
             }}
             isLoading={isLoadingData}
           />
-
-          <AttributesSection control={form.control} />
-          <StatusSection control={form.control} />
+          <AttributesSection
+            control={form.control}
+            setValue={form.setValue}
+            selectedClass={selectedClass}
+          />
           <Button
             type="submit"
             disabled={form.formState.isSubmitting || isLoadingData}

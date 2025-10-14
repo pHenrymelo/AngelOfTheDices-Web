@@ -16,68 +16,11 @@ interface Props {
 
 export function StatusSection({ control }: Props) {
   return (
-    <Card>
+    <Card className="bg-background w-full md:w-2/3">
       <CardHeader>
         <CardTitle>Status de Combate</CardTitle>
       </CardHeader>
       <CardContent className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <FormField
-          control={control}
-          name="maxHitPoints"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>PV (Máx)</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  {...field}
-                  onChange={(e) =>
-                    field.onChange(e.target.value === '' ? 1 : +e.target.value)
-                  }
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={control}
-          name="maxEffortPoints"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>PE (Máx)</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  {...field}
-                  onChange={(e) =>
-                    field.onChange(e.target.value === '' ? 1 : +e.target.value)
-                  }
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={control}
-          name="maxSanity"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>SAN (Máx)</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  {...field}
-                  onChange={(e) =>
-                    field.onChange(e.target.value === '' ? 1 : +e.target.value)
-                  }
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={control}
           name="armorDefenseBonus"

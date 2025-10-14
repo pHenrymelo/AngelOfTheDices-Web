@@ -1,11 +1,13 @@
 import { api } from '@/lib/axios';
 
-export async function deleteCharacterAttack({
-  characterId,
-  attackId,
-}: {
+interface DeleteAttackParams {
   characterId: string;
   attackId: string;
-}) {
+}
+
+export async function deleteAttack({
+  characterId,
+  attackId,
+}: DeleteAttackParams): Promise<void> {
   await api.delete(`/characters/${characterId}/attacks/${attackId}`);
 }
