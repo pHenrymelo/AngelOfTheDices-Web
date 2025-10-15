@@ -1,7 +1,3 @@
-import { createCharacter } from '@/api/sheet/create-sheet';
-import { getGameRules } from '@/api/sheet/get-game-rules';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
@@ -10,6 +6,10 @@ import { type Resolver, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import * as z from 'zod';
+import { createCharacter } from '@/api/sheet/create-sheet';
+import { getGameRules } from '@/api/sheet/get-game-rules';
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
 import { AttributesSection } from './attributes-section';
 import { CharacterInfoSection } from './character-info-section';
 import { RulesSection } from './rules-section';

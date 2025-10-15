@@ -36,8 +36,9 @@ export interface CharacterUpdateDTO {
   presence: number;
   vigor: number;
   maxHitPoints: number;
-  maxEffortPoints: number;
-  maxSanity: number;
+  maxEffortPoints?: number;
+  maxSanity?: number;
+  maxDeterminationPoints?: number;
   armorDefenseBonus?: number;
   otherDefenseBonus?: number;
   useDeterminationPoints?: boolean;
