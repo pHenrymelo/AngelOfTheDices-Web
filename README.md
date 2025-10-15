@@ -1,6 +1,6 @@
 # Angel of the Dices 🎲
 
-![Logo do Projeto](https://raw.githubusercontent.com/Kaii-S/AngelOfTheDices-Web/main/public/logo-violet.png)
+![Logo do Projeto](https://raw.githubusercontent.com/pHenrymelo/AngelOfTheDices-Web/main/public/logo-violet.png)
 
 **Angel of the Dices** é uma plataforma web moderna e interativa para gerenciamento de fichas de RPG de mesa, criada para ser uma ferramenta completa e agnóstica a sistemas. Esta primeira versão foi desenvolvida com foco no sistema **Ordem Paranormal RPG**, servindo como um protótipo robusto e funcional da visão final do projeto.
 
