@@ -8,7 +8,7 @@ const onUnauthorized = () => {
 
 export const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 15000,
   withCredentials: true,
 });
 
