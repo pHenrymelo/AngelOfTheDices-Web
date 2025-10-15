@@ -1,3 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Calculator } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { type Resolver, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   DialogClose,
@@ -20,12 +26,6 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import type { Character } from '@/types/character/character';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Calculator } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { type Resolver, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import z from 'zod';
 
 const statusEditSchema = z
   .object({

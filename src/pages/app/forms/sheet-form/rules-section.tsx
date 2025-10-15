@@ -1,3 +1,4 @@
+import type { Control } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   FormControl,
@@ -22,7 +23,6 @@ import type {
   Path,
   Rank,
 } from '@/types/sheet/sheet-rules';
-import type { Control } from 'react-hook-form';
 import type { CreateCharacterForm } from './new-sheet';
 
 interface Props {

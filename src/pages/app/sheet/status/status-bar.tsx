@@ -1,6 +1,3 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   ChevronLeft,
@@ -9,6 +6,9 @@ import {
   ChevronsRight,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 const bgVariants = cva('w-full rounded-sm h-8 relative', {
   variants: {
