@@ -1,8 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { type Resolver, useForm } from 'react-hook-form';
-import z from 'zod';
 import { getGameRules } from '@/api/sheet/get-game-rules';
 import { Button } from '@/components/ui/button';
 import {
@@ -35,10 +30,15 @@ import type {
   AttackRequestDTO,
   AttackResponseDTO,
 } from '@/types/character/attack';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { type Resolver, useForm } from 'react-hook-form';
+import z from 'zod';
 
 const attackFormSchema = z.object({
   name: z.string().min(1, 'O nome é obrigatório.'),
-  type: z.string().min(1, 'O tipo é obrigatório.'),
+  type: z.string().min(1, 'O tipo de dano é obrigatório.'),
   testAttribute: z.string().min(1, 'O atributo de teste é obrigatório.'),
   testExpertise: z.string().nullable(),
   testBonus: z.coerce.number().default(0),
@@ -141,7 +141,7 @@ export function AttackFormDialog({
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue />
+                          <SelectValue placeholder="Selecione..." />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -165,7 +165,7 @@ export function AttackFormDialog({
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue />
+                          <SelectValue placeholder="Selecione..." />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -199,7 +199,7 @@ export function AttackFormDialog({
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue />
+                            <SelectValue placeholder="Selecione..." />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>

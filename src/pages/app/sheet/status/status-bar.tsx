@@ -1,3 +1,6 @@
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   ChevronLeft,
@@ -6,9 +9,6 @@ import {
   ChevronsRight,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
 
 const bgVariants = cva('w-full rounded-sm h-8 relative', {
   variants: {
@@ -16,6 +16,7 @@ const bgVariants = cva('w-full rounded-sm h-8 relative', {
       hp: 'bg-red-900/40',
       san: 'bg-blue-900/40',
       ep: 'bg-emerald-900/40',
+      dp: 'bg-cyan-700/40',
     },
   },
   defaultVariants: {
@@ -29,6 +30,7 @@ const indicatorVariants = cva('w-full rounded-sm h-8', {
       hp: 'bg-red-900',
       san: 'bg-blue-900',
       ep: 'bg-emerald-900',
+      dp: 'bg-cyan-700',
     },
   },
   defaultVariants: {

@@ -1,3 +1,7 @@
+import { createCharacter } from '@/api/sheet/create-sheet';
+import { getGameRules } from '@/api/sheet/get-game-rules';
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
@@ -6,10 +10,6 @@ import { type Resolver, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import { createCharacter } from '@/api/sheet/create-sheet';
-import { getGameRules } from '@/api/sheet/get-game-rules';
-import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
 import { AttributesSection } from './attributes-section';
 import { CharacterInfoSection } from './character-info-section';
 import { RulesSection } from './rules-section';
@@ -35,7 +35,7 @@ const createCharacterSchema = z.object({
     .min(0, { message: 'NEX mínimo é 0%.' })
     .max(99, { message: 'NEX máximo é 99%.' }),
   prestigePoints: z.coerce.number().min(0).default(0),
-
+  useDeterminationPoints: z.boolean().default(false),
   strength: z.coerce.number().min(0).default(1),
   agility: z.coerce.number().min(0).default(1),
   intellect: z.coerce.number().min(0).default(1),
@@ -60,6 +60,7 @@ export function NewSheet() {
       name: '',
       age: 18,
       gender: '',
+      useDeterminationPoints: false,
       nex: 5,
       prestigePoints: 0,
       strength: 1,

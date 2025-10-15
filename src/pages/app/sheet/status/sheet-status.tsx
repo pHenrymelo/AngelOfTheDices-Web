@@ -1,6 +1,3 @@
-import { PenBox } from 'lucide-react';
-import { useState } from 'react';
-import { toast } from 'sonner';
 import { DiceD20Icon } from '@/components/icons';
 import { RollToastBase } from '@/components/toasts/roll-toast-base';
 import { Button } from '@/components/ui/button';
@@ -8,6 +5,9 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import type { Character } from '@/types/character/character';
 import type { CharacterStatusUpdateDTO } from '@/types/character/dtos/characterStatusUpdateDTO';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
+import { PenBox } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import { StatusBar } from './status-bar';
 import { StatusEditDialog } from './status-edit-dialog';
 
@@ -46,6 +46,9 @@ export function SheetStatus({
   };
   const handleSanChange = (newSan: number) => {
     onStatusUpdate({ currentSanity: newSan });
+  };
+  const handleDpChange = (newDp: number) => {
+    onStatusUpdate({ currentDeterminationPoints: newDp });
   };
 
   return (
@@ -98,20 +101,32 @@ export function SheetStatus({
             max={character.maxHitPoints}
             onCurrentChange={handleHpChange}
           />
-          <StatusBar
-            label="Sanidade"
-            variant={'san'}
-            current={character.currentSanity}
-            max={character.maxSanity}
-            onCurrentChange={handleSanChange}
-          />
-          <StatusBar
-            label="Pontos de Esforço"
-            variant={'ep'}
-            current={character.currentEffortPoints}
-            max={character.maxEffortPoints}
-            onCurrentChange={handleEpChange}
-          />
+          {character.useDeterminationPoints ? (
+            <StatusBar
+              label="Pontos de Determinação"
+              variant={'dp'}
+              current={character.currentDeterminationPoints}
+              max={character.maxDeterminationPoints}
+              onCurrentChange={handleDpChange}
+            />
+          ) : (
+            <>
+              <StatusBar
+                label="Sanidade"
+                variant={'san'}
+                current={character.currentSanity}
+                max={character.maxSanity}
+                onCurrentChange={handleSanChange}
+              />
+              <StatusBar
+                label="Pontos de Esforço"
+                variant={'ep'}
+                current={character.currentEffortPoints}
+                max={character.maxEffortPoints}
+                onCurrentChange={handleEpChange}
+              />
+            </>
+          )}
         </div>
       </div>
       <StatusEditDialog
