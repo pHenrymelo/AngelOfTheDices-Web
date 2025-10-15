@@ -38,15 +38,27 @@ import type {
 
 const attackFormSchema = z.object({
   name: z.string().min(1, 'O nome é obrigatório.'),
-  type: z.string().min(1, 'O tipo é obrigatório.'),
+  type: z.string().min(1, 'O tipo de dano é obrigatório.'),
   testAttribute: z.string().min(1, 'O atributo de teste é obrigatório.'),
   testExpertise: z.string().nullable(),
-  testBonus: z.coerce.number().default(0),
-  damageDiceQuantity: z.coerce.number().min(0).default(0),
+  testBonus: z.coerce
+    .number({ error: 'Bônus de teste deve ser um número.' })
+    .default(0),
+  damageDiceQuantity: z.coerce
+    .number({ error: 'Quantidade de dados deve ser um número.' })
+    .min(0)
+    .default(0),
   damageDiceType: z.string().min(1, 'O tipo de dado é obrigatório.'),
-  damageBonus: z.coerce.number().default(0),
-  criticalThreshold: z.coerce.number().min(1).max(20),
-  criticalMultiplier: z.coerce.number().min(2),
+  damageBonus: z.coerce
+    .number({ error: 'Bônus de dano deve ser um número.' })
+    .default(0),
+  criticalThreshold: z.coerce
+    .number({ error: 'Margem de ameaça deve ser um número.' })
+    .min(1)
+    .max(20),
+  criticalMultiplier: z.coerce
+    .number({ error: 'Multiplicador de crítico deve ser um número.' })
+    .min(2),
   range: z.string().min(1, 'O alcance é obrigatório.'),
   special: z.string().nullable(),
 });
@@ -131,7 +143,7 @@ export function AttackFormDialog({
               )}
             />
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 items-start">
               <FormField
                 control={form.control}
                 name="type"
@@ -141,7 +153,7 @@ export function AttackFormDialog({
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue />
+                          <SelectValue placeholder="Selecione..." />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -165,7 +177,7 @@ export function AttackFormDialog({
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue />
+                          <SelectValue placeholder="Selecione..." />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -186,7 +198,7 @@ export function AttackFormDialog({
               <h4 className="font-medium text-muted-foreground">
                 Teste de Ataque
               </h4>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-4 items-start">
                 <FormField
                   control={form.control}
                   name="testAttribute"
@@ -199,7 +211,7 @@ export function AttackFormDialog({
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue />
+                            <SelectValue placeholder="Selecione..." />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -252,7 +264,12 @@ export function AttackFormDialog({
                     <FormItem>
                       <FormLabel>Bônus</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -265,7 +282,7 @@ export function AttackFormDialog({
               <h4 className="font-medium text-muted-foreground">
                 Dano e Crítico
               </h4>
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-4 items-start">
                 <FormField
                   control={form.control}
                   name="damageDiceQuantity"
@@ -273,7 +290,12 @@ export function AttackFormDialog({
                     <FormItem>
                       <FormLabel>Dados</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -311,16 +333,21 @@ export function AttackFormDialog({
                   name="damageBonus"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Bônus</FormLabel>
+                      <FormLabel>Dano Bonus</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-4 items-start">
                 <FormField
                   control={form.control}
                   name="criticalThreshold"
@@ -328,7 +355,12 @@ export function AttackFormDialog({
                     <FormItem className="col-span-2">
                       <FormLabel>Margem de Ameaça</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -341,7 +373,12 @@ export function AttackFormDialog({
                     <FormItem className="col-span-2">
                       <FormLabel>Multiplicador</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} />
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          {...field}
+                          value={field.value ?? ''}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

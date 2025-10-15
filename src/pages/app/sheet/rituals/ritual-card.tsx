@@ -36,10 +36,17 @@ const circleMap: Record<string, number> = {
 
 const elementColorMap: Record<string, string> = {
   BLOOD: 'text-red-500',
-  DEATH: 'text-zinc-950',
+  DEATH: 'text-zinc-300',
   ENERGY: 'text-purple-800',
   KNOWLEDGE: 'text-yellow-400',
   FEAR: 'text-blue-500',
+};
+
+const circleCostMap: Record<string, number> = {
+  FIRST: 1,
+  SECOND: 3,
+  THIRD: 6,
+  FOURTH: 10,
 };
 
 export function RitualCard({
@@ -52,11 +59,12 @@ export function RitualCard({
   const currentCircle = circleMap[ritual.circle.name];
   const elementColorClass =
     elementColorMap[ritual.element.name] || 'text-muted-foreground';
+  const peCost = circleCostMap[ritual.circle.name];
   return (
     <Card className="flex-1 p-4">
-      <CardHeader className="flex justify-between items-center p-2 border-b border-border">
-        <div className="flex flex-col justify-start">
-          <CardTitle className="text-primary text-xl font-heading">
+      <CardHeader className="flex flex-row justify-between items-start px-2 border-b gap-2">
+        <div className="flex-1 min-w-0">
+          <CardTitle className="text-primary text-xl font-heading break-words">
             {ritual.name}
           </CardTitle>
           <span className={cn('font-semibold text-lg', elementColorClass)}>
@@ -118,6 +126,13 @@ export function RitualCard({
             </div>
           ))}
         </div>
+        <div className="flex items-center gap-2">
+          {peCost && (
+            <span className="text-sm font-semibold text-muted-foreground">
+              Custo base: <span className="text-emerald-800">{peCost} PE </span>
+            </span>
+          )}
+        </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-2">
           <div>
             <span className="text-xs text-muted-foreground font-heading">
@@ -157,9 +172,9 @@ export function RitualCard({
           </div>
         </div>
         <div className="pt-2 border-t border-zinc-800">
-          <p className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground break-words">
             {ritual.description ? ritual.description : '—'}
-          </p>
+          </span>
         </div>
       </CardContent>
     </Card>

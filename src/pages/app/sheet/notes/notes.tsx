@@ -7,7 +7,7 @@ import { deleteNote } from '@/api/sheet/notes/delete-note';
 import { toggleNotePin } from '@/api/sheet/notes/pin-note';
 import { updateNote } from '@/api/sheet/notes/update-note';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { queryClient } from '@/lib/react-query';
 import type { NoteRequestDTO, NoteResponseDTO } from '@/types/character/note';
 import { Note } from './note';
@@ -96,17 +96,19 @@ export function Notes({ characterId, notes }: NotesProps) {
   const isSaving = isCreating || isUpdating;
 
   return (
-    <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-2 mb-4">
-        <CardTitle className="font-heading text-xl">Anotações</CardTitle>
+    <Card className="flex-1 px-4">
+      <CardHeader className="relative flex items-center border-b pb-2">
+        <CardTitle className="flex md:mx-auto font-heading text-xl">
+          Anotações
+        </CardTitle>
         <NoteFormDialog onSave={handleCreateNote} isSaving={isCreating}>
           <Button size="sm" variant="ghost" className="absolute right-0">
             <PlusCircle className="mr-2 h-4 w-4" />
             Adicionar
           </Button>
         </NoteFormDialog>
-      </div>
-      <CardContent className="grid grid-cols-1 gap-4 max-h-[400px] overflow-y-auto px-8">
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4 max-h-[400px] overflow-y-auto p-0 md:px-4">
         {notes && notes.length > 0 ? (
           notes.map((note) => (
             <Note
@@ -120,7 +122,7 @@ export function Notes({ characterId, notes }: NotesProps) {
             />
           ))
         ) : (
-          <p className="col-span-full text-center text-muted-foreground py-4">
+          <p className="flex mx-auto text-muted-foreground py-4">
             Nenhuma anotação registrada.
           </p>
         )}

@@ -8,7 +8,7 @@ import { updateAttack } from '@/api/sheet/combat/update-attack';
 import { RollAttackToast } from '@/components/toasts/roll-attack-toast';
 import { RollDamageToast } from '@/components/toasts/roll-damage-toast';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -166,15 +166,17 @@ export function Combat({ character }: CombatProps) {
 
   return (
     <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-2 mb-4">
-        <CardTitle className="font-heading text-xl">Combate</CardTitle>
+      <CardHeader className="relative flex items-center border-b pt-3">
+        <CardTitle className=" flex md:mx-auto font-heading text-xl">
+          COMBATE
+        </CardTitle>
         <AttackFormDialog onSave={handleCreateAttack} isSaving={isSaving}>
           <Button size="sm" variant="ghost" className="absolute right-0">
             <PlusCircle className="mr-2 h-4 w-4" />
             Adicionar
           </Button>
         </AttackFormDialog>
-      </div>
+      </CardHeader>
       <CardContent>
         <div className="max-h-80 overflow-y-auto">
           <Table>

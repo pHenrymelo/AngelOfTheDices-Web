@@ -39,7 +39,8 @@ export function AttributesSection({ control, setValue, selectedClass }: Props) {
                 <FormLabel>NEX</FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     {...field}
                     disabled={selectedClass === 'SURVIVOR'}
                   />
@@ -57,15 +58,7 @@ export function AttributesSection({ control, setValue, selectedClass }: Props) {
               <FormItem className="">
                 <FormLabel>Força</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value === '' ? 0 : +e.target.value,
-                      )
-                    }
-                  />
+                  <Input type="text" inputMode="numeric" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -78,15 +71,7 @@ export function AttributesSection({ control, setValue, selectedClass }: Props) {
               <FormItem>
                 <FormLabel>Agilidade</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value === '' ? 0 : +e.target.value,
-                      )
-                    }
-                  />
+                  <Input type="text" inputMode="numeric" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,15 +84,7 @@ export function AttributesSection({ control, setValue, selectedClass }: Props) {
               <FormItem>
                 <FormLabel>Intelecto</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value === '' ? 0 : +e.target.value,
-                      )
-                    }
-                  />
+                  <Input type="text" inputMode="numeric" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,15 +97,7 @@ export function AttributesSection({ control, setValue, selectedClass }: Props) {
               <FormItem>
                 <FormLabel>Presença</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value === '' ? 0 : +e.target.value,
-                      )
-                    }
-                  />
+                  <Input type="text" inputMode="numeric" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -141,15 +110,7 @@ export function AttributesSection({ control, setValue, selectedClass }: Props) {
               <FormItem>
                 <FormLabel>Vigor</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) =>
-                      field.onChange(
-                        e.target.value === '' ? 0 : +e.target.value,
-                      )
-                    }
-                  />
+                  <Input type="text" inputMode="numeric" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

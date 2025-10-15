@@ -35,8 +35,8 @@ export function PersonalDetails({
         <CardTitle className="flex font-bold text-2xl justify-center font-heading">
           DETALHES PESSOAIS
         </CardTitle>
-        <CardContent className="flex flex-col px-4 space-y-4 mt-6">
-          <div className="flex">
+        <CardContent className="flex flex-col px-2 space-y-4 mt-6">
+          <div className="flex flex-col md:flex-row space-y-2">
             <DetailItem label="Nome" value={character.name} />
             <DetailItem label="Jogador" value={character.playerName} />
           </div>
@@ -83,10 +83,11 @@ function DetailItem({
   value: React.ReactNode;
 }) {
   return (
-    <div className="flex-1 flex-col">
+    <div className="flex-1 flex-col min-w-0">
+      {' '}
       <span className="font-semibold font-heading">{label}</span>
-      <p className="border-b-2 text-muted-foreground p-2">
-        {value ? value : '_'}
+      <p className="border-b-2 text-muted-foreground p-2 whitespace-nowrap overflow-hidden text-ellipsis">
+        {value ?? '—'}
       </p>
     </div>
   );

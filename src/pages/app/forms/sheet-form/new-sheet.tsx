@@ -18,10 +18,10 @@ const createCharacterSchema = z.object({
   name: z
     .string()
     .min(3, { message: 'O nome precisa ter no mínimo 3 caracteres.' }),
-  age: z.coerce
-    .number()
-    .min(16, { message: 'O agente deve ter no mínimo 16 anos.' })
-    .optional(),
+  age: z.preprocess(
+    (val) => (val === '' || val === null ? undefined : val),
+    z.coerce.number({ error: 'A idade deve ser um número.' }).optional(),
+  ),
   gender: z.string().optional(),
 
   origin: z.string().min(1, { message: 'Selecione uma origem.' }),
@@ -31,19 +31,45 @@ const createCharacterSchema = z.object({
   rank: z.string().min(1, { message: 'Selecione uma patente.' }),
 
   nex: z.coerce
-    .number()
+    .number({ error: 'NEX deve ser um número.' })
     .min(0, { message: 'NEX mínimo é 0%.' })
     .max(99, { message: 'NEX máximo é 99%.' }),
-  prestigePoints: z.coerce.number().min(0).default(0),
+  prestigePoints: z.coerce
+    .number({ error: 'Pontos de Prestígio deve ser um número.' })
+    .min(0)
+    .default(0),
+  useDeterminationPoints: z.boolean().default(false),
+  strength: z.coerce
+    .number({ error: 'Força deve ser um número.' })
+    .min(0)
+    .default(1),
+  agility: z.coerce
+    .number({ error: 'Agilidade deve ser um número.' })
+    .min(0)
+    .default(1),
+  intellect: z.coerce
+    .number({ error: 'Intelecto deve ser um número.' })
+    .min(0)
+    .default(1),
+  presence: z.coerce
+    .number({ error: 'Presença deve ser um número.' })
+    .min(0)
+    .default(1),
+  vigor: z.coerce
+    .number({ error: 'Vigor deve ser um número.' })
+    .min(0)
+    .default(1),
 
-  strength: z.coerce.number().min(0).default(1),
-  agility: z.coerce.number().min(0).default(1),
-  intellect: z.coerce.number().min(0).default(1),
-  presence: z.coerce.number().min(0).default(1),
-  vigor: z.coerce.number().min(0).default(1),
-
-  armorDefenseBonus: z.coerce.number().optional().default(0),
-  otherDefenseBonus: z.coerce.number().optional().default(0),
+  armorDefenseBonus: z.coerce
+    .number({ error: 'Bônus de Armadura deve ser um número.' })
+    .optional()
+    .default(0),
+  otherDefenseBonus: z.coerce
+    .number({
+      error: 'Outros Bônus de Defesa deve ser um número.',
+    })
+    .optional()
+    .default(0),
 });
 
 export type CreateCharacterForm = z.infer<typeof createCharacterSchema>;
@@ -60,6 +86,7 @@ export function NewSheet() {
       name: '',
       age: 18,
       gender: '',
+      useDeterminationPoints: false,
       nex: 5,
       prestigePoints: 0,
       strength: 1,
@@ -119,7 +146,7 @@ export function NewSheet() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleCreateCharacter)}
-          className="space-y-8 w-2/3 flex flex-col justify-center items-center"
+          className="space-y-8 w-full md:w-2/3 flex flex-col justify-center items-center"
         >
           <CharacterInfoSection control={form.control} />
           <RulesSection

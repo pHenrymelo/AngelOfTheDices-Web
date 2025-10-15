@@ -6,7 +6,7 @@ import { createItem } from '@/api/sheet/inventory/create-item';
 import { deleteItem } from '@/api/sheet/inventory/delete-item';
 import { updateItem } from '@/api/sheet/inventory/update-item';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -87,17 +87,19 @@ export function Inventory({ character }: InventoryProps) {
 
   return (
     <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b-2 pb-1 mb-4">
-        <CardTitle className="font-heading text-xl">INVENTÁRIO</CardTitle>
+      <CardHeader className="relative flex items-center border-b">
+        <CardTitle className=" flex md:mx-auto font-heading text-xl">
+          INVENTÁRIO
+        </CardTitle>
         <ItemFormDialog onSave={handleCreateItem} isSaving={isSaving}>
           <Button size="sm" variant="ghost" className="absolute right-0">
             <PlusCircle className="mr-2 h-4 w-4" />
             Adicionar Item
           </Button>
         </ItemFormDialog>
-      </div>
-      <CardContent className="flex flex-col gap-4 p-0">
-        <div className="flex flex-wrap gap-x-4 gap-y-2 items-center justify-center text-sm text-muted-foreground">
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4 px-0 md:px-4">
+        <div className="flex flex-wrap gap-x-4 gap-y-2 items-center justify-center text-sm text-muted-foreground px-2">
           <div className="flex gap-1 items-center">
             Prestígio:{' '}
             <span className="text-primary font-semibold">

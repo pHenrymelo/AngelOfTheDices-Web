@@ -16,6 +16,7 @@ const bgVariants = cva('w-full rounded-sm h-8 relative', {
       hp: 'bg-red-900/40',
       san: 'bg-blue-900/40',
       ep: 'bg-emerald-900/40',
+      dp: 'bg-cyan-700/40',
     },
   },
   defaultVariants: {
@@ -29,6 +30,7 @@ const indicatorVariants = cva('w-full rounded-sm h-8', {
       hp: 'bg-red-900',
       san: 'bg-blue-900',
       ep: 'bg-emerald-900',
+      dp: 'bg-cyan-700',
     },
   },
   defaultVariants: {

@@ -2,6 +2,7 @@ import type { Control } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import type {
   Affinity,
   CharacterClass,
@@ -184,6 +186,29 @@ export function RulesSection({ control, data, isLoading }: Props) {
                   </SelectContent>
                 </Select>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="border-t pt-4 col-span-2">
+          <FormField
+            control={control}
+            name="useDeterminationPoints"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <div className="space-y-0.5">
+                  <FormLabel>Usar Pontos de Determinação</FormLabel>
+                  <FormDescription className="text-xs">
+                    (Regra Opcional) Substitui Sanidade (SAN) e Pontos de
+                    Esforço (PE) por uma única estatística.
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
               </FormItem>
             )}
           />

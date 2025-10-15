@@ -83,9 +83,9 @@ export function Abilities({ characterId, abilities }: AbilitiesProps) {
 
   return (
     <Card className="flex-1 p-4">
-      <CardHeader className="relative flex justify-center items-center border-b-2 pb-2 mb-4">
-        <CardTitle className="font-heading text-xl">
-          Habilidades e Poderes
+      <CardHeader className="relative flex items-center border-b pt-3">
+        <CardTitle className="flex flex-col md:flex-row md:gap-2 md:mx-auto justify-baseline font-heading text-xl">
+          HABILIDADES <span>E PODERES</span>
         </CardTitle>
         <AbilityFormDialog onSave={handleCreateAbility} isSaving={isSaving}>
           <Button size="sm" variant="ghost" className="absolute right-0">
@@ -94,7 +94,7 @@ export function Abilities({ characterId, abilities }: AbilitiesProps) {
           </Button>
         </AbilityFormDialog>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 max-h-[475px] overflow-y-auto px-8">
+      <CardContent className="flex flex-col gap-4 max-h-[500px] overflow-y-auto p-0 md:px-4">
         {abilities && abilities.length > 0 ? (
           abilities.map((ability) => (
             <AbilityCard

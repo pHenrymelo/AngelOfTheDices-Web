@@ -14,7 +14,7 @@ export interface CharacterCreateDTO {
   intellect: number;
   presence: number;
   vigor: number;
-
+  useDeterminationPoints: boolean;
   armorDefenseBonus?: number;
   otherDefenseBonus?: number;
 }
@@ -40,4 +40,5 @@ export interface CharacterUpdateDTO {
   maxSanity: number;
   armorDefenseBonus?: number;
   otherDefenseBonus?: number;
+  useDeterminationPoints?: boolean;
 }

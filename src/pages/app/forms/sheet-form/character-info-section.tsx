@@ -34,7 +34,7 @@ export function CharacterInfoSection({ control }: Props) {
             </FormItem>
           )}
         />
-        <div className=" flex gap-4">
+        <div className=" flex gap-4 justify-start items-start">
           <FormField
             control={control}
             name="age"
@@ -43,15 +43,10 @@ export function CharacterInfoSection({ control }: Props) {
                 <FormLabel>Idade</FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     {...field}
-                    onChange={(event) =>
-                      field.onChange(
-                        event.target.value === ''
-                          ? undefined
-                          : +event.target.value,
-                      )
-                    }
+                    value={field.value ?? ''}
                   />
                 </FormControl>
                 <FormMessage />
