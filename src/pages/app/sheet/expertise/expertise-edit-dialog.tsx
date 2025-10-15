@@ -108,68 +108,72 @@ export function ExpertiseEditDialog({
           <form
             id="expertise-edit-form"
             onSubmit={handleSaveChanges}
-            className=" flex justify-evenly py-4"
+            className=" flex flex-col py-4 gap-4"
           >
-            <FormField
-              control={form.control}
-              name="trainingRank"
-              render={({ field }) => (
-                <FormItem className="flex flex-col items-start justify-start">
-                  <FormLabel>Grau de Treinamento</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {trainingRanks.map((rank) => (
-                        <SelectItem key={rank.name} value={rank.name}>
-                          {rank.displayName} (+{rank.bonus})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="otherBonus"
-              render={({ field }) => (
-                <FormItem className="flex flex-col items-start justify-start">
-                  <FormLabel>Outros Bônus</FormLabel>
-                  <div>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        inputMode="numeric"
-                        className="w-[180px] flex flex-col"
-                        {...field}
-                      />
-                    </FormControl>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {expertise.expertiseName.kitApplicable && (
+            <div className="flex justify-between px-8">
               <FormField
                 control={form.control}
-                name="hasKit"
+                name="trainingRank"
                 render={({ field }) => (
-                  <FormItem className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
-                    <FormLabel>Usando Kit de Perícia</FormLabel>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
+                  <FormItem className="flex flex-col items-start justify-start">
+                    <FormLabel>Grau de Treinamento</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {trainingRanks.map((rank) => (
+                          <SelectItem key={rank.name} value={rank.name}>
+                            {rank.displayName} (+{rank.bonus})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="otherBonus"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col items-start justify-start">
+                    <FormLabel>Outros Bônus</FormLabel>
+                    <div>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          className="w-[180px] flex flex-col"
+                          {...field}
+                        />
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            {expertise.expertiseName.kitApplicable && (
+              <div className="px-8 ">
+                <FormField
+                  control={form.control}
+                  name="hasKit"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+                      <FormLabel>Usando Kit de Perícia</FormLabel>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </div>
             )}
           </form>
         </Form>

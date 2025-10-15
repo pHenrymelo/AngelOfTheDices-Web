@@ -87,7 +87,7 @@ function DetailItem({
       {' '}
       <span className="font-semibold font-heading">{label}</span>
       <p className="border-b-2 text-muted-foreground p-2 whitespace-nowrap overflow-hidden text-ellipsis">
-        {value ?? '—'}
+        {value ? value : '—'}
       </p>
     </div>
   );
