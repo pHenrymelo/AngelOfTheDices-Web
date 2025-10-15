@@ -23,13 +23,17 @@ import type { Character } from '@/types/character/character';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
 
 const attributesSchema = z.object({
-  strength: z.coerce.number().min(0),
-  agility: z.coerce.number().min(0),
-  intellect: z.coerce.number().min(0),
-  presence: z.coerce.number().min(0),
-  vigor: z.coerce.number().min(0),
-  armorDefenseBonus: z.coerce.number().min(0),
-  otherDefenseBonus: z.coerce.number().min(0),
+  strength: z.coerce.number({ error: 'Força deve ser um número.' }).min(0),
+  agility: z.coerce.number({ error: 'Agilidade deve ser um número.' }).min(0),
+  intellect: z.coerce.number({ error: 'Intelecto deve ser um número.' }).min(0),
+  presence: z.coerce.number({ error: 'Presença deve ser um número.' }).min(0),
+  vigor: z.coerce.number({ error: 'Vigor deve ser um número.' }).min(0),
+  armorDefenseBonus: z.coerce
+    .number({ error: 'Bônus de Armadura deve ser um número.' })
+    .min(0),
+  otherDefenseBonus: z.coerce
+    .number({ error: 'Outros Bônus de Defesa deve ser um número.' })
+    .min(0),
 });
 
 type AttributesForm = z.infer<typeof attributesSchema>;
@@ -102,7 +106,7 @@ export function AttributesEditDialog({
           onSubmit={handleFormSubmit}
           className="space-y-4"
         >
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-4 items-start">
             <FormField
               control={form.control}
               name="strength"
@@ -110,7 +114,12 @@ export function AttributesEditDialog({
                 <FormItem>
                   <FormLabel>Força</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,7 +132,12 @@ export function AttributesEditDialog({
                 <FormItem>
                   <FormLabel>Agilidade</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +150,12 @@ export function AttributesEditDialog({
                 <FormItem>
                   <FormLabel>Intelecto</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +168,12 @@ export function AttributesEditDialog({
                 <FormItem>
                   <FormLabel>Presença</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -162,14 +186,19 @@ export function AttributesEditDialog({
                 <FormItem>
                   <FormLabel>Vigor</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4 border-t pt-4">
+          <div className="grid grid-cols-2 gap-4 border-t pt-4 items-start">
             <FormField
               control={form.control}
               name="armorDefenseBonus"
@@ -177,7 +206,12 @@ export function AttributesEditDialog({
                 <FormItem>
                   <FormLabel>Bônus de Armadura</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -190,7 +224,12 @@ export function AttributesEditDialog({
                 <FormItem>
                   <FormLabel>Outros Bônus (Defesa)</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
