@@ -35,7 +35,9 @@ import type { CharacterExpertise } from '@/types/character/expertise';
 const expertiseEditSchema = z.object({
   trainingRank: z.string().min(1, 'Selecione um grau de treinamento.'),
   hasKit: z.boolean().default(false),
-  otherBonus: z.coerce.number().default(0),
+  otherBonus: z.coerce
+    .number({ error: 'O bônus deve ser um número.' })
+    .default(0),
 });
 
 type ExpertiseEditForm = z.infer<typeof expertiseEditSchema>;
@@ -106,13 +108,13 @@ export function ExpertiseEditDialog({
           <form
             id="expertise-edit-form"
             onSubmit={handleSaveChanges}
-            className="space-y-4 py-4"
+            className=" flex justify-evenly py-4"
           >
             <FormField
               control={form.control}
               name="trainingRank"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-between">
+                <FormItem className="flex flex-col items-start justify-start">
                   <FormLabel>Grau de Treinamento</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
@@ -136,16 +138,18 @@ export function ExpertiseEditDialog({
               control={form.control}
               name="otherBonus"
               render={({ field }) => (
-                <FormItem className="flex items-center justify-between">
-                  <FormLabel>Outros Bônus (Permanente)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      className="w-[180px]"
-                      {...field}
-                      onChange={(e) => field.onChange(+e.target.value)}
-                    />
-                  </FormControl>
+                <FormItem className="flex flex-col items-start justify-start">
+                  <FormLabel>Outros Bônus</FormLabel>
+                  <div>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        className="w-[180px] flex flex-col"
+                        {...field}
+                      />
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
