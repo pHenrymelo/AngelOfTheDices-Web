@@ -30,12 +30,35 @@ import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterD
 
 const statusEditSchema = z
   .object({
-    nex: z.coerce.number().min(0).max(99),
+    nex: z.coerce
+      .number({ error: 'NEX deve ser um número.' })
+      .min(0, { error: 'o NEX não pode ser negativo' })
+      .max(99, { error: 'O NEX so pode exceder 99% com a Desconjuração' }),
     useDeterminationPoints: z.boolean(),
-    maxHitPoints: z.coerce.number().min(1),
-    maxEffortPoints: z.coerce.number().min(1).optional(),
-    maxSanity: z.coerce.number().min(1).optional(),
-    maxDeterminationPoints: z.coerce.number().min(1).optional(),
+    maxHitPoints: z.coerce
+      .number({ error: 'PV Máximo deve ser um número.' })
+      .min(1),
+    maxEffortPoints: z.preprocess(
+      (val) => (val === '' || val === null ? undefined : val),
+      z.coerce
+        .number({ error: 'PE Máximo deve ser um número.' })
+        .min(1)
+        .optional(),
+    ),
+    maxSanity: z.preprocess(
+      (val) => (val === '' || val === null ? undefined : val),
+      z.coerce
+        .number({ error: 'SAN Máxima deve ser um número.' })
+        .min(1)
+        .optional(),
+    ),
+    maxDeterminationPoints: z.preprocess(
+      (val) => (val === '' || val === null ? undefined : val),
+      z.coerce
+        .number({ error: 'PD Máximo deve ser um número.' })
+        .min(1)
+        .optional(),
+    ),
   })
   .superRefine((data, ctx) => {
     if (data.useDeterminationPoints) {
@@ -197,9 +220,10 @@ export function StatusEditDialog({
                 <FormLabel>NEX</FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
                     {...field}
-                    onChange={(e) => field.onChange(+e.target.value)}
+                    value={field.value ?? ''}
                   />
                 </FormControl>
                 <FormMessage />
@@ -242,7 +266,7 @@ export function StatusEditDialog({
             </div>
 
             {useDetermination ? (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 items-start">
                 <FormField
                   control={form.control}
                   name="maxHitPoints"
@@ -251,9 +275,10 @@ export function StatusEditDialog({
                       <FormLabel>PV (Máx)</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
+                          type="text"
+                          inputMode="numeric"
                           {...field}
-                          onChange={(e) => field.onChange(+e.target.value)}
+                          value={field.value ?? ''}
                         />
                       </FormControl>
                       <FormMessage />
@@ -268,9 +293,10 @@ export function StatusEditDialog({
                       <FormLabel>PD (Máx)</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
+                          type="text"
+                          inputMode="numeric"
                           {...field}
-                          onChange={(e) => field.onChange(+e.target.value)}
+                          value={field.value ?? ''}
                         />
                       </FormControl>
                       <FormMessage />
@@ -279,7 +305,7 @@ export function StatusEditDialog({
                 />
               </div>
             ) : (
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-4 items-start">
                 <FormField
                   control={form.control}
                   name="maxHitPoints"
@@ -288,9 +314,10 @@ export function StatusEditDialog({
                       <FormLabel>PV (Máx)</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
+                          type="text"
+                          inputMode="numeric"
                           {...field}
-                          onChange={(e) => field.onChange(+e.target.value)}
+                          value={field.value ?? ''}
                         />
                       </FormControl>
                       <FormMessage />
@@ -305,9 +332,10 @@ export function StatusEditDialog({
                       <FormLabel>PE (Máx)</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
+                          type="text"
+                          inputMode="numeric"
                           {...field}
-                          onChange={(e) => field.onChange(+e.target.value)}
+                          value={field.value ?? ''}
                         />
                       </FormControl>
                       <FormMessage />
@@ -322,9 +350,10 @@ export function StatusEditDialog({
                       <FormLabel>SAN (Máx)</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
+                          type="text"
+                          inputMode="numeric"
                           {...field}
-                          onChange={(e) => field.onChange(+e.target.value)}
+                          value={field.value ?? ''}
                         />
                       </FormControl>
                       <FormMessage />

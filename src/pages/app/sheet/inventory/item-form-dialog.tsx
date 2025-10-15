@@ -28,8 +28,12 @@ import type { ItemRequestDTO, ItemResponseDTO } from '@/types/character/item';
 const itemFormSchema = z.object({
   name: z.string().min(1, 'O nome é obrigatório.'),
   description: z.string().nullable(),
-  category: z.coerce.number().min(0, 'Categoria não pode ser negativa.'),
-  spaces: z.coerce.number().min(0, 'Espaços não podem ser negativos.'),
+  category: z.coerce
+    .number({ error: 'Categoria deve ser um número.' })
+    .min(0, 'Categoria não pode ser negativa.'),
+  spaces: z.coerce
+    .number({ error: 'Espaços deve ser um número.' })
+    .min(0, 'Espaços não podem ser negativos.'),
 });
 
 type ItemForm = z.infer<typeof itemFormSchema>;
@@ -106,7 +110,7 @@ export function ItemFormDialog({
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 items-start">
               <FormField
                 control={form.control}
                 name="category"
@@ -115,9 +119,10 @@ export function ItemFormDialog({
                     <FormLabel>Categoria</FormLabel>
                     <FormControl>
                       <Input
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
                         {...field}
-                        onChange={(e) => field.onChange(+e.target.value)}
+                        value={field.value ?? ''}
                       />
                     </FormControl>
                     <FormMessage />
@@ -132,9 +137,10 @@ export function ItemFormDialog({
                     <FormLabel>Espaços</FormLabel>
                     <FormControl>
                       <Input
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
                         {...field}
-                        onChange={(e) => field.onChange(+e.target.value)}
+                        value={field.value ?? ''}
                       />
                     </FormControl>
                     <FormMessage />
