@@ -206,7 +206,7 @@ export function Sheet() {
     return (
       <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold tracking-tight">
-          Carregando Dossiê...
+          Carregando Ficha...
         </h1>
         <Skeleton className="mt-4 h-[80vh] w-full" />
       </div>
