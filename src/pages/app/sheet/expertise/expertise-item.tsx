@@ -62,7 +62,7 @@ export function ExpertiseItem({
         </p>
       </div>
 
-      <span className="text-primary font-semibold text-2xl font-number">
+      <span className="text-primary font-semibold text-xl font-number">
         {totalBonus >= 0 ? `+${totalBonus}` : totalBonus}
       </span>
 

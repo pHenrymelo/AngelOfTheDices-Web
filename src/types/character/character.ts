@@ -12,9 +12,11 @@ export interface CharacterClass extends SmartEnum {
   baseHitPoints: number;
   baseEffortPoints: number;
   baseSanity: number;
+  baseDeterminationPoints: number;
   hpPerLevel: number;
   epPerLevel: number;
   sanPerLevel: number;
+  dpPerLevel: number;
 }
 
 export interface Path extends SmartEnum {
@@ -91,6 +93,10 @@ export interface Character {
   currentEffortPoints: number;
   maxSanity: number;
   currentSanity: number;
+
+  useDeterminationPoints: boolean;
+  maxDeterminationPoints: number;
+  currentDeterminationPoints: number;
 
   pePerRound: number;
   movement: number;

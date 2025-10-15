@@ -47,6 +47,9 @@ export function SheetStatus({
   const handleSanChange = (newSan: number) => {
     onStatusUpdate({ currentSanity: newSan });
   };
+  const handleDpChange = (newDp: number) => {
+    onStatusUpdate({ currentDeterminationPoints: newDp });
+  };
 
   return (
     <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
@@ -98,20 +101,32 @@ export function SheetStatus({
             max={character.maxHitPoints}
             onCurrentChange={handleHpChange}
           />
-          <StatusBar
-            label="Sanidade"
-            variant={'san'}
-            current={character.currentSanity}
-            max={character.maxSanity}
-            onCurrentChange={handleSanChange}
-          />
-          <StatusBar
-            label="Pontos de Esforço"
-            variant={'ep'}
-            current={character.currentEffortPoints}
-            max={character.maxEffortPoints}
-            onCurrentChange={handleEpChange}
-          />
+          {character.useDeterminationPoints ? (
+            <StatusBar
+              label="Pontos de Determinação"
+              variant={'dp'}
+              current={character.currentDeterminationPoints}
+              max={character.maxDeterminationPoints}
+              onCurrentChange={handleDpChange}
+            />
+          ) : (
+            <>
+              <StatusBar
+                label="Sanidade"
+                variant={'san'}
+                current={character.currentSanity}
+                max={character.maxSanity}
+                onCurrentChange={handleSanChange}
+              />
+              <StatusBar
+                label="Pontos de Esforço"
+                variant={'ep'}
+                current={character.currentEffortPoints}
+                max={character.maxEffortPoints}
+                onCurrentChange={handleEpChange}
+              />
+            </>
+          )}
         </div>
       </div>
       <StatusEditDialog

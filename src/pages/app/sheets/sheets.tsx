@@ -58,8 +58,10 @@ export function Sheets() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold tracking-tight">Minhas Fichas</h1>
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <h1 className="flex-1 text-3xl font-bold tracking-tight">
+          Minhas Fichas
+        </h1>
         <ThemeSyncToggle />
       </div>
 

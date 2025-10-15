@@ -35,7 +35,7 @@ const createCharacterSchema = z.object({
     .min(0, { message: 'NEX mínimo é 0%.' })
     .max(99, { message: 'NEX máximo é 99%.' }),
   prestigePoints: z.coerce.number().min(0).default(0),
-
+  useDeterminationPoints: z.boolean().default(false),
   strength: z.coerce.number().min(0).default(1),
   agility: z.coerce.number().min(0).default(1),
   intellect: z.coerce.number().min(0).default(1),
@@ -60,6 +60,7 @@ export function NewSheet() {
       name: '',
       age: 18,
       gender: '',
+      useDeterminationPoints: false,
       nex: 5,
       prestigePoints: 0,
       strength: 1,
