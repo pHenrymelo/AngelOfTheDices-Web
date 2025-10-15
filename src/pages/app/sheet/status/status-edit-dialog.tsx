@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import type { Character } from '@/types/character/character';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
@@ -178,7 +179,16 @@ export function StatusEditDialog({
           onSubmit={handleFormSubmit}
           className="space-y-6 pt-4"
         >
-          {/* ... (Input de retrato) ... */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="portrait">Trocar Retrato do Agente</Label>
+            <Input
+              id="portrait"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setPortraitFile(e.target.files?.[0] || null)}
+              className="p-2"
+            />
+          </div>
           <FormField
             control={form.control}
             name="nex"
