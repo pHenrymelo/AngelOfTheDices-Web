@@ -35,10 +35,12 @@ export function AbilityCard({
 }: AbilityCardProps) {
   return (
     <Card className="flex-1 p-4">
-      <CardHeader className="flex justify-between items-center border-b pb-3 font-heading text-center">
-        <div>
-          <CardTitle className="text-primary text-xl">{ability.name}</CardTitle>
-          <p className="text-sm text-muted-foreground">
+      <CardHeader className="flex items-center border-b px-2 font-heading">
+        <div className="flex-1 min-w-0">
+          <CardTitle className="text-primary text-xl break-words">
+            {ability.name}
+          </CardTitle>
+          <p className="text-sm text-muted-foreground font-semibold">
             ({ability.type.displayName})
           </p>
         </div>
@@ -82,7 +84,7 @@ export function AbilityCard({
           </AlertDialog>
         </div>
       </CardHeader>
-      <CardContent className="w-full flex my-auto py-2">
+      <CardContent className="w-full flex my-auto text-muted-foreground text-sm">
         {ability.description}
       </CardContent>
     </Card>

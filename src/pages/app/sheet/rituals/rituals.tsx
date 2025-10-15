@@ -6,21 +6,22 @@ import { createRitual } from '@/api/sheet/rituals/create-ritual';
 import { deleteRitual } from '@/api/sheet/rituals/delete-ritual';
 import { updateRitual } from '@/api/sheet/rituals/update-ritual';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
-import type {
-  RitualRequestDTO,
-  RitualResponseDTO,
-} from '@/types/character/ritual';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Character } from '@/types/character/character';
+import type { RitualRequestDTO } from '@/types/character/ritual';
 import { RitualCard } from './ritual-card';
 import { RitualFormDialog } from './ritual-form-dialog';
 
 interface RitualsProps {
-  characterId: string;
-  rituals: RitualResponseDTO[];
+  character: Character;
 }
 
-export function Rituals({ characterId, rituals }: RitualsProps) {
+export function Rituals({ character }: RitualsProps) {
+  const { id: characterId, rituals, nex, presence } = character;
   const queryClient = useQueryClient();
+
+  const level = Math.ceil(nex / 5);
+  const ritualDT = 10 + level + presence;
 
   const { mutate: createRitualFn, isPending: isCreating } = useMutation({
     mutationFn: createRitual,
@@ -83,16 +84,26 @@ export function Rituals({ characterId, rituals }: RitualsProps) {
 
   return (
     <Card className="flex-1 p-4">
-      <div className="relative flex justify-center items-center border-b pb-2">
-        <CardTitle className="font-heading text-xl">Rituais</CardTitle>
+      <CardHeader className="relative flex items-center border-b pb-2">
+        <div className="flex md:mx-auto md:text-center flex-col">
+          <CardTitle className="flex font-heading text-xl md:mx-auto">
+            RITUAIS
+          </CardTitle>
+          <div className="text-sm text-muted-foreground">
+            DT de Resistência:{' '}
+            <span className="font-bold text-primary font-number">
+              {ritualDT}
+            </span>
+          </div>
+        </div>
         <RitualFormDialog onSave={handleCreateRitual} isSaving={isSaving}>
           <Button size="sm" variant="ghost" className="absolute right-0">
             <PlusCircle className="mr-2 h-4 w-4" />
             Adicionar
           </Button>
         </RitualFormDialog>
-      </div>
-      <CardContent className="flex flex-col gap-4 p-0 max-h-[475px] overflow-y-auto md:px-4">
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4 p-0 max-h-[500px] overflow-y-auto md:px-4">
         {rituals && rituals.length > 0 ? (
           rituals.map((ritual) => (
             <RitualCard

@@ -252,6 +252,7 @@ export function Sheet() {
       <div className="flex flex-col lg:flex-row gap-4">
         <Attributes
           character={character}
+          expertises={fullExpertiseList}
           onCharacterUpdate={handleCharacterUpdate}
           isUpdating={isUpdating}
         />
@@ -274,7 +275,7 @@ export function Sheet() {
       />
       <div className="flex flex-col lg:flex-row gap-4">
         <Abilities characterId={character.id} abilities={character.abilities} />
-        <Rituals characterId={character.id} rituals={character.rituals} />
+        <Rituals character={character} />
       </div>
       <Notes characterId={character.id} notes={character.notes} />
     </div>

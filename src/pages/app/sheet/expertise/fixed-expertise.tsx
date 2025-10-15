@@ -1,4 +1,4 @@
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { CharacterAttributes } from '@/types/character/character';
 import type { CharacterExpertise } from '@/types/character/expertise';
 import { ExpertiseItem } from './expertise-item';
@@ -27,10 +27,10 @@ export function FixedExpertise({
   );
 
   return (
-    <Card className="flex-1 p-4 max-h-96 flex flex-col">
-      <div className="flex flex-col justify-center items-center border-b pb-2 font-heading">
+    <Card className="flex-1 p-4 max-h-[500px] flex flex-col">
+      <CardHeader className="flex flex-col justify-center items-center border-b font-heading pt-3">
         <CardTitle className="text-xl">PERÍCIAS TREINADAS</CardTitle>
-      </div>
+      </CardHeader>
 
       <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4 overflow-y-auto px-0 md:px-4">
         {trainedExpertises.length > 0 ? (

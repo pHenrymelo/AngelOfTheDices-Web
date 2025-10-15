@@ -83,10 +83,11 @@ function DetailItem({
   value: React.ReactNode;
 }) {
   return (
-    <div className="flex-1 flex-col">
+    <div className="flex-1 flex-col min-w-0">
+      {' '}
       <span className="font-semibold font-heading">{label}</span>
-      <p className="border-b-2 text-muted-foreground p-2">
-        {value ? value : '_'}
+      <p className="border-b-2 text-muted-foreground p-2 whitespace-nowrap overflow-hidden text-ellipsis">
+        {value ?? '—'}
       </p>
     </div>
   );

@@ -36,15 +36,17 @@ export function Note({
   return (
     <Card
       className={cn(
-        'flex flex-col bg-zinc-900/50 min-h-[150px] transition-colors',
+        'flex flex-col bg-zinc-900/50 min-h-[150px] transition-colors p-4',
         note.isPinned && 'border-primary/50 ',
       )}
     >
-      <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between">
-        <CardTitle className="text-primary text-xl font-heading">
-          {note.title}
-        </CardTitle>
-        <div className="flex">
+      <CardHeader className="flex flex-row justify-between items-start gap-2 p-0 border-b">
+        <div className="flex-1 min-w-0">
+          <CardTitle className="text-primary text-xl font-heading break-words">
+            {note.title}
+          </CardTitle>
+        </div>
+        <div className="flex flex-shrink-0">
           <Button
             variant="ghost"
             size="icon"
@@ -97,7 +99,7 @@ export function Note({
           </AlertDialog>
         </div>
       </CardHeader>
-      <CardContent className="w-full flex my-auto">
+      <CardContent className="my-auto break-words px-0 min-h-0 overflow-y-auto text-muted-foreground text-sm">
         {note.description}
       </CardContent>
     </Card>
