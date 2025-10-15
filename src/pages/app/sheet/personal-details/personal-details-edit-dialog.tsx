@@ -39,17 +39,23 @@ const editCharacterDetailsSchema = z.object({
   name: z
     .string()
     .min(3, { message: 'O nome precisa ter no mínimo 3 caracteres.' }),
-  age: z.coerce
-    .number()
-    .min(16, { message: 'O agente deve ter no mínimo 16 anos.' })
-    .optional(),
+  age: z.preprocess(
+    (val) => (val === '' || val === null ? undefined : val),
+    z.coerce
+      .number({ error: 'A idade deve ser um número.' })
+      .min(16, { message: 'O agente deve ter no mínimo 16 anos.' })
+      .optional(),
+  ),
   gender: z.string().optional(),
   origin: z.string().min(1, { message: 'Selecione uma origem.' }),
   characterClass: z.string().min(1, { message: 'Selecione uma classe.' }),
   path: z.string().min(1, { message: 'Selecione uma trilha.' }),
   affinity: z.string().min(1, { message: 'Selecione uma afinidade.' }),
   rank: z.string().min(1, { message: 'Selecione uma patente.' }),
-  prestigePoints: z.coerce.number().min(0).default(0),
+  prestigePoints: z.coerce
+    .number({ error: 'Prestígio deve ser um número.' })
+    .min(0)
+    .default(0),
 });
 
 type EditDetailsForm = z.infer<typeof editCharacterDetailsSchema>;
@@ -163,7 +169,7 @@ export function PersonalDetailsEditDialog({
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 items-start">
             <FormField
               control={form.control}
               name="age"
@@ -171,7 +177,12 @@ export function PersonalDetailsEditDialog({
                 <FormItem>
                   <FormLabel>Idade</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -307,7 +318,7 @@ export function PersonalDetailsEditDialog({
               )}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 items-start">
             <FormField
               control={form.control}
               name="rank"
@@ -343,7 +354,12 @@ export function PersonalDetailsEditDialog({
                 <FormItem>
                   <FormLabel>Prestígio</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      {...field}
+                      value={field.value ?? ''}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

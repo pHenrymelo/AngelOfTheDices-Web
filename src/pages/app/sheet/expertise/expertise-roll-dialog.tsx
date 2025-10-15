@@ -34,7 +34,9 @@ import type { CharacterAttributes } from '@/types/character/character';
 
 const rollSchema = z.object({
   attributeName: z.string(),
-  diceBonus: z.coerce.number().default(0),
+  diceBonus: z.coerce
+    .number({ error: 'O bônus deve ser um número.' })
+    .default(0),
 });
 
 type RollForm = z.infer<typeof rollSchema>;
@@ -100,7 +102,7 @@ export function ExpertiseRollDialog({
           <form
             id="roll-form"
             onSubmit={handleRollSubmit}
-            className="flex gap-4 justify-center items-center"
+            className="flex gap-4 justify-center items-start"
           >
             <FormField
               control={form.control}
@@ -134,11 +136,7 @@ export function ExpertiseRollDialog({
                   <FormItem>
                     <FormLabel>Bônus de Dados</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        {...field}
-                        onChange={(e) => field.onChange(+e.target.value)}
-                      />
+                      <Input type="text" inputMode="numeric" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
