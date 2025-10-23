@@ -1,3 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { type Resolver, useForm } from 'react-hook-form';
+import z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   DialogClose,
@@ -17,10 +21,6 @@ import {
 import { Input } from '@/components/ui/input';
 import type { Character } from '@/types/character/character';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import { type Resolver, useForm } from 'react-hook-form';
-import z from 'zod';
 
 const attributesSchema = z.object({
   strength: z.coerce.number({ error: 'Força deve ser um número.' }).min(0),

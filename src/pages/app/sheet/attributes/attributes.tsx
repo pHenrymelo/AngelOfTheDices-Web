@@ -1,3 +1,6 @@
+import { PenBox } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import { RollAttributeToast } from '@/components/toasts/roll-attribute-toast';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,9 +8,6 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import type { Character } from '@/types/character/character';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
 import type { CharacterExpertise } from '@/types/character/expertise';
-import { PenBox } from 'lucide-react';
-import { useState } from 'react';
-import { toast } from 'sonner';
 import { AttributeItem } from './attribute-item';
 import { AttributesEditDialog } from './attributes-edit-dialog';
 
