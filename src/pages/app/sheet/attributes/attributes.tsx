@@ -31,15 +31,17 @@ export function Attributes({
   );
   const blockValue =
     (fortitudeExpertise?.trainingRank.bonus ?? 0) +
-    (fortitudeExpertise?.otherBonus ?? 0);
+    (fortitudeExpertise?.otherBonus ?? 0) +
+    character.blockBonus;
 
   const reflexExpertise = expertises.find(
     (exp) => exp.expertiseName.displayName === 'Reflexos',
   );
-  const dodgeBonus =
+  const reflexesBonus =
     (reflexExpertise?.trainingRank.bonus ?? 0) +
     (reflexExpertise?.otherBonus ?? 0);
-  const dodgeValue = character.defense.total + dodgeBonus;
+  const dodgeValue =
+    character.defense.total + reflexesBonus + character.dodgeBonus;
 
   function handleRollDice(attributeName: string, attributeValue: number) {
     const diceCount = attributeValue > 0 ? attributeValue : 2;

@@ -146,7 +146,7 @@ export function NewSheet() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleCreateCharacter)}
-          className="space-y-8 w-full md:w-2/3 flex flex-col justify-center items-center"
+          className="space-y-8 w-full  flex flex-col justify-center items-center"
         >
           <CharacterInfoSection control={form.control} />
           <RulesSection

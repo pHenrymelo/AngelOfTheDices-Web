@@ -84,9 +84,6 @@ export interface Character {
   presence: number;
   vigor: number;
 
-  armorDefenseBonus: number;
-  otherDefenseBonus: number;
-
   maxHitPoints: number;
   currentHitPoints: number;
   maxEffortPoints: number;
@@ -103,6 +100,12 @@ export interface Character {
   defense: Defense;
   maxLoad: number;
   currentLoad: number;
+
+  maxLoadBonus: number;
+  pePerRoundBonus: number;
+  dodgeBonus: number;
+  blockBonus: number;
+  movementBonus: number;
 
   expertises: CharacterExpertise[];
   inventory: ItemResponseDTO[];

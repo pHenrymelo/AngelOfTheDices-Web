@@ -84,7 +84,7 @@ export function Abilities({ characterId, abilities }: AbilitiesProps) {
   return (
     <Card className="flex-1 p-4">
       <CardHeader className="relative flex items-center border-b pt-3">
-        <CardTitle className="flex flex-col md:flex-row md:gap-2 md:mx-auto justify-baseline font-heading text-xl">
+        <CardTitle className="flex flex-col md:flex-row md:gap-2 md:mx-auto lg:mx-0 justify-baseline font-heading text-xl">
           HABILIDADES <span>E PODERES</span>
         </CardTitle>
         <AbilityFormDialog onSave={handleCreateAbility} isSaving={isSaving}>

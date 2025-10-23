@@ -252,7 +252,7 @@ export function Sheet() {
       <div className="flex flex-col lg:flex-row gap-4">
         <Attributes
           character={character}
-          expertises={fullExpertiseList}
+          expertises={character.expertises}
           onCharacterUpdate={handleCharacterUpdate}
           isUpdating={isUpdating}
         />
