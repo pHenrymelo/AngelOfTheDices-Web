@@ -1,7 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import { type Resolver, useForm } from 'react-hook-form';
-import z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   DialogClose,
@@ -21,6 +17,10 @@ import {
 import { Input } from '@/components/ui/input';
 import type { Character } from '@/types/character/character';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { type Resolver, useForm } from 'react-hook-form';
+import z from 'zod';
 
 const attributesSchema = z.object({
   strength: z.coerce.number({ error: 'Força deve ser um número.' }).min(0),
@@ -31,9 +31,24 @@ const attributesSchema = z.object({
   armorDefenseBonus: z.coerce
     .number({ error: 'Bônus de Armadura deve ser um número.' })
     .min(0),
-  otherDefenseBonus: z.coerce
-    .number({ error: 'Outros Bônus de Defesa deve ser um número.' })
-    .min(0),
+  otherDefenseBonus: z.coerce.number({
+    error: 'Outros Bônus de Defesa deve ser um número.',
+  }),
+  maxLoadBonus: z.coerce.number({
+    error: 'Bônus de Carga deve ser um número.',
+  }),
+  pePerRoundBonus: z.coerce.number({
+    error: 'Bônus de PE/Rodada deve ser um número.',
+  }),
+  dodgeBonus: z.coerce.number({
+    error: 'Bônus de Esquiva deve ser um número.',
+  }),
+  blockBonus: z.coerce.number({
+    error: 'Bônus de Bloqueio deve ser um número.',
+  }),
+  movementBonus: z.coerce.number({
+    error: 'Bônus de Movimento deve ser um número.',
+  }),
 });
 
 type AttributesForm = z.infer<typeof attributesSchema>;
@@ -67,6 +82,11 @@ export function AttributesEditDialog({
         vigor: character.vigor,
         armorDefenseBonus: character.defense.armorBonus,
         otherDefenseBonus: character.defense.otherBonus,
+        maxLoadBonus: character.maxLoadBonus,
+        pePerRoundBonus: character.pePerRoundBonus,
+        dodgeBonus: character.dodgeBonus,
+        blockBonus: character.blockBonus,
+        movementBonus: character.movementBonus,
       });
     }
   }, [isOpen, character, form.reset]);
@@ -235,6 +255,65 @@ export function AttributesEditDialog({
                 </FormItem>
               )}
             />
+          </div>
+          <div className="space-y-2 border-t pt-4">
+            <h4 className="font-medium text-muted-foreground">Outros Bônus</h4>
+            <div className="grid grid-cols-3 gap-4 items-start">
+              <FormField
+                control={form.control}
+                name="maxLoadBonus"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bônus de Carga</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="pePerRoundBonus"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bônus PE/Rodada</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="movementBonus"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bônus Movimento</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </form>
       </Form>

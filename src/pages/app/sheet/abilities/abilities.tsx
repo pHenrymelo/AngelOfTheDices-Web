@@ -1,7 +1,3 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
-import { PlusCircle } from 'lucide-react';
-import { toast } from 'sonner';
 import { createAbility } from '@/api/sheet/abilities/create-ability';
 import { deleteAbility } from '@/api/sheet/abilities/delete-ability';
 import { updateAbility } from '@/api/sheet/abilities/update-ability';
@@ -11,6 +7,10 @@ import type {
   AbilityRequestDTO,
   AbilityResponseDTO,
 } from '@/types/character/ability';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
+import { PlusCircle } from 'lucide-react';
+import { toast } from 'sonner';
 import { AbilityCard } from './ability-card';
 import { AbilityFormDialog } from './ability-form-dialog';
 
@@ -84,7 +84,7 @@ export function Abilities({ characterId, abilities }: AbilitiesProps) {
   return (
     <Card className="flex-1 p-4">
       <CardHeader className="relative flex items-center border-b pt-3">
-        <CardTitle className="flex flex-col md:flex-row md:gap-2 md:mx-auto justify-baseline font-heading text-xl">
+        <CardTitle className="flex flex-col md:flex-row md:gap-2 md:mx-auto lg:mx-0 justify-baseline font-heading text-xl">
           HABILIDADES <span>E PODERES</span>
         </CardTitle>
         <AbilityFormDialog onSave={handleCreateAbility} isSaving={isSaving}>

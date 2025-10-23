@@ -1,8 +1,3 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
-import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { toast } from 'sonner';
 import { getMasterExpertises } from '@/api/data/get-expertises';
 import { setCharacterExpertise } from '@/api/sheet/expertise/get-character-expertises';
 import { getSheetById } from '@/api/sheet/get-sheet-by-id';
@@ -15,6 +10,11 @@ import type { CharacterAttributes } from '@/types/character/character';
 import type { CharacterStatusUpdateDTO } from '@/types/character/dtos/characterStatusUpdateDTO';
 import type { CharacterUpdateDTO } from '@/types/character/dtos/createCharacterDTO';
 import type { CharacterExpertise } from '@/types/character/expertise';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Abilities } from './abilities/abilities';
 import { Attributes } from './attributes/attributes';
 import { Combat } from './combat/combat';
@@ -252,7 +252,7 @@ export function Sheet() {
       <div className="flex flex-col lg:flex-row gap-4">
         <Attributes
           character={character}
-          expertises={fullExpertiseList}
+          expertises={character.expertises}
           onCharacterUpdate={handleCharacterUpdate}
           isUpdating={isUpdating}
         />
