@@ -42,4 +42,9 @@ export interface CharacterUpdateDTO {
   armorDefenseBonus?: number;
   otherDefenseBonus?: number;
   useDeterminationPoints?: boolean;
+  maxLoadBonus?: number;
+  pePerRoundBonus?: number;
+  dodgeBonus?: number;
+  blockBonus?: number;
+  movementBonus?: number;
 }
