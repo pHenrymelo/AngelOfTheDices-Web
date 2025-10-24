@@ -47,7 +47,7 @@ export function Expertises({
         PERÍCIAS
       </CardTitle>
 
-      <div className="flex mt-4 w-full md:w-1/2 mx-auto">
+      <div className="flex w-80 mx-auto">
         <InputGroup>
           <InputGroupInput
             placeholder="Filtrar perícias..."
