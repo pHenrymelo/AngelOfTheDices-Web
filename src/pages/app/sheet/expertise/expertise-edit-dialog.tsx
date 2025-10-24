@@ -110,7 +110,7 @@ export function ExpertiseEditDialog({
             onSubmit={handleSaveChanges}
             className=" flex flex-col py-4 gap-4"
           >
-            <div className="flex justify-between px-8">
+            <div className="flex flex-col gap-4 mx-auto md:flex-row md:mx-0  justify-between px-8">
               <FormField
                 control={form.control}
                 name="trainingRank"
@@ -177,7 +177,7 @@ export function ExpertiseEditDialog({
             )}
           </form>
         </Form>
-        <DialogFooter>
+        <DialogFooter className="flex flex-col px-8 gap-4">
           <DialogClose asChild>
             <Button variant="outline">Cancelar</Button>
           </DialogClose>
